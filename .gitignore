@@ -135,3 +135,5 @@ fabric.properties
 
 # folders to ignore
 data/
+*.xml
+.idea/SE2-KaggleComp.iml
