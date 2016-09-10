@@ -134,6 +134,6 @@ crashlytics-build.properties
 fabric.properties
 
 # folders to ignore
-data/
+datasets/
 *.xml
 .idea/SE2-KaggleComp.iml
