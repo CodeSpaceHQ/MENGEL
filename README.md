@@ -12,3 +12,6 @@ Use this tutorial: http://www.howtogeek.com/249966/how-to-install-and-use-the-li
 2. Go into your unix system and install SciPy: https://www.scipy.org/install.html
   1. Note that installation might be different for different systems
 3. Install SciKit-Learn using pip: http://scikit-learn.org/stable/install.html
+
+###### MISC
+We are using https://www.zenhub.com/ for project management.
