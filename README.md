@@ -13,5 +13,6 @@ Use this tutorial: http://www.howtogeek.com/249966/how-to-install-and-use-the-li
   1. Note that installation might be different for different systems
 3. Install SciKit-Learn using pip: http://scikit-learn.org/stable/install.html
 
-###### MISC
-We are using https://www.zenhub.com/ for project management.
+###### Miscellaneous
+- We are using https://www.zenhub.com/ for project management.
+- We are using https://studio.azureml.net/ for initial data analysis and some machine learning.
