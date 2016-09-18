@@ -1,11 +1,21 @@
 # Logger
 ## Purpose
 To handle automatically logging of all tests.
-By tests we mean, testing an an actual algorithm (as opposed to tests that test the framework itself).
+By tests we mean, testing an actual algorithm (as opposed to tests that test the framework itself).
 
-TODO Show usage instructions
 
-## Example usage
+## Usage Instructions
+```
+usage: ./logger.sh -s score [-h] [-n modelcount] [-m model] [-l label]
+  -s score      Score from results, must be an integer in [0,100]
+  -n modelcount Number of models being submitted. (Defaults to 1)
+  -h            Displays these usage instructions
+  -m model      Pass in a key value pair for the model, must be in format key1:value1:key2:value2:
+  -l label      Label that can be used to identify this test later
+
+```
+
+### Example usage
 Let's say we are wanting to use a nueral net in an R program and we have chosen to use the `nnet` package.
 We might create the 'nnet' model with code similiar to this:
 ```R
@@ -38,7 +48,7 @@ We can record our model and results like so:
 ```
 ./logger.sh -s 90 -l Test1 -m trainfile:trainingdata1.csv:testfile:testingdata1.csv:size:3:formula:y~.-3:softmax:true
 ```
-And in which case out expected output would look like:
+And in which case our expected output would look like:
 ```
 {
   "label" : "Test1",
