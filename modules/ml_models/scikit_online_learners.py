@@ -38,4 +38,4 @@ def run_SGDRegressor(path, filename):
     SGD_model.fit(X_train, y_train)
 
     # Scores the model using the coefficient of determination R^2 of the prediction.
-    print(SGD_model.score(X_test, y_test))
+    return SGD_model.score(X_test, y_test)
