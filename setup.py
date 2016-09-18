@@ -1,18 +1,18 @@
+import sys
 import os
-import inspect
 
-import modules.ml_models.scikit_online_learners as online_ml
-import modules.toolbox.csv_splitter as csv_split
+sys.path.insert(0, '/modules/toolbox')
+
+import csv_splitter
 
 def csv_setup():
-    total_file_path = get_datasets_path()
-
-    csv_split.setup_split(total_file_path, 'train_categorical.csv')
-    csv_split.setup_split(total_file_path, 'train_date.csv')
-    csv_split.setup_split(total_file_path, 'train_numeric.csv')
+    script_dir = os.path.dirname(__file__)
+    total_file_path = script_dir + '/data/'
+    
+    csv_splitter.setup_split(total_file_path, 'train_categorical.csv')
+    csv_splitter.setup_split(total_file_path, 'train_date.csv')
+    csv_splitter.setup_split(total_file_path, 'train_numeric.csv')
 
     open(total_file_path + 'split.txt', 'w')
 
-def get_datasets_path():
-    script_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-    return script_dir + '/datasets/'
+csv_setup()
