@@ -1,13 +1,17 @@
-#!/usr/bin/env bash
+  #!/usr/bin/env bash
 
 PROGRAM_NAME=$0
 SCORE=-1
 LABEL=""
-MODELCOUNT=1
-CURMODEL=0
 
-KEYS=""
-VALUES=""
+#User when iterating through the KVP pairs passed in. This number should ONLY
+# be incremented while the models are being read in from CLI
+
+declare -i MODELCOUNT=0
+declare -i CURMODEL=0
+declare -a MODELARRAYKEYS
+declare -a MODELARRAYVALUES
+
 
 
 # Since there are several situatoins where usage instructions will be needed to
@@ -28,20 +32,20 @@ function help {
 function addKeyValuePair {
   IFS=':' read -ra kvpArr <<< "$1"
   kvpCount="${#kvpArr[*]}"
-  for ((index=0; index<"$kvpCount"; index=index+2));
-    do
+  kvpKeys=""
+  kvpValues=""
+
+  for ((index=0; index<"$kvpCount"; index=index+2)); do
       kvpKey=${kvpArr[index]}
       kvpValue=${kvpArr[(index+1)]}
 
-      KEYS="$KEYS:$kvpKey"
-      VALUES="$VALUES:$kvpValue"
-    done
+      kvpKeys="$kvpKeys:$kvpKey"
+      kvpValues="$kvpValues:$kvpValue"
 
-
-
-  echo "Keys read in"
-  echo "Keys = $KEYS"
-  echo "Values = $VALUES"
+  done
+  MODELARRAYKEYS[$MODELCOUNT]=$kvpKeys
+  MODELARRAYVALUES[$MODELCOUNT]=$kvpValues
+  MODELCOUNT=$MODELCOUNT+1
 }
 
 
@@ -99,28 +103,39 @@ cat <<EOF
 {
   "label" : "$LABEL",
   "score" : "$SCORE",
-  "model" : {
 EOF
 
-IFS=':' read -ra KEYARR <<< "$KEYS"
-IFS=':' read -ra VALARR <<< "$VALUES"
-ARRSIZE="${#KEYARR[*]}"
-let LASTINDEX=ARRSIZE-2
-
-#index starts at 1 because the first one is always going to be empty
-for ((index=1; index<"$ARRSIZE"; ++index));
+for ((modelindex=0; modelindex<"$MODELCOUNT";++modelindex));
 do
-  JSONLINE="\"${KEYARR[index]}\" : \"${VALARR[index]}\""
-  if [ "$index" -eq "$LASTINDEX" ]
-    then
-      echo -e "    $JSONLINE,"
-    else
-      echo -e "    $JSONLINE"
-  fi
-done
 
 cat <<EOF
+  "model" : {
+EOF
+  IFS=':' read -ra KEYARR <<< "${MODELARRAYKEYS[modelindex]}"
+  IFS=':' read -ra VALARR <<< "${MODELARRAYVALUES[modelindex]}"
+  ARRSIZE="${#KEYARR[*]}"
+  let LASTINDEX=ARRSIZE-2
+
+  #index starts at 1 because the first one is always going to be empty
+  for ((index=1; index<"$ARRSIZE"; ++index));
+  do
+    JSONLINE="\"${KEYARR[index]}\" : \"${VALARR[index]}\""
+    if [ "$index" -eq "$LASTINDEX" ]
+      then
+        echo -e "    $JSONLINE,"
+      else
+        echo -e "    $JSONLINE"
+    fi
+  done
+cat <<EOF
   }
+EOF
+done
+
+
+
+cat <<EOF
+
 }
 EOF
 
