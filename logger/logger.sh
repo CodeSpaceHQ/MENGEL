@@ -17,9 +17,8 @@ declare -a MODELARRAYVALUES
 # Since there are several situatoins where usage instructions will be needed to
 # be shown to the user, it makes sense to pull that out into it's own function
 function help {
-  echo "usage: $PROGRAM_NAME -s score [-h] [-n modelcount] [-m model] [-l label]"
+  echo "usage: $PROGRAM_NAME -s score [-h] [-m model] [-l label]"
   echo "  -s score      Score from results, must be an integer in [0,100]"
-  echo "  -n modelcount Number of models being submitted. (Defaults to 1)"
   echo "  -h            Displays these usage instructions"
   echo "  -m model      Pass in a key value pair for the model, must be in format key1:value1:key2:value2:"
   echo "  -l label      Label that can be used to identify this test later"
@@ -53,9 +52,6 @@ while getopts ":hs:m:l:" opt; do
   case $opt in
     h)
       help
-      ;;
-    n)
-      MODELCOUNT=$OPTARG
       ;;
     s)
       SCORE=$OPTARG
