@@ -36,6 +36,20 @@ For ease of use, let's lavel this test as "Test1". While the label is not needed
 
 We can record our model and results like so:
 ```
-./logger.sh -s 0.90 -l Test1 -m trainfile:trainingdata1.csv:testfile:testingdata1.csv:size:3:formula:y~.-3:softmax:true
+./logger.sh -s 90 -l Test1 -m trainfile:trainingdata1.csv:testfile:testingdata1.csv:size:3:formula:y~.-3:softmax:true
 ```
-TODO Show example output
+And in which case out expected output would look like:
+```
+{
+  "label" : "Test1",
+  "score" : "90",
+  "model" : {
+    "trainfile" : "trainingdata1.csv"
+    "testfile" : "testingdata1.csv"
+    "size" : "3"
+    "formula" : "y~.-3",
+    "softmax" : "true"
+  }
+
+}
+```

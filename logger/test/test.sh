@@ -81,6 +81,17 @@ function scoreValidationTest() {
 
 }
 
+# This test is not only used to generate the output for the README file, but
+# also acts as a nice real world example as it has real data.
+function readMeExampleTest() {
+  name=readmeexampletest
+  clearPrevTestOutFiles $name
+  output=$OUTSRC/$name.out
+  $SRC/logger.sh -s 90 -l Test1 -m trainfile:trainingdata1.csv:testfile:testingdata1.csv:size:3:formula:y~.-3:softmax:true > $output
+  checkResults $name
+
+}
+
 
 
 printInCols "Results" "Name"
@@ -91,6 +102,7 @@ multiModelTest
 singleModelTest
 scoreValidationTest
 scoreInValidationTest
+readMeExampleTest
 
 
 #Making sure the all passed
