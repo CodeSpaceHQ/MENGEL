@@ -6,12 +6,13 @@ By tests we mean, testing an actual algorithm (as opposed to tests that test the
 
 ## Usage Instructions
 ```
-usage: ./logger.sh -s score [-h] [-m model] [-l label]
+usage: ./logger.sh -s score [-h] [-m model] [-l label] [-o location]
   -s score      Score from results, must be an integer in [0,100]
   -h            Displays these usage instructions
+  -q            Quiet mode, logs will NOT be commited
   -m model      Pass in a key value pair for the model, must be in format key1:value1:key2:value2:
   -l label      Label that can be used to identify this test later
-
+  -o location   Location for output files (defaults to ./output/)
 ```
 
 ### Example usage
@@ -49,16 +50,15 @@ We can record our model and results like so:
 ```
 And in which case our expected output would look like:
 ```
-{
-  "label" : "Test1",
-  "score" : "90",
-  "model" : {
-    "trainfile" : "trainingdata1.csv"
-    "testfile" : "testingdata1.csv"
-    "size" : "3"
-    "formula" : "y~.-3",
-    "softmax" : "true"
-  }
-
+{  
+   "label":"Test1",
+   "score":"90",
+   "model0":{  
+      "trainfile":"trainingdata1.csv",
+      "testfile":"testingdata1.csv",
+      "size":"3",
+      "formula":"y~.-3",
+      "softmax":"true"
+   }
 }
 ```
