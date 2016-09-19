@@ -13,3 +13,6 @@ Use this tutorial: http://www.howtogeek.com/249966/how-to-install-and-use-the-li
   1. Note that installation might be different for different systems
   2. For Ubuntu, try: sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose
 3. Install SciKit-Learn using pip: http://scikit-learn.org/stable/install.html
+
+###### Coding Standards (Please Call Us On It)
+- Python: https://google.github.io/styleguide/pyguide.html
