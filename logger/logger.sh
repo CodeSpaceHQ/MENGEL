@@ -3,7 +3,7 @@
 PROGRAM_NAME=$0
 SCORE=-1
 LABEL=""
-TIMESTAMP="[$(date +"%Y-%m-%d-%H-%M-%S")]"
+TIMESTAMP="$(date +"%Y-%m-%d-%H-%M-%S")"
 OUTPUTSRC="./output/"
 
 #User when iterating through the KVP pairs passed in. This number should ONLY
@@ -178,7 +178,7 @@ echo $OUTPUTJSON > $FILENAME
 
 #If not quiet mode, commit file
 if [ "$QUITEMODE" -eq 0 ]; then
-  git commit -a -m "Auto commit from logger for test:$TESTNAME"
+  git commit -m "Auto commit from logger for test:$TESTNAME" $FILENAME
 fi
 
 
