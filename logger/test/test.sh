@@ -142,3 +142,5 @@ if [ "$FAILEDCOUNT" -eq 0 ]; then
 else
   echo "Some tests FAILED!"
 fi
+
+exit 0

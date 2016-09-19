@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Creates a log file using command line options as arguements
+# Returns a single string to the STDOUT, this string is the location/filename of the output log file
+
 PROGRAM_NAME=$0
 SCORE=-1
 LABEL=""
@@ -8,7 +11,6 @@ OUTPUTSRC="./output/"
 
 #User when iterating through the KVP pairs passed in. This number should ONLY
 # be incremented while the models are being read in from CLI
-
 declare -i MODELCOUNT=0
 declare -i CURMODEL=0
 declare -a MODELARRAYKEYS
@@ -30,7 +32,6 @@ function help () {
   echo "  -m model      Pass in a key value pair for the model, must be in format key1:value1:key2:value2:"
   echo "  -l label      Label that can be used to identify this test later"
   echo "  -o location   Location for output files (defaults to ./output/)"
-  exit 1
 }
 
 # Used to validate and change the output source directoy
@@ -112,21 +113,16 @@ while getopts ":hcs:m:l:o:" opt; do
     \?)
       echo "Invalid option: -$OPTARG" >&2
       help
+      exit 1
       ;;
     :)
       echo "Option -$OPTARG requires an argument." >&2
       help
+      exit 1
       ;;
   esac
 done
 
-if [ $SCORE -lt 0 ]
-  then
-    echo "Invalid score"
-    echo ""
-    help
-    exit 1
-fi
 OUTPUTJSON="{\"label\" : \"$LABEL\",\"score\" : \"$SCORE\""
 
 if [ "$MODELCOUNT" -ne "0" ]; then
@@ -134,21 +130,19 @@ if [ "$MODELCOUNT" -ne "0" ]; then
 fi
 
 let LASTMODELINDEX=MODELCOUNT-1
+
 #Add the models to the output
-for ((modelindex=0; modelindex<"$MODELCOUNT";++modelindex));
-do
-
-
+for ((modelindex=0; modelindex<"$MODELCOUNT";++modelindex)); do
   OUTPUTJSON=$OUTPUTJSON"\"model$modelindex\":{"
   IFS=':' read -ra KEYARR <<< "${MODELARRAYKEYS[modelindex]}"
   IFS=':' read -ra VALARR <<< "${MODELARRAYVALUES[modelindex]}"
   ARRSIZE="${#KEYARR[*]}"
+
   let LASTPAIRINDEX=ARRSIZE-1
 
   #Added each pair from the model to the output
   #index starts at 1 because the first one is always going to be empty
-  for ((index=1; index<"$ARRSIZE"; ++index));
-  do
+  for ((index=1; index<"$ARRSIZE"; ++index)); do
     JSONLINE="\"${KEYARR[index]}\" : \"${VALARR[index]}\""
     if [ "$index" -eq "$LASTPAIRINDEX" ]
       then
@@ -173,7 +167,7 @@ if [ -n "$LABEL" ]; then
   FILENAME=$FILENAME"-"$LABEL
 fi
 FILENAME=$FILENAME".logger"
-echo $FILENAME
+echo $FILENAME #This should be the only output that makes it to STDOUT
 echo $OUTPUTJSON > $FILENAME
 
 #If not quiet mode, commit file
@@ -181,7 +175,5 @@ if [ "$QUITEMODE" -eq 0 ]; then
   git add $FILENAME
   git commit -m "Auto commit from logger for test:$TESTNAME" $FILENAME
 fi
-
-
 
 exit 0
