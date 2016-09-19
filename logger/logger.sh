@@ -13,7 +13,7 @@ declare -i MODELCOUNT=0
 declare -i CURMODEL=0
 declare -a MODELARRAYKEYS
 declare -a MODELARRAYVALUES
-declare -i QUITEMODE=0 #Set to 1 for quiet mode
+declare -i QUITEMODE=1 #Set to 1 for quiet mode
 
 # Make sure they have git installed and set git to the user.name
 command -v git >/dev/null 2>&1 || { echo >&2 "git is required but is not installed.  Aborting."; exit 1; }
@@ -26,7 +26,7 @@ function help () {
   echo "usage: $PROGRAM_NAME -s score [-h] [-m model] [-l label] [-o location]"
   echo "  -s score      Score from results, must be an integer in [0,100]"
   echo "  -h            Displays these usage instructions"
-  echo "  -q            Quiet mode, logs will NOT be commited"
+  echo "  -c            Auto commit file (Make sure your git global config is setup properly)"
   echo "  -m model      Pass in a key value pair for the model, must be in format key1:value1:key2:value2:"
   echo "  -l label      Label that can be used to identify this test later"
   echo "  -o location   Location for output files (defaults to ./output/)"
@@ -74,14 +74,14 @@ function addKeyValuePair () {
   MODELCOUNT=$MODELCOUNT+1
 }
 
-while getopts ":hqs:m:l:o:" opt; do
+while getopts ":hcs:m:l:o:" opt; do
   case $opt in
     h)
       help
       exit 0
       ;;
-    q)
-      QUITEMODE=1
+    c)
+      QUITEMODE=0
       ;;
     s)
       SCORE=$OPTARG
@@ -167,8 +167,8 @@ do
 done
 
 OUTPUTJSON=$OUTPUTJSON"}"
-
-FILENAME=$OUTPUTSRC$TIMESTAMP"-"$AUTHOR
+TESTNAME=$OUTPUTSRC$TIMESTAMP"-"$AUTHOR
+FILENAME=$TESTNAME
 if [ -n "$LABEL" ]; then
   FILENAME=$FILENAME"-"$LABEL
 fi
@@ -176,10 +176,10 @@ FILENAME=$FILENAME".log"
 echo $FILENAME
 echo $OUTPUTJSON > $FILENAME
 
-# If not quiet mode, commit file
-# if [ "$QUITEMODE" -eq 0 ]; then
-#
-# fi
+#If not quiet mode, commit file
+if [ "$QUITEMODE" -eq 0 ]; then
+  git commit -a -m "Auto commit from logger for test:$TESTNAME"
+fi
 
 
 

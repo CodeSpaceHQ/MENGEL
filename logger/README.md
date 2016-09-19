@@ -9,7 +9,7 @@ By tests we mean, testing an actual algorithm (as opposed to tests that test the
 usage: ./logger.sh -s score [-h] [-m model] [-l label] [-o location]
   -s score      Score from results, must be an integer in [0,100]
   -h            Displays these usage instructions
-  -q            Quiet mode, logs will NOT be commited
+  -c            Auto commit file (Make sure your git global config is setup properly)
   -m model      Pass in a key value pair for the model, must be in format key1:value1:key2:value2:
   -l label      Label that can be used to identify this test later
   -o location   Location for output files (defaults to ./output/)
