@@ -1,1 +1,1 @@
-{"label" : "ReadMeTest","score" : "90","model0":{"trainfile" : "trainingdata1.csv","testfile" : "testingdata1.csv","size" : "3","formula" : "y~.-3","softmax" : "true"}}
+{"label" : "ReadMeTest","score" : "90","model0":{"name" : "nnet","trainfile" : "trainingdata1.csv","testfile" : "testingdata1.csv","size" : "3","formula" : "y~.-3","softmax" : "true"}}

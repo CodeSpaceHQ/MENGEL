@@ -106,7 +106,7 @@ function scoreValidationTest () {
 # also acts as a nice real world example as it has real data.
 function readMeExampleTest () {
   name=readmeexampletest
-  output=$($SRC/logger.sh -s 90 -l ReadMeTest -m trainfile:trainingdata1.csv:testfile:testingdata1.csv:size:3:formula:y~.-3:softmax:true -o $OUTSRC)
+  output=$($SRC/logger.sh -s 90 -l ReadMeTest -m name:nnet:trainfile:trainingdata1.csv:testfile:testingdata1.csv:size:3:formula:y~.-3:softmax:true -o $OUTSRC)
   checkResults $name $output
 }
 
