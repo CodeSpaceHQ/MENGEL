@@ -11,14 +11,14 @@ declare -i FAILEDCOUNT=0
 # Parameters
 # - 1: First columns
 # - 2: Second Column
-function printInCols() {
+function printInCols () {
   printf "%8s | %-20s \n"  $1 $2
 }
 
 # Removes the test output file if exists
 # Parameters
 # - 1: Test Name
-function clearPrevTestOutFiles() {
+function clearPrevTestOutFiles () {
   file=$OUTSRC/$1.out
   if [ -f $file ]; then
     rm $file
@@ -30,8 +30,15 @@ function clearPrevTestOutFiles() {
 # Parameters
 # - 1: Test Name
 # - 2: Logger output
-function checkResults() {
-  difference=$(diff $2 $EXPSRC/$1.exp)
+function checkResults () {
+  expectedFile=$EXPSRC/$1.exp
+  if [ ! -f "$expectedFile" ]; then
+    printInCols "FAILED" $1
+    echo "Error: Could not find output file \"$expectedFile\" for test \"$1\""
+    FAILEDCOUNT=$FAILEDCOUNT+1
+    return 1
+  fi
+  difference=$(diff $2 $expectedFile)
   if [ "$difference" = "" ]; then
       PASSEDCOUNT=$PASSEDCOUNT+1
       printInCols "PASS" $1
@@ -40,17 +47,18 @@ function checkResults() {
     printInCols "FAILED" $1
     FAILEDCOUNT=$FAILEDCOUNT+1
   fi
+  return 0
 }
 
 # Tests the logger using multiple models
-function multiModelTest() {
+function multiModelTest () {
   name=multimodeltest
   output=$($SRC/logger.sh -s 90 -l MULTIMODELS -m key11:val11:key12:val12 -m key21:val21:key22:val22 -o $OUTSRC)
   checkResults $name $output
 }
 
 # Tests the logger using a single model
-function singleModelTest() {
+function singleModelTest () {
   name=singlemodeltest
   output=$($SRC/logger.sh -s 85 -l SINGLEMODEL -m key1:val1:key2:val2:key3:val3 -o $OUTSRC)
   checkResults $name $output
@@ -58,7 +66,7 @@ function singleModelTest() {
 
 # Tests all invalid variations of score
 # This time we want to catch errors, STDERR is piped to output file, STDIN is piped to null
-function scoreInValidationTest() {
+function scoreInValidationTest () {
   name=scoreinvalidationtest
   clearPrevTestOutFiles $name
   outputsrc=$OUTSRC/$name.out
@@ -72,15 +80,13 @@ function scoreInValidationTest() {
   output4=$($SRC/logger.sh -s 1.5 2>&1 > /dev/null) # 2>> $output 1> /dev/nul
   echo $output4 >> $outputsrc
   checkResults $name $outputsrc
-
 }
 
 # Tests the edge-case valid variations of score
-function scoreValidationTest() {
+function scoreValidationTest () {
   name=scorevalidationtest
   clearPrevTestOutFiles $name
   outputsrc=$OUTSRC/$name.out
-
 
   output1=$($SRC/logger.sh -s 0 -l "Test1" -o $OUTSRC)
   cat $output1 >> $outputsrc
@@ -93,19 +99,29 @@ function scoreValidationTest() {
   rm $output3
 
   checkResults $name $outputsrc
-
 }
+
 
 # This test is not only used to generate the output for the README file, but
 # also acts as a nice real world example as it has real data.
-function readMeExampleTest() {
+function readMeExampleTest () {
   name=readmeexampletest
-
-  output=$($SRC/logger.sh -s 90 -l Test1 -m trainfile:trainingdata1.csv:testfile:testingdata1.csv:size:3:formula:y~.-3:softmax:true -o $OUTSRC)
+  output=$($SRC/logger.sh -s 90 -l ReadMeTest -m trainfile:trainingdata1.csv:testfile:testingdata1.csv:size:3:formula:y~.-3:softmax:true -o $OUTSRC)
   checkResults $name $output
-
 }
 
+# Tests with invalid output file paths to make sure error messages appear
+function invalidOutputFileTest () {
+  name=invalidoutputfiletest
+  clearPrevTestOutFiles $name
+  outputsrc=$OUTSRC/$name.out
+  output=$($SRC/logger.sh -s 90 -l invalid -m key1:val1 -o dnedirectory/ 2>&1 > /dev/null)
+  echo $output >> $outputsrc
+  checkResults $name $outputsrc
+}
+
+
+# Main code
 
 
 printInCols "Results" "Name"
@@ -117,7 +133,7 @@ singleModelTest
 scoreValidationTest
 scoreInValidationTest
 readMeExampleTest
-
+invalidOutputFileTest
 
 #Making sure the all passed
 echo " "

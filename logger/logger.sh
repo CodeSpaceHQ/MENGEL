@@ -4,7 +4,7 @@ PROGRAM_NAME=$0
 SCORE=-1
 LABEL=""
 TIMESTAMP="[$(date +"%Y-%m-%d-%H-%M-%S")]"
-OUTPUTSRC="output"
+OUTPUTSRC="./output/"
 
 #User when iterating through the KVP pairs passed in. This number should ONLY
 # be incremented while the models are being read in from CLI
@@ -22,7 +22,7 @@ AUTHOR=$(git config user.name)
 
 # Since there are several situatoins where usage instructions will be needed to
 # be shown to the user, it makes sense to pull that out into it's own function
-function help {
+function help () {
   echo "usage: $PROGRAM_NAME -s score [-h] [-m model] [-l label] [-o location]"
   echo "  -s score      Score from results, must be an integer in [0,100]"
   echo "  -h            Displays these usage instructions"
@@ -33,11 +33,29 @@ function help {
   exit 1
 }
 
+# Used to validate and change the output source directoy
+# If the given directory is invalid (such as not being a directoy) the program
+# exits with status code 1
+# Parameters
+# - 1: New Directoy
+function changeOutputSrcDir () {
+  src=$1
+  lastChar="${src: -1}"
+  if [ "$lastChar" != "/" ]; then
+    src=$src"/"
+  fi
+
+  if [ ! -d "$src" ]; then
+    echo "Error: Output directory \"$src\" does not exist. Aborting." >&2
+    exit 1
+  fi
+  OUTPUTSRC=$src
+}
 
 # Parameters
 # - $1 : All the key value pairs for a particular model in the format
 # key1:value1:key2:value2...
-function addKeyValuePair {
+function addKeyValuePair () {
   IFS=':' read -ra kvpArr <<< "$1"
   kvpCount="${#kvpArr[*]}"
   kvpKeys=""
@@ -56,11 +74,11 @@ function addKeyValuePair {
   MODELCOUNT=$MODELCOUNT+1
 }
 
-
 while getopts ":hqs:m:l:o:" opt; do
   case $opt in
     h)
       help
+      exit 0
       ;;
     q)
       QUITEMODE=1
@@ -89,7 +107,7 @@ while getopts ":hqs:m:l:o:" opt; do
       LABEL=$OPTARG
       ;;
     o)
-      OUTPUTSRC=$OPTARG
+      changeOutputSrcDir $OPTARG
       ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
@@ -150,7 +168,7 @@ done
 
 OUTPUTJSON=$OUTPUTJSON"}"
 
-FILENAME=$OUTPUTSRC/$TIMESTAMP"-"$AUTHOR
+FILENAME=$OUTPUTSRC$TIMESTAMP"-"$AUTHOR
 if [ -n "$LABEL" ]; then
   FILENAME=$FILENAME"-"$LABEL
 fi
