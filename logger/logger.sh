@@ -172,12 +172,13 @@ FILENAME=$TESTNAME
 if [ -n "$LABEL" ]; then
   FILENAME=$FILENAME"-"$LABEL
 fi
-FILENAME=$FILENAME".log"
+FILENAME=$FILENAME".logger"
 echo $FILENAME
 echo $OUTPUTJSON > $FILENAME
 
 #If not quiet mode, commit file
 if [ "$QUITEMODE" -eq 0 ]; then
+  git add $FILENAME
   git commit -m "Auto commit from logger for test:$TESTNAME" $FILENAME
 fi
 
