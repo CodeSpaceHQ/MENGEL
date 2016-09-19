@@ -1,8 +1,13 @@
 # Logger
+A simple fire and forget logging system for machine learning algorithm testing.
 ## Purpose
 To handle automatically logging of all tests.
-By tests we mean, testing an actual algorithm (as opposed to tests that test the framework itself).
+By tests we mean, testing an actual algorithm (as opposed to tests that test the framework itself). This program is controlled through command line arguments so it can be used by any language that allows for system calls. All the calling program needs to do is call logger with the necessary command line options and logger will take care of the rest. Including auto-commiting the log file!
 
+## Requirements
+- Have `git` installed
+- Make sure `git config user.name` is set.
+- The `bash` environment variable is set. (This should NOT EVER be a problem on a *nix system)
 
 ## Usage Instructions
 ```
@@ -17,7 +22,7 @@ usage: ./logger.sh -s score [-h] [-m model] [-l label] [-o location]
 
 ### Example usage
 Let's say we are wanting to use a nueral net in an R program and we have chosen to use the `nnet` package.
-We might create the 'nnet' model with code similiar to this:
+We might create the 'nnet' model with code similar to this:
 ```R
 library(nnet)
 data.train<-read.csv("./trainingdata1.csv")
@@ -42,7 +47,7 @@ Things we might want to save for future reference could be:
 - Whether or not we used softmax error for classification
 
 Let's assume our score was 90%.
-For ease of use, let's lavel this test as "Test1". While the label is not needed, it can be used to easily distinquish in a human-readable form various tests from each other.
+For ease of use, let's label this test as "Test1". While the label is not needed, it can be used to easily distinguish in a human-readable form various tests from each other.
 
 We can record our model and results like so:
 ```
@@ -51,9 +56,10 @@ We can record our model and results like so:
 And in which case our expected output would look like:
 ```
 {  
-   "label":"Test1",
+   "label":"ReadMeTest",
    "score":"90",
    "model0":{  
+      "name":"nnet",
       "trainfile":"trainingdata1.csv",
       "testfile":"testingdata1.csv",
       "size":"3",
