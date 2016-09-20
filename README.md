@@ -14,5 +14,10 @@ Use this tutorial: http://www.howtogeek.com/249966/how-to-install-and-use-the-li
   2. For Ubuntu, try: sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose
 3. Install SciKit-Learn using pip: http://scikit-learn.org/stable/install.html
 
+###### Miscellaneous
+- We are using https://www.zenhub.com/ for project management.
+- We are using https://studio.azureml.net/ for initial data analysis and some machine learning.
+- Our Google Drive with our other documents can be viewed here: https://drive.google.com/drive/folders/0B_C34Fpc9Zf_TDlRUDhlZ0c3WVE?usp=sharing
+
 ###### Coding Standards (Please Call Us On It)
 - Python: https://google.github.io/styleguide/pyguide.html
