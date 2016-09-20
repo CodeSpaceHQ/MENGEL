@@ -5,8 +5,9 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import AdaBoostRegressor
 
 
-def run_bayesian_ridge(path, filename):
-    x_train, x_test, y_train, y_test = ft.get_train_test(path, filename)
+# http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.BayesianRidge.html
+def run_bayesian_ridge(path, filename, separator):
+    x_train, x_test, y_train, y_test = ft.get_train_test(path, filename, separator)
 
     # Picking model
     model = linear_model.BayesianRidge()
@@ -18,8 +19,9 @@ def run_bayesian_ridge(path, filename):
     return model.score(x_test, y_test)
 
 
-def run_support_vector_regression(path, filename):
-    x_train, x_test, y_train, y_test = ft.get_train_test(path, filename)
+# http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVR.html
+def run_support_vector_regression(path, filename, separator):
+    x_train, x_test, y_train, y_test = ft.get_train_test(path, filename, separator)
 
     # Picking model
     model = svm.SVR()
@@ -31,8 +33,10 @@ def run_support_vector_regression(path, filename):
     return model.score(x_test, y_test)
 
 
-def run_adaboost_dtr(path, filename):
-    x_train, x_test, y_train, y_test = ft.get_train_test(path, filename)
+# http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.AdaBoostRegressor.html
+# http://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeRegressor.html
+def run_adaboost_dtr(path, filename, separator):
+    x_train, x_test, y_train, y_test = ft.get_train_test(path, filename, separator)
 
     # Picking model
     model = AdaBoostRegressor(DecisionTreeRegressor(max_depth=4), n_estimators=300)
