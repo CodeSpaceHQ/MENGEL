@@ -6,8 +6,11 @@ from modules.toolbox import framework_tools as ft
 # likely be split out into a new helper
 #
 
-def run_sgd_regressor(path, filename):
-    x_train, x_test, y_train, y_test = ft.get_train_test(path, filename)
+
+# "Linear model fitted by minimizing a regularized empirical loss with SGD"
+# http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDRegressor.html#sklearn.linear_model.SGDRegressor
+def run_sgd_regressor(path, filename, separator):
+    x_train, x_test, y_train, y_test = ft.get_train_test(path, filename, separator)
 
     # Picking model
     model = linear_model.SGDRegressor()
@@ -19,8 +22,9 @@ def run_sgd_regressor(path, filename):
     return model.score(x_test, y_test)
 
 
-def run_passive_aggressive_regressor(path, filename):
-    x_train, x_test, y_train, y_test = ft.get_train_test(path, filename)
+# http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.PassiveAggressiveRegressor.html#sklearn.linear_model.PassiveAggressiveRegressor
+def run_passive_aggressive_regressor(path, filename, separator):
+    x_train, x_test, y_train, y_test = ft.get_train_test(path, filename, separator)
 
     # Picking model
     model = linear_model.PassiveAggressiveRegressor()
