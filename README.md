@@ -5,19 +5,23 @@ Software Engineering 2 class kaggle competition repo. We'll also be building a b
 **You must be using a unix system for this software to work!**
 
 ###### Setting up Ubuntu Bash for Windows
-Use this tutorial: http://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/
+[Use this tutorial](http://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/)
 
 ###### Setting up machine learning libraries for Python
-1. Install the latest Python 2.7: https://www.python.org/downloads/release/python-2712/
-2. Go into your unix system and install SciPy: https://www.scipy.org/install.html
+1. [Install the latest Python 2.7](https://www.python.org/downloads/release/python-2712/)
+2. Go into your unix system and install [SciPy](https://www.scipy.org/install.html)
   1. Note that installation might be different for different systems
-  2. For Ubuntu, try: sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose
-3. Install SciKit-Learn using pip: http://scikit-learn.org/stable/install.html
+  2. For Ubuntu, try:
+  
+      ```shell
+      sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose
+      ```
+3. Install [SciKit-Learn](http://scikit-learn.org/stable/install.html) using pip
 
 ###### Miscellaneous
-- We are using https://www.zenhub.com/ for project management.
-- We are using https://studio.azureml.net/ for initial data analysis and some machine learning.
-- Our Google Drive with our other documents can be viewed here: https://drive.google.com/drive/folders/0B_C34Fpc9Zf_TDlRUDhlZ0c3WVE?usp=sharing
+- We are using [ZenHub](https://www.zenhub.com/) for project management.
+- We are using [AzureMLStudio](https://studio.azureml.net/) for initial data analysis and some machine learning.
+- Our [Google Drive](https://drive.google.com/drive/folders/0B_C34Fpc9Zf_TDlRUDhlZ0c3WVE?usp=sharing) with our other documents can be viewed here: 
 
 ###### Coding Standards (Please Call Us On It)
-- Python: https://google.github.io/styleguide/pyguide.html
+- [Python](https://google.github.io/styleguide/pyguide.html)
