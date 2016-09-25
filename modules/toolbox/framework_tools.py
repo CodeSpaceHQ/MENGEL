@@ -20,3 +20,4 @@ def get_train_test(path, filename, separator):
 
     # Selecting training and test sets
     return cross_validation.train_test_split(x, y, test_size = 0.2)
+
