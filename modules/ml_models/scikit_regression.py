@@ -38,7 +38,7 @@ def run_support_vector_regression(path, filename, separator):
 def run_adaboost_dtr(path, filename, separator):
     x_train, x_test, y_train, y_test = ft.get_train_test(path, filename, separator)
 
-    # Picking model
+    # Picking model, this should be auto-selected down the road (hyperparameters)
     model = AdaBoostRegressor(DecisionTreeRegressor(max_depth=4), n_estimators=300)
 
     # Training the model. "partial_fit" can be used to train the model one chunk of data at a time.
