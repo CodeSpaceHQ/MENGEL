@@ -5,8 +5,8 @@ from sklearn.ensemble import RandomForestClassifier
 
 
 # http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html
-def run_random_forest(path, filename, separator):
-    x_train, x_test, y_train, y_test = ft.get_train_test(path,filename,separator)
+def run_random_forest(data, target_col):
+    x_train, x_test, y_train, y_test = ft.get_train_test(data, target_col)
 
     # Selecting the model
     model = RandomForestClassifier(n_estimators=100) # Default estimators is 10
@@ -19,8 +19,8 @@ def run_random_forest(path, filename, separator):
 
 
 # http://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html
-def run_knn(path, filename, separator):
-    x_train, x_test, y_train, y_test = ft.get_train_test(path, filename, separator)
+def run_knn(data, target_col):
+    x_train, x_test, y_train, y_test = ft.get_train_test(data, target_col)
 
     # Selecting the model
     model = neighbors.KNeighborsClassifier() # default is 5 neighbors
@@ -33,8 +33,8 @@ def run_knn(path, filename, separator):
 
 
 # http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn-svm-svc
-def run_svc(path, filename, separator):
-    x_train, x_test, y_train, y_test = ft.get_train_test(path, filename,separator)
+def run_svc(data, target_col):
+    x_train, x_test, y_train, y_test = ft.get_train_test(data, target_col)
 
     # Selecting the model
     model = svm.SVC(decision_function_shape='ovo')

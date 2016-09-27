@@ -8,11 +8,11 @@ from modules.ml_models import scikit_regression
 
 
 # Automatically gets all regression models and runs them. This is brute force, more elegant solution to follow later.
-def run_regressions(path, filename, separator):
+def run_regressions(data, target_col):
     for function in dir(scikit_regression):
         item = getattr(scikit_regression, function)
         if callable(item):
-            print(item(path, filename, separator))
+            print(item(data, target_col))
 
 
 def run_classifications():

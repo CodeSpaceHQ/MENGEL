@@ -16,13 +16,16 @@ import setup
 # algorithms.
 # training_file_name : name of the file including extension.
 # prediction_type : "classification" vs "regression", standard is auto-select
-def get_potential_results(training_file_name, separator, prediction_type = "auto"):
+def get_potential_results(training_file_name, separator, prediction_type="auto"):
+
+    data = ft.get_data(setup.get_datasets_path(), training_file_name, separator)
+    target_column_name = int(raw_input("Which column should be predicted? Provide the name: "))
 
     if prediction_type == "auto":
-        prediction_type = ft.get_prediction_type(setup.get_datasets_path(), training_file_name, separator)
+        prediction_type = ft.get_prediction_type(data[target_column_name])
 
     if prediction_type == "regression":
-        ml_runners.run_regressions(setup.get_datasets_path(), training_file_name, separator)
+        ml_runners.run_regressions(data, target_column_name)
 
 
 def main():
