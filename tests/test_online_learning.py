@@ -3,14 +3,19 @@ import os
 sys.path.insert(0, os.path.abspath('..'))
 
 from unittest import TestCase
-from modules.ml_models import scikit_online_learners
+from modules.ml_models import scikit_online_regressors
+from modules.toolbox import framework_tools as ft
 import setup
 
+
 class TestOnlineLearning(TestCase):
+
     def test_sgd_regressor(self):
-        result = scikit_online_learners.run_sgd_regressor(setup.get_datasets_path(), "winequality-red.csv", ';')
+        data = ft.get_data(setup.get_datasets_path(), "winequality-red.csv", ";")
+        result = scikit_online_regressors.run_sgd_regressor(data, "quality")
         self.assertGreater(result, 0, msg="Failed to beat baseline")
     
     def test_passive_aggressive_regressor(self):
-        result = scikit_online_learners.run_passive_aggressive_regressor(setup.get_datasets_path(), "winequality-red.csv", ';')
+        data = ft.get_data(setup.get_datasets_path(), "winequality-red.csv", ";")
+        result = scikit_online_regressors.run_passive_aggressive_regressor(data, "quality")
         self.assertGreater(result, 0, msg="Failed to beat baseline")
