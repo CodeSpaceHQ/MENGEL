@@ -10,8 +10,8 @@ import setup
 class TestFrameworkTools(TestCase):
 
     def test_get_prediction_type_regression(self):
-        data = ft.get_data(setup.get_datasets_path(), "winequality-red.csv", ";")
-        ml_type = ft.get_prediction_type(data["quality"])
+        data = ft.get_data(setup.get_datasets_path(), "housing_train.csv", ",")
+        ml_type = ft.get_prediction_type(data["SalePrice"])
         self.assertEqual(ml_type, "regression", "Type should be regression.")
 
     def test_get_prediction_type_classification(self):

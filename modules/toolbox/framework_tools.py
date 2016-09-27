@@ -24,39 +24,28 @@ def get_train_test(pandas_data, target_col):
     return cross_validation.train_test_split(x, y, test_size=0.2)
 
 
-# works for CSVs, not images. Might want to pass in the target column instead of the file
+# This will take the target "predicted" column and decide if classification or regression should be used.
 def get_prediction_type(target_column):
-    classification = is_classification(target_column)
-    regression = is_regression(target_column)
+    sorted_data = sorted(target_column)
 
-    if not (regression or classification):
-        return "invalid"
-    elif classification:
-        return "classification"
-    else:
-        return "regression"
+    prediction_type = "classification"
+
+    last = None
+
+    for val in sorted_data:
+        if not isinstance(val, (int, float)):
+            prediction_type = "invalid"
+        if not last:
+            last = val
+        else:
+            if last == val - 1:
+                last = val
+            elif last != val:
+                prediction_type = "regression"
+                break
+
+    return prediction_type
 
 
 def get_data(path, filename, separator):
     return pd.read_csv(path + filename, sep=separator)
-    # return pd.DataFrame.as_matrix(pandas_data)
-
-
-# not positive that this is a good enough check. TODO: Test thoroughly
-def is_classification(data):
-    is_class = True
-    for value in data:
-        if not isinstance(value, int):
-            is_class = False
-
-    return is_class
-
-
-# not positive that this is a good enough check. TODO: Test thoroughly
-def is_regression(data):
-    is_reg = True
-    for value in data:
-        if not isinstance(value, (int, float)):
-            is_reg = False
-
-    return is_reg
