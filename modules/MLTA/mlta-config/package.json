@@ -1,0 +1,22 @@
+{
+  "name": "init",
+  "version": "0.0.1",
+  "description": "Initialize MLTA",
+  "main": "mlta-config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "mlta-config": "./mlta-config.js"
+  },
+  "author": "Alexander Clines",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.1.2",
+    "commander": "^2.9.0",
+    "jsonfile": "^2.4.0",
+    "mkdirp": "^0.5.1",
+    "prompt": "^1.0.0",
+    "underscore": "^1.8.3"
+  }
+}
