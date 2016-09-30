@@ -1,13 +1,11 @@
-# Helper functions for the whole framework to use
-
+from modules.toolbox import *
 import pandas as pd
-import numpy as np
-from sklearn import cross_validation
 from sklearn import preprocessing
+from sklearn import cross_validation
 
-
+# Helper functions for the whole framework to use
 def get_train_test(pandas_data, target_col):
-    pandas_data = scale_numeric_data(pandas_data)
+    #pandas_data = scale_numeric_data(pandas_data)
 
     # Selection of training/target data for validation and training.
     data = pd.DataFrame.as_matrix(pandas_data)
