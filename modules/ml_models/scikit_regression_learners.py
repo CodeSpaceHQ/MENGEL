@@ -1,48 +1,34 @@
 from sklearn import linear_model
 from sklearn import svm
-from modules.toolbox import framework_tools as ft
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import AdaBoostRegressor
+from modules.toolbox import framework_tools as ft
+from modules.toolbox import ml_runners as mr
 
 
 # http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.BayesianRidge.html
-def run_bayesian_ridge(data, target_col):
-    x_train, x_test, y_train, y_test = ft.get_train_test(data, target_col)
-
+def train_bayesian_ridge(x_train, y_train):
     # Picking model
     model = linear_model.BayesianRidge()
 
     # Training the model. "partial_fit" can be used to train the model one chunk of data at a time.
-    model.fit(x_train, y_train)
-
-    # Scores the model using the coefficient of determination R^2 of the prediction.
-    return model.score(x_test, y_test)
+    return model.fit(x_train, y_train)
 
 
 # http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVR.html
-def run_support_vector_regression(data, target_col):
-    x_train, x_test, y_train, y_test = ft.get_train_test(data, target_col)
-
+def train_support_vector_regression(x_train, y_train):
     # Picking model
     model = svm.SVR()
 
     # Training the model. "partial_fit" can be used to train the model one chunk of data at a time.
-    model.fit(x_train, y_train)
-
-    # Scores the model using the coefficient of determination R^2 of the prediction.
-    return model.score(x_test, y_test)
+    return model.fit(x_train, y_train)
 
 
 # http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.AdaBoostRegressor.html
 # http://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeRegressor.html
-def run_adaboost_dtr(data, target_col):
-    x_train, x_test, y_train, y_test = ft.get_train_test(data, target_col)
-
+def train_adaboost_dtr(x_train, y_train):
     # Picking model, this should be auto-selected down the road (hyperparameters)
     model = AdaBoostRegressor(DecisionTreeRegressor(max_depth=4), n_estimators=300)
 
     # Training the model. "partial_fit" can be used to train the model one chunk of data at a time.
-    model.fit(x_train, y_train)
-
-    # Scores the model using the coefficient of determination R^2 of the prediction.
-    return model.score(x_test, y_test)
+    return model.fit(x_train, y_train)
