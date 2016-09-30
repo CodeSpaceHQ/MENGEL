@@ -133,6 +133,9 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+# NodeJS
+node_modules/
+
 # folders to ignore
 datasets/
 *.xml
