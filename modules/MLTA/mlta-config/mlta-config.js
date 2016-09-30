@@ -6,6 +6,7 @@ var colors = require("colors/safe"); //Makes user input pretty
 var jsonfile = require('jsonfile') //Config files are in JSON format
 var fs = require('fs') //fs = filesystem, used for creating files
 var _ = require("underscore"); //Various useful utils. Used here to make sure the fields array are all unique
+var firebase = require("firebase"); //For Firebase stuff..duh..
 
 var mltaDirPath = path.join(process.env.HOME, '.mlta'); //This basically holds this: ~/.mlta
 
@@ -30,11 +31,13 @@ function log(message){
 
 //Get user input
 prompt.message = ("MLTA");
+prompt.delimiter = colors.green(":");
 prompt.start(); //Doesn't need to be called again
 prompt.get({
   properties: {
     name: {
       description: colors.magenta("Project Name:"),
+      required: true,
       pattern:  /^\w+$/, //The message below should give a hint as to what this pattern is
       message: 'Project name must be letters, numbers, and underscore only.'
     }
@@ -57,7 +60,7 @@ prompt.get({
 function modifyExistConfig(name,configFile){
   log("Loading configuration for " + name);
   var obj = jsonfile.readFileSync(configFile.toString());
-  log(obj.name)
+  log(obj);
 }
 
 
@@ -68,72 +71,83 @@ function createNewConfig(name,configFile){
   prompt.get({
     properties: {
       author: {
-        description: colors.magenta("Your Name:")
+        description: colors.magenta("Your Name:"),
+        required: true
       },
-      url: {
-        description: colors.magenta("Firebase URL:")
+      db: {
+        description: colors.magenta("Firebase Database URL:"),
+        required: true
       },
-      auth: {
-        description: colors.magenta("Auth:")
+      sa: {
+        description: colors.magenta("Firebase Service Account JSON File Location (Please enter full path name):"),
+        required: true,
+        before: function(value){
+          //Check to see if service account file exists
+          try{
+            fs.accessSync(value, fs.F_OK)
+          } catch(e){
+            log("Could not find file: " + value);
+            process.exit(1);
+          }
+          return value;
+        }
       }
+
     }
   }, function(err, result){
     if(err){return onError(err);}
     newConfig.author = result.author;
-    newConfig.url = result.url;
-    newConfig.auth = result.auth;
-    newConfig.models = [];
+    newConfig.databaseURL = result.db;
+    newConfig.serviceAccount = result.sa;
 
-    function addModelDef(){
-      prompt.get({
-        properties:{
-          yn: {
-            description: colors.magenta("Add a model definition?[y/n]"),
-            pattern: '^[y,n]',
-            message: '[y]es or [n]o.'
-          }
-        }
-      }, function(err, result){
-        if(result.yn == 'n'){
-          jsonfile.writeFileSync(configFile,newConfig);
-        } else if(result.yn == 'y'){
-          createNewModel(//);
-          function(errror,model){
-            newConfig.models.push(model);
-            addModelDef();
-          });
-        } else { //Just in case regex doesn't work above for any reason
-          addModelDef();
-        }
-
-      });
-    };
-
-    addModelDef();
-
+    connectToFirebase(newConfig,configFile);
   });
 }
 
-function createNewModel(callback){
-  prompt.get({
-    properties: {
-      name : {
-        description: colors.magenta("Model Name:"),
-        pattern: /^\w+$/,
-        message: 'Model name must be letters, numbers, and underscore only.'
-      },
-      fields : {
-        description: colors.magenta("Enter required fields, seperated by commas: "),
-        pattern: '^[a-zA-Z0-9_]+(,[a-zA-Z0-9_]+)*$',
-        message: 'Field names can only contain (a-z,A-Z,0-9,_) and must be seperated by a comma'
-      }
-    }
-  },
-    function(err, result){
-      if(err){return onError(err);}
-      model = new Object();
-      model.name=result.name;
-      model.fields=_.uniq(result.fields.split(','));
-      callback(null,model);
+
+//Handles initializing firebase and checking authentication.
+function connectToFirebase(mltaConfig,configFilePath){
+  log("Connecting to Firebase")
+  var fbConfig = {
+    serviceAccount: mltaConfig.serviceAccount,
+    databaseURL: mltaConfig.databaseURL
+  };
+  firebase.initializeApp(fbConfig);
+   var db = firebase.database();
+
+   //If we don't have a connection in a few seconds, whether its due to incorrect credintials, or network error, we cannot continue.
+   var connFailTimeout = setTimeout(function() {
+     console.log('Failed to connect to Firebase.');
+     process.exit(); //Bye-bye!
+   }, 10000);
+
+   //Called if we have an established, authorized connection to the Firebase database
+  function ready() {
+    clearTimeout(connFailTimeout); //We've connected to lets go ahead and tell the connFailTimeout dude up there ^ that he can leave his post.
+    log("Connected!");
+
+    //We have now verified that the info the user gave us was legit. Let's write it to the config file.
+    jsonfile.writeFile(configFilePath,mltaConfig,function(err){
+      if(err){return onError(err)}
+      log("Configuration saved!");
+      process.exit();
     });
+  };
+
+  /*
+    The connection function
+    meets at the internet junction
+    to make a conjunction
+    or an adjunction
+    unless theres an injunction
+    to which we disfunction
+    and ends with expunction.
+  */
+  var connFunc = db.ref('.info/connected').on('value', function(s) {
+    if(s.val() === true) {
+      db.ref('.info/connected').off('value', connFunc);
+      ready();
+    }
+  });
+
 }
