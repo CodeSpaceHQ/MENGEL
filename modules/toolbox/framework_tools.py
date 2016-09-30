@@ -1,7 +1,10 @@
 from modules.toolbox import *
+<<<<<<< HEAD
 import pandas as pd
 from sklearn import preprocessing
 from sklearn import cross_validation
+=======
+>>>>>>> refs/remotes/origin/master
 
 # Helper functions for the whole framework to use
 def get_train_test(pandas_data, target_col):
