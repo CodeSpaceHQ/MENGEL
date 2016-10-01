@@ -6,7 +6,8 @@ var colors = require("colors/safe"); //Makes user input pretty
 var jsonfile = require('jsonfile') //Config files are in JSON format
 var fs = require('fs') //fs = filesystem, used for creating files
 var _ = require("underscore"); //Various useful utils. Used here to make sure the fields array are all unique
-var firebase = require("firebase"); //For Firebase stuff..duh..
+
+var fb = require('../utils/utils-firebase.js')
 
 var mltaDirPath = path.join(process.env.HOME, '.mlta'); //This basically holds this: ~/.mlta
 
@@ -100,54 +101,24 @@ function createNewConfig(name,configFile){
     newConfig.databaseURL = result.db;
     newConfig.serviceAccount = result.sa;
 
-    connectToFirebase(newConfig,configFile);
-  });
-}
+    console.log("Connecting to Firebase")
+    fb.connectToFirebase(newConfig,configFile,function(err){
+      if(err){
+        console.log(err);
+        process.exit();
+      }
 
+      console.log("Connected!");
 
-//Handles initializing firebase and checking authentication.
-function connectToFirebase(mltaConfig,configFilePath){
-  log("Connecting to Firebase")
-  var fbConfig = {
-    serviceAccount: mltaConfig.serviceAccount,
-    databaseURL: mltaConfig.databaseURL
-  };
-  firebase.initializeApp(fbConfig);
-   var db = firebase.database();
-
-   //If we don't have a connection in a few seconds, whether its due to incorrect credintials, or network error, we cannot continue.
-   var connFailTimeout = setTimeout(function() {
-     console.log('Failed to connect to Firebase.');
-     process.exit(); //Bye-bye!
-   }, 10000);
-
-   //Called if we have an established, authorized connection to the Firebase database
-  function ready() {
-    clearTimeout(connFailTimeout); //We've connected to lets go ahead and tell the connFailTimeout dude up there ^ that he can leave his post.
-    log("Connected!");
-
-    //We have now verified that the info the user gave us was legit. Let's write it to the config file.
-    jsonfile.writeFile(configFilePath,mltaConfig,function(err){
-      if(err){return onError(err)}
-      log("Configuration saved!");
-      process.exit();
+      //We have now verified that the info the user gave us was legit. Let's write it to the config file.
+      jsonfile.writeFile(configFile,newConfig,function(err){
+        if(err){return onError(err)}
+        log("Configuration saved!");
+        process.exit();
+      });
     });
-  };
 
-  /*
-    The connection function
-    meets at the internet junction
-    to make a conjunction
-    or an adjunction
-    unless theres an injunction
-    to which we disfunction
-    and ends with expunction.
-  */
-  var connFunc = db.ref('.info/connected').on('value', function(s) {
-    if(s.val() === true) {
-      db.ref('.info/connected').off('value', connFunc);
-      ready();
-    }
+
+    //connectToFirebase(newConfig,configFile);
   });
-
 }
