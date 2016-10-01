@@ -10,7 +10,6 @@
 library(dplyr)
 
 Args <- commandArgs(trailingOnly =  T)
-print(Args[0])
 
 ### reads in to csv and makes all String variables Factors #####
 
