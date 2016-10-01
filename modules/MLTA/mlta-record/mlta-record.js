@@ -14,8 +14,7 @@ function log(message){
 function modelData(val, data) {
   var info = val.split(':');
   var pair = {};
-  pair[info[0]] = info[1];
-  data.push(pair);
+  data[info[0]] = info[1];
   return data;
 }
 
@@ -23,8 +22,7 @@ function modelData(val, data) {
 function testData(val, data){
   var info = val.split(':');
   var pair = {};
-  pair[info[0]] = info[1];
-  data.push(pair);
+  data[info[0]] = info[1];
   return data;
 }
 
@@ -34,8 +32,8 @@ program
   .option('-p, --project <name>', 'Name of project.')
   .option('-l, --label <label>' , 'Used to identify specific models for future reference. ')
   .option('-m, --modelType <type>' , 'Type of model used.')
-  .option('-d, --modelData <key:value>' , 'Key-value pair of info about the model', modelData , [])
-  .option('-D, --testData < key:value>' , 'Key-value pair of info about the test', testData , [])
+  .option('-d, --modelData <key:value>' , 'Key-value pair of info about the model', modelData , {})
+  .option('-D, --testData < key:value>' , 'Key-value pair of info about the test', testData , {})
   .parse(process.argv);
 
 //Make sure all required arguments have been met and that all optional arguemnts that were not passed in have their default values set
