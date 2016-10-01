@@ -1,10 +1,13 @@
 {
   "name": "analyzer",
-  "version": "1.0.0",
-  "description": "A program for recording and anazlying machine learning tests",
-  "main": "resultrecord.js",
+  "version": "0.0.1",
+  "description": "Record info and result of a test",
+  "main": "mlta-record.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "mlta-record": "./mlta-record.js"
   },
   "author": "Alexander Clines",
   "license": "ISC",
