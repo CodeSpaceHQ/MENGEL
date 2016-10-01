@@ -102,7 +102,7 @@ function createNewConfig(name,configFile){
     newConfig.serviceAccount = result.sa;
 
     console.log("Connecting to Firebase")
-    fb.connectToFirebase(newConfig,configFile,function(err){
+    fb.connectToFirebase(newConfig,function(err){
       if(err){
         console.log(err);
         process.exit();

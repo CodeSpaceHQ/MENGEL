@@ -4,7 +4,7 @@ var firebase = require("firebase"); //For Firebase stuff..duh..
 var exports = module.exports = {};
 
 //Handles initializing firebase and checking authentication.
-exports.connectToFirebase = function(mltaConfig,configFilePath,cb){
+exports.connectToFirebase = function(mltaConfig,cb){
   var fbConfig = {
     serviceAccount: mltaConfig.serviceAccount,
     databaseURL: mltaConfig.databaseURL
