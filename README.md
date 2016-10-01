@@ -14,7 +14,7 @@ Software Engineering 2 class kaggle competition repo. We'll also be building a b
   2. For Ubuntu, try:
   
       ```shell
-      sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose
+      sudo apt-get install python-numpy python-scipy python-pandas python-sympy python-nose
       ```
 3. Install [SciKit-Learn](http://scikit-learn.org/stable/install.html) using pip
 
