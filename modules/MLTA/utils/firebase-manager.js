@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 var firebase = require("firebase"); //For Firebase stuff..duh..
 
+var fbMainDir = '/mlta';
+var fbResultDir = fbMainDir+'/results/'
+
 var exports = module.exports = {};
 
 //Handles initializing firebase and checking authentication.
@@ -42,4 +45,26 @@ exports.connectToFirebase = function(mltaConfig,cb){
     }
   });
 
+}
+
+
+
+
+exports.saveResult = function(result,cb){
+  // Get a key for a new Post.
+  var resultKey = firebase.database().ref().child(fbResultDir).push().key;
+
+  var updates = {};
+  updates[fbResultDir + resultKey] = result;
+
+  var fbp = firebase.database().ref().update(updates);
+  fbp.then(
+    function(val){
+      cb(null);
+    }
+  ).catch(
+    function(reason){
+      cb(reason);
+    }
+  )
 }

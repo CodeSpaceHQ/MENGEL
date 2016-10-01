@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 sudo npm install -g
-cd ./mlta-init
+cd ./mlta-config
 sudo npm install -g
 cd ..
 
