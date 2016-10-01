@@ -3,12 +3,10 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath('../..'))
 
-<<<<<<< HEAD
 from modules.ml_models import scikit_online_regressors
 from modules.ml_models import scikit_regression_learners
-=======
 from modules.toolbox import *
->>>>>>> refs/remotes/origin/master
+
 
 
 # Automatically gets all regression models and runs them. This is brute force, more elegant solution to follow later.
