@@ -55,3 +55,9 @@ def get_prediction_type(target_column):
 
 def get_data(path, filename, separator):
     return pd.read_csv(path + filename, sep=separator)
+
+
+def save_predictions(path, predictions, filename):
+    with open(path + filename, 'wb') as csvfile:
+        writer = csv.writer(csvfile, delimiter=',')
+        writer.writerows(predictions)

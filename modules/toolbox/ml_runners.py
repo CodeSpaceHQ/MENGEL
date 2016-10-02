@@ -7,8 +7,8 @@ from modules.toolbox import *
 
 
 # Automatically gets all regression models and runs them. This is brute force, more elegant solution to follow later.
-def run_regressions(data, target_col):
-    x_train, x_test, y_train, y_test = ft.get_train_test(data, target_col)
+def run_regressions(package, target_col):
+    x_train, x_test, y_train, y_test = ft.get_train_test(package.train_data, target_col)
     model = None
 
     for function in dir(scikit_regression_learners):
@@ -16,7 +16,10 @@ def run_regressions(data, target_col):
         if callable(item):
             model = item(x_train, y_train)
 
-    return model_score(model, x_test, y_test)
+    if package.output_style == "train":
+        return model_score(model, x_test, y_test)
+    else:
+        return
 
 
 # TODO: Finish this runner or build it into an overall runner
@@ -30,4 +33,6 @@ def model_score(model, x_test, y_test):
     return model.score(x_test, y_test)
 
 
-#
+# Applies the trained model to test data and saves results
+def model_predict(model, data):
+    return model.predict(data)
