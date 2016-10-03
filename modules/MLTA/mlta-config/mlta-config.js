@@ -7,6 +7,7 @@ var jsonfile = require('jsonfile') //Config files are in JSON format
 var fs = require('fs') //fs = filesystem, used for creating files
 var _ = require("underscore"); //Various useful utils. Used here to make sure the fields array are all unique
 
+var cm = require('../mlta/config-manager.js');
 var fb = require('../mlta/firebase-manager');
 
 var mltaDirPath = path.join(process.env.HOME, '.mlta'); //This basically holds this: ~/.mlta
@@ -45,16 +46,15 @@ prompt.get({
   }
 }, function (err, result) {
   if(err){return onError(err);}
-  //Config files are created and stored as [Project-Name].config
   var configFileDir = path.join(mltaDirPath,result.name);
   var configFilePath = configFileDir+'.config';
-  fs.access(configFilePath, fs.F_OK, function(err) {
+  cm.getConfigIfExists(result.name,function(err,config){
     if (err) {
       createNewConfig(result.name,configFilePath);//If that file does NOT exist, then it must be a new project
     } else {
       modifyExistConfig(result.name,configFilePath); //If that file does exist, then this is an existing project
     }
-  });
+  })
 });
 
 //First try and refresh the config file from the DB, TODO: Complete this.
@@ -110,15 +110,15 @@ function createNewConfig(name,configFile){
 
       console.log("Connected!");
 
-      //We have now verified that the info the user gave us was legit. Let's write it to the config file.
-      jsonfile.writeFile(configFile,newConfig,function(err){
-        if(err){return onError(err)}
-        log("Configuration saved!");
-        process.exit();
+      cm.saveConfig(newConfig,function(err){
+        if(err){
+          console.log(err);
+        } else {
+          log("Configuration saved!");
+        }
+          process.exit();
       });
     });
 
-
-    //connectToFirebase(newConfig,configFile);
   });
 }
