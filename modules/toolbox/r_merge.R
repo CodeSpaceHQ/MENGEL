@@ -6,8 +6,6 @@
 #  The next unspecefied number of arguments from Args will be the filepath of the datasets (in .csv form)
 #  r_merge assumes that every file that is piped in has a column with the name of argument 1.
 #
-#  T
-
 
 
 library(dplyr)
@@ -26,6 +24,8 @@ dataset <- read.csv((Args[2]))
 for (filepath in 3:length(Args)){
     dataset = dplyr::full_join(dataset, read.csv(as.character(Args[filepath])), by = merge.var)
 }
+
+
 
 ### Save as .csv ####
 write.csv(dataset, "full.dataset.csv")
