@@ -7,7 +7,7 @@ var jsonfile = require('jsonfile') //Config files are in JSON format
 var fs = require('fs') //fs = filesystem, used for creating files
 var _ = require("underscore"); //Various useful utils. Used here to make sure the fields array are all unique
 
-var fb = require('../utils/firebase-manager.js')
+var fb = require('../mlta/firebase-manager');
 
 var mltaDirPath = path.join(process.env.HOME, '.mlta'); //This basically holds this: ~/.mlta
 

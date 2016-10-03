@@ -1,5 +1,5 @@
 {
-  "name": "init",
+  "name": "config",
   "version": "0.0.1",
   "description": "Initialize MLTA",
   "main": "mlta-config.js",

@@ -11,6 +11,7 @@
   },
   "author": "Alexander Clines",
   "license": "ISC",
+  "files" : ["../utils/firebase-manager.js"],
   "dependencies": {
     "commander": "^2.9.0",
     "fs": "0.0.1-security",

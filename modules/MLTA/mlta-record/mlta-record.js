@@ -4,7 +4,7 @@ var jsonfile = require('jsonfile') //Config files are in JSON format
 var fs = require('fs') //fs = filesystem, used for creating files
 var path = require('path'); //Handles path naming
 
-var fb = require('../utils/firebase-manager.js')
+var fb = require('../mlta/firebase-manager');
 
 //Helper function for logging
 function log(message){
