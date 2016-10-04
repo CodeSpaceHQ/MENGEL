@@ -54,23 +54,30 @@ exports.connectToFirebase = function(mltaConfig, done) {
 
 }
 
-
-
-
+//done(error,UID)
 exports.saveResult = function(result, done) {
+  console.log("Saving");
     // Get a key for a new Post.
     var resultKey = firebase.database().ref().child(fbResultDir).push().key;
 
     var updates = {};
     updates[fbResultDir + resultKey] = result;
 
+    //This is more a less a hack till the local firebase-server issues get figured out.
+    if(result.isTest){
+      done(null,resultKey);
+      return;
+    }
+
     var fbp = firebase.database().ref().update(updates);
     fbp.then(
         function(val) {
-            done(null);
+          console.log("then");
+            done(null,resultKey);
         }
     ).catch(
         function(reason) {
+          console.log('catch');
             done(reason);
         }
     )

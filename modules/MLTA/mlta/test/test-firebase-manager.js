@@ -26,13 +26,32 @@ describe('firebase-manager',function(){
     fs.close(); //Closes the firebase-server when done.
   });
 
-
   describe('#connectToFirebase(mltaConfig,cb)',function(){
     it('should connect to the firebase server', function(done){
       fm.connectToFirebase(config,function(err){
         expect(err).to.be.null;
         done(err);
       });
+    });
+  });
+
+  describe('#saveResult(result,done)',function(){
+    it('should add the result obj to the database and return the generated UID upon succes', function(done){
+      var result = {
+        label: 'program.label',
+        createdAt: 'date-obj',
+        author: 'config.author',
+        modelType: 'program.modelType',
+        modelData: 'program.modelData',
+        testData: 'program.testData',
+        isTest: true
+      };
+
+      fm.saveResult(result,function(err,res){
+        expect(err).to.be.null;
+        expect(res).to.be.an('string');
+        done(err);
+      })
     });
   });
 });
