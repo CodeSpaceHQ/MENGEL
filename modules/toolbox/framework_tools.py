@@ -58,6 +58,6 @@ def get_data(path, filename, separator):
 
 
 def save_predictions(path, predictions, filename):
-    with open(path + filename, 'wb') as csvfile:
+    with open(path + filename + "_predictions.csv", 'wb') as csvfile:
         writer = csv.writer(csvfile, delimiter=',')
         writer.writerows(predictions)

@@ -15,7 +15,7 @@ class DataPackage(object):
         self.train_data = ft.get_data(setup.get_datasets_path(), train_file, separator)
 
         # Setting what to predict
-        self.target_column = int(raw_input("Which column should be predicted? Provide the name: "))
+        self.target_column = raw_input("Which column should be predicted? Provide the name: ")
 
     def setup_test_data(self, test_file, separator):
         # Loading testing data
