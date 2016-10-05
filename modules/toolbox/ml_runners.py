@@ -3,7 +3,6 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath('../..'))
 
-import pickle
 from modules.toolbox import framework_tools as ft, scikit_regression_learners, setup
 
 
