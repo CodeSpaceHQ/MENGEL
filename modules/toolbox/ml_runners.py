@@ -3,23 +3,19 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath('../..'))
 
-from modules.toolbox import framework_tools as ft, scikit_regression_learners, setup
+from modules.toolbox import scikit_regression_learners, setup
+from validation_package import ValidationPackage
 
 
 # Automatically gets all regression models and runs them. This is brute force, more elegant solution to follow later.
 def run_regressions(package):
-    x_train, x_test, y_train, y_test = ft.get_train_test(package.train_data, package.target_column)
+    validation_pack = ValidationPackage()
+    validation_pack.setup_package(package)
 
     for function in dir(scikit_regression_learners):
         item = getattr(scikit_regression_learners, function)
         if callable(item):
-            model = item(x_train, y_train) # Todo: Look into the possibility of spawning threads
-
-            if package.output_style == "train":
-                model_score(model, x_test, y_test)
-            elif package.output_style == "test":
-                predictions = model_predict(model, package)
-                ft.save_predictions(setup.get_datasets_path(), predictions, function.__name__)
+            print(item(validation_pack, package)) # Todo: Look into the possibility of spawning threads
 
 
 # TODO: Finish this runner or build it into an overall runner

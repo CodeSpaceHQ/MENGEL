@@ -30,10 +30,11 @@ def pre_ml_setup():
     training_file_name = raw_input("Provide the file name: ")
     separator_type = raw_input("Provide the separator for the data file: ")
     prediction_type = raw_input("Type of prediction being done, auto, regression, or classification: ")
+    target_col = raw_input("Which column should be predicted? Provide the name: ")
 
     # Setting up data
     package = data_package.DataPackage()
-    package.setup_training_data(training_file_name, separator_type)
+    package.setup_training_data(training_file_name, separator_type, target_col)
     package.set_output_style(run_type)
 
     if package.output_style == "invalid":
