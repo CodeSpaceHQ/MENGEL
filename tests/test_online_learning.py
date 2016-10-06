@@ -18,7 +18,8 @@ class TestOnlineLearning(TestCase):
         data, validation_pack = self.setup_data()
 
         # Act
-        result = scikit_online_regressors.train_sgd_regressor(validation_pack, data)
+        model = scikit_online_regressors.train_sgd_regressor(validation_pack, data)
+        result = mr.model_use(model, validation_pack, data)
 
         # Assert
         self.assertGreater(result, 0, msg="Failed to beat baseline")
@@ -28,7 +29,8 @@ class TestOnlineLearning(TestCase):
         data, validation_pack = self.setup_data()
 
         # Act
-        result = scikit_online_regressors.train_passive_aggressive_regressor(validation_pack, data)
+        model = scikit_online_regressors.train_passive_aggressive_regressor(validation_pack, data)
+        result = mr.model_use(model, validation_pack, data)
 
         # Assert
         self.assertGreater(result, 0, msg="Failed to beat baseline")

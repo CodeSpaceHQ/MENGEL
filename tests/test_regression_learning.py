@@ -19,7 +19,8 @@ class TestRegressionLearning(TestCase):
         data, validation_pack = self.setup_data()
 
         # Act
-        result = scikit_regression_learners.train_bayesian_ridge(validation_pack, data)
+        model = scikit_regression_learners.train_bayesian_ridge(validation_pack, data)
+        result = mr.model_use(model, validation_pack, data)
 
         # Assert
         self.assertGreater(result, 0, msg="Failed to beat baseline")
@@ -29,17 +30,8 @@ class TestRegressionLearning(TestCase):
         data, validation_pack = self.setup_data()
 
         # Act
-        result = scikit_regression_learners.train_support_vector_regression(validation_pack, data)
-
-        # Assert
-        self.assertGreater(result, 0, msg="Failed to beat baseline")
-
-    def test_adaboost_dtr(self):
-        # Arrange
-        data, validation_pack = self.setup_data()
-
-        # Act
-        result = scikit_regression_learners.train_adaboost_dtr(validation_pack, data)
+        model = scikit_regression_learners.train_support_vector_regression(validation_pack, data)
+        result = mr.model_use(model, validation_pack, data)
 
         # Assert
         self.assertGreater(result, 0, msg="Failed to beat baseline")

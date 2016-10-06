@@ -3,8 +3,10 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath('../..'))
 
-from modules.toolbox import scikit_regression_learners, setup
+from modules.ml_models import scikit_regression_learners
 from validation_package import ValidationPackage
+import setup
+from modules.toolbox import framework_tools as ft
 
 
 # Automatically gets all regression models and runs them. This is brute force, more elegant solution to follow later.
@@ -15,7 +17,8 @@ def run_regressions(package):
     for function in dir(scikit_regression_learners):
         item = getattr(scikit_regression_learners, function)
         if callable(item):
-            print(item(validation_pack, package)) # Todo: Look into the possibility of spawning threads
+            model = item(validation_pack, package)
+            print(model_use(model, validation_pack, package))
 
 
 # TODO: Finish this runner or build it into an overall runner
@@ -23,12 +26,11 @@ def run_classifications():
     return
 
 
-# In case we want to change the scoring method down the road, this is a easy way to standardize that system.
-def model_score(model, x_test, y_test):
-    # Scores the model using the coefficient of determination R^2 of the prediction.
-    return model.score(x_test, y_test) # Todo: should send to logger instead
+def model_use(model, validation_pack, data_pack):
+    model = model.fit(validation_pack.x_train, validation_pack.y_train)
 
-
-# Applies the trained model to test data and saves results
-def model_predict(model, package):
-    return model.predict(package.test_data)
+    if data_pack.output_style == "train":
+        return model.score(validation_pack.x_test, validation_pack.y_test)
+    elif data_pack.output_style == "test":
+        predictions = model.predict(model, data_pack)
+        ft.save_predictions(setup.get_datasets_path(), predictions, "random_forest")

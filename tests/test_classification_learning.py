@@ -13,6 +13,7 @@ import setup
 
 from modules.toolbox.data_package import DataPackage
 from modules.toolbox.validation_package import ValidationPackage
+from modules.toolbox import ml_runners as mr
 
 
 class TestClassificationLearning(unittest.TestCase):
@@ -21,7 +22,8 @@ class TestClassificationLearning(unittest.TestCase):
         data, validation_pack = self.setup_data()
 
         # Act
-        result = scikit_classification_learners.train_random_forest(validation_pack, data)
+        model = scikit_classification_learners.train_random_forest(validation_pack, data)
+        result = mr.model_use(model, validation_pack, data)
 
         # Assert
         self.assertGreater(result, 0, msg="Failed to beat baseline")
@@ -31,7 +33,8 @@ class TestClassificationLearning(unittest.TestCase):
         data, validation_pack = self.setup_data()
 
         # Act
-        result = scikit_classification_learners.train_knn(validation_pack, data)
+        model = scikit_classification_learners.train_knn(validation_pack, data)
+        result = mr.model_use(model, validation_pack, data)
 
         # Assert
         self.assertGreater(result, 0, msg="Failed to beat baseline")
@@ -41,7 +44,8 @@ class TestClassificationLearning(unittest.TestCase):
         data, validation_pack = self.setup_data()
 
         # Act
-        result = scikit_classification_learners.train_svc(validation_pack, data)
+        model = scikit_classification_learners.train_svc(validation_pack, data)
+        result = mr.model_use(model, validation_pack, data)
 
         # Assert
         self.assertGreater(result, 0, msg="Failed to beat baseline")
