@@ -14,11 +14,15 @@ def run_regressions(package):
     validation_pack = ValidationPackage()
     validation_pack.setup_package(package)
 
+    results = []
+
     for function in dir(scikit_regression_learners):
         item = getattr(scikit_regression_learners, function)
         if callable(item):
             model = item(validation_pack, package)
-            print(model_use(model, validation_pack, package))
+            results.append(model_use(model, validation_pack, package))
+
+    return results
 
 
 # TODO: Finish this runner or build it into an overall runner
@@ -26,6 +30,9 @@ def run_classifications():
     return
 
 
+# This function takes a model, the validation data, and the original data
+# and either applies it to check how good the model might work, or to apply it
+# to new unlabeled data.
 def model_use(model, validation_pack, data_pack):
     model = model.fit(validation_pack.x_train, validation_pack.y_train)
 
