@@ -137,4 +137,4 @@ fabric.properties
 datasets/
 *.xml
 .idea/SE2-KaggleComp.iml
-.idea/
+*.idea
