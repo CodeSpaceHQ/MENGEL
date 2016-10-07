@@ -10,52 +10,52 @@ import setup
 
 class TestDimensionalityReduction(TestCase):
 
-    def test_Principle_Component_Analyzer(self):
+    def test_principle_component_analyzer(self):
 
         # Arrange
         data = ft.get_data(setup.get_datasets_path(), "titanic_train.csv", ',')
         start = data.shape
 
         #Act
-        analyzer = scikit_component_analyzers.Principle_Component_Analyzer(data)
+        analyzer = scikit_component_analyzers.principle_component_analyzer(data)
         end = analyzer.shape
 
         #Assert fewer rows
         self.assertLess(end[0], start[0], msg = "Failed to beat baseline")
 
-    def test_Independent_Component_Analyzer(self):
+    def test_independent_component_analyzer(self):
 
         # Arrange
         data = ft.get_data(setup.get_datasets_path(), "titanic_train.csv", ',')
         start = data.shape
 
         #Act
-        analyzer = scikit_component_analyzers.Independent_Component_Analyzer(data)
+        analyzer = scikit_component_analyzers.independent_component_analyzer(data)
         end = analyzer.shape
 
         #Assert fewer rows
         self.assertLess(end[0], start[0], msg = "Failed to beat baseline")
 
-    def test_Factor_Component_Analyzer(self):
+    def test_factor_component_analyzer(self):
         # Arrange
         data = ft.get_data(setup.get_datasets_path(), "titanic_train.csv", ',')
         start = data.shape
 
         # Act
-        analyzer = scikit_component_analyzers.Factor_Component_Analyzer(data)
+        analyzer = scikit_component_analyzers.factor_component_analyzer(data)
         end = analyzer.shape
 
         # Assert fewer rows
         self.assertLess(end[0], start[0], msg="Failed to beat baseline")
 
 
-    def test_Gaussian_Random_Projection(self):
+    def test_gaussian_random_projection(self):
         # Arrange
         data = ft.get_data(setup.get_datasets_path(), "titanic_train.csv", ',')
         start = data.shape
 
         # Act
-        analyzer = scikit_component_analyzers.Gaussian_Random_Projection(data)
+        analyzer = scikit_component_analyzers.gaussian_random_projection(data)
         end = analyzer.shape
 
         # Assert fewer rows

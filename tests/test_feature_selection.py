@@ -9,7 +9,7 @@ from reducers import scikit_feature_selectors
 import setup
 
 class TestFeatureSelection(TestCase):
-    def test_VarianceThreshold_selector(self):
+    def test_variance_threshold_selector(self):
 
         #Arrange
         data = ft.get_data(setup.get_datasets_path(), "titanic_train.csv", ',')
@@ -17,13 +17,13 @@ class TestFeatureSelection(TestCase):
         start = data.shape
 
         #Act
-        reducer = scikit_feature_selectors.VarianceThreshold_selector(data,target)
+        reducer = scikit_feature_selectors.variance_threshold_selector(data,target)
         end = reducer.shape
 
         #Assert fewer columns
         self.assertLess(end[1], start[1], msg = "Failed to beat baseline")
 
-    def test_SelectPercentile_selector(self):
+    def test_select_percentile_selector(self):
 
         #Arrange
         data = ft.get_data(setup.get_datasets_path(), "titanic_train.csv", ',')
@@ -31,13 +31,13 @@ class TestFeatureSelection(TestCase):
         start = data.shape
 
         #Act
-        reducer = scikit_feature_selectors.SelectPercentile_selector(data,target)
+        reducer = scikit_feature_selectors.select_percentile_selector(data,target)
         end = reducer.shape
 
         # Assert fewer columns
         self.assertLess(end[1], start[1], msg = "Failed to beat baseline")
 
-    def test_SelectKBest_selector(self):
+    def test_select_k_best_selector(self):
 
         #Arrange
         data = ft.get_data(setup.get_datasets_path(), "titanic_train.csv", ',')
@@ -45,7 +45,7 @@ class TestFeatureSelection(TestCase):
         start = data.shape
 
         #Act
-        reducer = scikit_feature_selectors.SelectKBest_selector(data,target)
+        reducer = scikit_feature_selectors.select_k_best_selector(data,target)
         end = reducer.shape
 
         # Assert fewer columns
