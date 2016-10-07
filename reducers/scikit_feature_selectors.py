@@ -42,7 +42,3 @@ def SelectPercentile_selector(data):
     selector = selector.transform(data)
     # selector.columns = features
     return selector
-
-data = ft.get_data(setup.get_datasets_path(), "titanic_train.csv", ',')
-x = SelectPercentile_selector(data)
-print(x)
