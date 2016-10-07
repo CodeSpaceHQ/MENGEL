@@ -64,11 +64,9 @@ def SelectKBest_selector(data,target):
     selector = pd.DataFrame(selector.transform(data))
     selector.columns = features
     return selector
-<<<<<<< HEAD
-=======
+
 
 data = ft.get_data(setup.get_datasets_path(), "titanic_train.csv", ',')
 target = 'Survived'
 x = SelectKBest_selector(data, target)
 print(x)
->>>>>>> origin/zak/dim_reduct
