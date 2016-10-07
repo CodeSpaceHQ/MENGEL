@@ -15,7 +15,7 @@ class TestClassificationLearning(unittest.TestCase):
         # Arrange
         data = ft.get_data(setup.get_datasets_path(), "titanic_train.csv", ',')
         x_train, x_test, y_train, y_test = ft.get_train_test(data, "Survived")
-        print(y_train)
+        
         # Act
         model = scikit_classification_learners.train_random_forest(x_train, y_train)
         result = mr.model_score(model, x_test, y_test)
