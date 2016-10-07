@@ -54,8 +54,6 @@ def select_k_best_selector(data,target):
     #Select Model
     selector = SelectKBest(k=3) #default is 10 features
 
-    #Fit the model
-    selector.fit(x_train, y_train)
     # Fit the Model
     selector.fit(x_train, y_train)
 
