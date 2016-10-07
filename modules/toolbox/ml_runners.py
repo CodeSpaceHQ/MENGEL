@@ -3,10 +3,12 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath('../..'))
 
-from modules.ml_models import scikit_regression_learners
-from validation_package import ValidationPackage
 import setup
+from validation_package import ValidationPackage
 from modules.toolbox import framework_tools as ft
+from modules.ml_models import scikit_online_regressors
+from modules.ml_models import scikit_regression_learners
+from modules.toolbox import *
 
 
 # Automatically gets all regression models and runs them. This is brute force, more elegant solution to follow later.
