@@ -4,7 +4,7 @@
   "description": "Initialize MLTA",
   "main": "mlta-config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/mocha/bin/mocha"
   },
   "bin": {
     "mlta-config": "./mlta-config.js"
@@ -18,5 +18,12 @@
     "mkdirp": "^0.5.1",
     "prompt": "^1.0.0",
     "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.1.0",
+    "rewire": "^2.5.2",
+    "mock-stdin": "^0.3.1",
+    "proxyquire": "^1.7.10"
   }
 }

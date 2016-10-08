@@ -52,7 +52,7 @@ prompt.get({
     if (err) {
       createNewConfig(result.name,configFilePath);//If that file does NOT exist, then it must be a new project
     } else {
-      console.log("Config already exists")''
+      console.log("Config already exists")
       //modifyExistConfig(result.name,configFilePath); //If that file does exist, then this is an existing project
     }
   })
