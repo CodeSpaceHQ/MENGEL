@@ -13,7 +13,7 @@ If you didn't choose to install using the install script found [here](../#instal
 ```bash
 npm install -g
 ```
-The `-g` flag installs mlta-config globally so you can call this program from anywhere. However, if you do not want to or cannot install globally `npm install` will work, you just will have to call mlta-config from this directory.
+The `-g` flag installs `mlta config` globally so you can call this program from anywhere. However, if you do not want to or cannot install globally `npm install` will work, you just will have to call mlta-config from this directory.
 
  so you can use the command `mlta config`. However, if you do not or cannot install globally `npm install` will work and to call the program you will have to use `./mlta-config.js` instead of `mlta config`.
 
@@ -38,7 +38,7 @@ $ mlta config
 MLTA:Project Name:: MyProjectsName
 MLTA:Your Name:: MyName
 MLTA:Firebase Database URL:: MyDatabaseURL
-MLTA:Firebase Service Account JSON File Location (Please enter full path name):: FullPathTOServiceAccount
+MLTA:Firebase Service Account JSON File Location (Please enter full path name):: FullPathToServiceAccount
 
 ```
 
