@@ -37,7 +37,11 @@ While global install is preferred, if for some reason you don't want to install 
 ### Setup
 After installing MLTA, the first thing to run is:
 ``` bash
-mlta-config
+mlta config
+```
+or if MLTA is not installed globally, navigate to '../mlta-config' and run
+```bash
+./mlta-config.js
 ```
 Configuration is managed on a per person, per project basis and should be run for each project, for each user. Configuration files are stored in `~/.mlta/[PROJECT-NAME].config`
 
