@@ -20,6 +20,18 @@ def get_train_test(pandas_data, target_col):
     return cross_validation.train_test_split(x, y, test_size=0.2)
 
 
+def separate_target(pandas_data, target_col):
+    # Selection of training/target data for validation and training.
+    data = pd.DataFrame.as_matrix(pandas_data)
+    target_loc = pandas_data.columns.get_loc(target_col)
+    y = data[:, target_loc]
+
+    x = pandas_data.drop(target_col, 1)
+    x = pd.DataFrame.as_matrix(x)
+
+    return x, y
+
+
 def scale_numeric_data(pandas_data):
     # Scaling is important because if the variables are too different from
     # one another, it can throw off the model.

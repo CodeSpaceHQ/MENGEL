@@ -13,15 +13,14 @@ from modules.toolbox import *
 
 # Automatically gets all regression models and runs them. This is brute force, more elegant solution to follow later.
 def run_regressions(package):
-    validation_pack = ValidationPackage()
-    validation_pack.setup_package(package)
+    validation_pack = package
 
     results = []
 
     for function in dir(scikit_regression_learners):
         item = getattr(scikit_regression_learners, function)
         if callable(item):
-            model = item(validation_pack, package)
+            model = item()
             results.append(model_use(model, validation_pack, package))
 
     return results

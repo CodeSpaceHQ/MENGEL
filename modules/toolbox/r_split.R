@@ -6,6 +6,7 @@
 #  The Data is then split into training and testing data and exported to .csv in the folder
 #  That RealSplit.py is called from.
 
+setwd("datasets") ### need to set dynamically
 
 library(dplyr)
 

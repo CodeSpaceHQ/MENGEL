@@ -5,6 +5,7 @@ sys.path.insert(0, os.path.abspath(''))
 from modules.toolbox import framework_tools as ft
 from modules.toolbox import ml_runners
 from modules.toolbox import data_package
+from modules.toolbox import validation_package
 
 # This is the "starting point" for the framework.
 # Functions
@@ -34,17 +35,19 @@ def pre_ml_setup():
 
     # Setting up data
     package = data_package.DataPackage()
-    package.setup_training_data(training_file_name, separator_type, target_col)
     package.set_output_style(run_type)
+    validation_pack = validation_package.ValidationPackage()
+    validation_pack = validation_pack.split_file(training_file_name, target_col)
 
     if package.output_style == "invalid":
         return
 
     # Getting the type of algorithm that should be run against the data
-    if prediction_type == "auto":
-        prediction_type = ft.get_prediction_type(package.train_data[package.target_column])
+    if prediction_type != "regression" or prediction_type != "classification":
+        print("Please input a type of prediction to be doing")
+        return
 
-    run_framework(package, prediction_type)
+    run_framework(validation_pack, prediction_type)
 
 
 
