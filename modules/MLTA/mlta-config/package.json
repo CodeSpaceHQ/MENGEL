@@ -17,6 +17,7 @@
     "jsonfile": "^2.4.0",
     "mkdirp": "^0.5.1",
     "prompt": "^1.0.0",
+    "tracer": "^0.8.3",
     "underscore": "^1.8.3"
   },
   "devDependencies": {

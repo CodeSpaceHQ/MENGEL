@@ -7,6 +7,18 @@ var jsonfile = require('jsonfile') //Config files are in JSON format
 var fs = require('fs') //fs = filesystem, used for creating files
 var _ = require("underscore"); //Various useful utils. Used here to make sure the fields array are all unique
 
+//Logging stuff
+var logger = require('tracer').console(
+  {
+    format : "{{timestamp}} <{{title}}> {{message}} (in {{file}}:{{line}})",
+    dateformat : "HH:MM:ss.L"
+  });
+
+
+
+
+
+//Other MLTA modules
 var cm = require('../mlta/config-manager.js');
 var fb = require('../mlta/firebase-manager');
 
@@ -15,20 +27,15 @@ var mltaDirPath = path.join(process.env.HOME, '.mlta'); //This basically holds t
 //Used to create the MLTA home directory if it doesn't already exists. Think of bash's command 'mkdir -p'
 mkdirp(mltaDirPath, function(err){
   if (err) {
-    console.error(err);
-    process.exit(1);
+    logger.error("Unable to create MLTA folder at %s",mltaDirPath);
+    return onError(err)
   }
 });
 
 //Helper function for handling errors
 function onError(err){
-  console.log(err);
+  logger.error('Stack: %j', err);
   return 1;
-}
-
-//Helper function for logging
-function log(message){
-  console.log(message);
 }
 
 //Get user input
@@ -51,8 +58,8 @@ prompt.get({
   cm.getConfigIfExists(result.name,function(err,config){
     if (err) {
       createNewConfig(result.name,configFilePath);//If that file does NOT exist, then it must be a new project
-    } else {
-      console.log("Config already exists")
+    } else {``
+      logger.info('Config file with name %s already exists.',result.name)
       //modifyExistConfig(result.name,configFilePath); //If that file does exist, then this is an existing project
     }
   })
@@ -60,9 +67,9 @@ prompt.get({
 
 //First try and refresh the config file from the DB, TODO: Complete this.
 function modifyExistConfig(name,configFile){
-  log("Loading configuration for " + name);
+  logger.info('Loading config file for %s',name);
   var obj = jsonfile.readFileSync(configFile.toString());
-  log(obj);
+  logger.debug('Loading config file: %j',obj);
 }
 
 
@@ -88,7 +95,7 @@ function createNewConfig(name,configFile){
           try{
             fs.accessSync(value, fs.F_OK)
           } catch(e){
-            log("Could not find file: " + value);
+            logger.error('Could not find file %s', value);
             process.exit(1);
           }
           return value;
@@ -101,23 +108,22 @@ function createNewConfig(name,configFile){
     newConfig.author = result.author;
     newConfig.databaseURL = result.db;
     newConfig.serviceAccount = result.sa;
-
-    console.log("Connecting to Firebase")
+    logger.info('Connecting to Firebase')
     fb.connectToFirebase(newConfig,function(err){
       if(err){
-        console.log(err);
-        process.exit();
+        return onError(err);
       }
 
-      console.log("Connected!");
+    logger.info('Connected!');
 
       cm.saveConfig(newConfig,function(err){
         if(err){
-          console.log(err);
+          return onError(err);
         } else {
-          log("Configuration saved!");
+          logger.info('Configuration saved!')
+          logger.debug('Saved configuration: %j',newConfig);
         }
-          process.exit();
+        process.exit();
       });
     });
 
