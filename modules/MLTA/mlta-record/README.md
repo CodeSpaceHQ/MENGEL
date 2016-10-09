@@ -1,4 +1,4 @@
-# MLTA Config
+# MLTA Record
 ###### Machine Learning Test Analyzer and recorder Configuration
 The MLTA Record tool is used to create records of machine learning algorithm tests and store the results in a Firebase database.
 
