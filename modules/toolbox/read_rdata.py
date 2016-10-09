@@ -15,7 +15,7 @@ class reader:
 
     def Read_rds(filepath):
         """
-        :input: 
+        :input: filepath to .rds file
         :return: A pandas Dataframe
         """
         dataset = robjects.r['readRDS'](filepath)
