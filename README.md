@@ -1,3 +1,5 @@
+<a href="https://codeclimate.com/github/ASAAR/SE2-KaggleComp"><img src="https://codeclimate.com/github/ASAAR/SE2-KaggleComp/badges/gpa.svg" /></a> <a href="https://codeclimate.com/github/ASAAR/SE2-KaggleComp"><img src="https://codeclimate.com/github/ASAAR/SE2-KaggleComp/badges/issue_count.svg" /></a>
+
 # SE2-KaggleComp
 Software Engineering 2 class kaggle competition repo. We'll also be building a bit of a framework to help make doing these easier in the future.
 
