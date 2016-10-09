@@ -9,7 +9,7 @@ The MLTA Config tool is used to create and manage your MLTA configurations. By h
 - [Firebase](https://firebase.google.com)
 
 ### Installation
-If you didn't choose to install using the install script found [here](../installation), you can install with this command
+If you didn't choose to install using the install script found [here](../#installation), you can install with this command
 ```bash
 npm install -g
 ```
