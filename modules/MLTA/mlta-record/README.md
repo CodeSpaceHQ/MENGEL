@@ -16,7 +16,7 @@ The `-g` flag installs `mlta record` globally so you can call this program from 
  so you can use the command `mlta record`. However, if you do not or cannot install globally `npm install` will work and to call the program you will have to use `./mlta-record.js` instead of `mlta record`.
 
 
- ### Usage
+### Usage 
  If you installed globally, you can launch the MLTA Record tool with this command:
  ```bash
  mlta record
