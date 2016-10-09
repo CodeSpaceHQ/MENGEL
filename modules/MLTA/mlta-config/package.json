@@ -4,7 +4,7 @@
   "description": "Initialize MLTA",
   "main": "mlta-config.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha"
+    "test": "./node_modules/mocha/bin/mocha -C"
   },
   "bin": {
     "mlta-config": "./mlta-config.js"

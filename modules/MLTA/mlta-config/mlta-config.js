@@ -8,8 +8,8 @@ var fs = require('fs') //fs = filesystem, used for creating files
 var _ = require("underscore"); //Various useful utils. Used here to make sure the fields array are all unique
 
 //Logging stuff
-var logger = require('tracer').console(
-  {
+var logger = require('tracer').console({
+    level: 'warn',
     format : "{{timestamp}} <{{title}}> {{message}} (in {{file}}:{{line}})",
     dateformat : "HH:MM:ss.L"
   });
@@ -58,7 +58,7 @@ prompt.get({
   cm.getConfigIfExists(result.name,function(err,config){
     if (err) {
       createNewConfig(result.name,configFilePath);//If that file does NOT exist, then it must be a new project
-    } else {``
+    } else {
       logger.info('Config file with name %s already exists.',result.name)
       //modifyExistConfig(result.name,configFilePath); //If that file does exist, then this is an existing project
     }
