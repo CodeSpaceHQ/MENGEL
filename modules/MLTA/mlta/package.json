@@ -4,7 +4,7 @@
   "description": "Machine Learning Tests Analyser",
   "main": "mlta.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha"
+    "test": "./node_modules/mocha/bin/mocha -C"
   },
   "bin": {
     "mlta": "./mlta.js"
@@ -17,7 +17,8 @@
     "fs": "0.0.1-security",
     "jsonfile": "^2.4.0",
     "mkdirp": "^0.5.1",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "tracer": "^0.8.3"
   },
   "devDependencies": {
     "chai": "^3.5.0",
