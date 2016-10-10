@@ -1,0 +1,28 @@
+{
+  "name": "mlta",
+  "version": "0.0.1",
+  "description": "Machine Learning Tests Analyser",
+  "main": "mlta.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha -C"
+  },
+  "bin": {
+    "mlta": "./mlta.js"
+  },
+  "author": "Alexander Clines",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "firebase": "^3.4.1",
+    "fs": "0.0.1-security",
+    "jsonfile": "^2.4.0",
+    "mkdirp": "^0.5.1",
+    "path": "^0.12.7",
+    "tracer": "^0.8.3"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "firebase-server": "^0.7.0",
+    "mocha": "^3.1.0"
+  }
+}
