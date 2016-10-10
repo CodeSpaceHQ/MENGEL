@@ -43,6 +43,7 @@ def pre_ml_setup():
     validation_pack.split_file(training_file_name, target_col)
 
     if package.output_style == "invalid":
+        print("Must input either 'train' or 'test' as output style.")
         return
 
     # Getting the type of algorithm that should be run against the data
