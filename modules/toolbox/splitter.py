@@ -10,17 +10,19 @@ import sys
 import subprocess
 import os
 
-scriptpath = os.getcwd()+ "/r_split.R"
+scriptpath = os.getcwd() + "/modules/toolbox/r_split.R"
 
 class Splitter:
 
+    def __init__(self):
+        return
 
     """
     input: filepath to desired .csv file to split (must be .csv)
     output: two datasets, one for training one for testing. (output will be in.csv form and .rda
     """
 
-    def Split(filepath):
+    def Split(self, filepath):
         args = [filepath]
         cmd = ["Rscript", scriptpath] + args
         subprocess.call(cmd)

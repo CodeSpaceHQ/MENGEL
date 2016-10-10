@@ -3,9 +3,10 @@ import pandas as pd
 from sklearn import preprocessing
 from sklearn import cross_validation
 
+
 # Helper functions for the whole framework to use
 def get_train_test(pandas_data, target_col):
-    #pandas_data = scale_numeric_data(pandas_data)
+    pandas_data = scale_numeric_data(pandas_data)
 
     # Selection of training/target data for validation and training.
     data = pd.DataFrame.as_matrix(pandas_data)
@@ -15,10 +16,20 @@ def get_train_test(pandas_data, target_col):
     x = pandas_data.drop(target_col, 1)
     x = pd.DataFrame.as_matrix(x)
 
-    x = preprocessing.scale(x)
-
     # Selecting training and test sets
     return cross_validation.train_test_split(x, y, test_size=0.2)
+
+
+def separate_target(pandas_data, target_col):
+    # Selection of training/target data for validation and training.
+    data = pd.DataFrame.as_matrix(pandas_data)
+    target_loc = pandas_data.columns.get_loc(target_col)
+    y = data[:, target_loc]
+
+    x = pandas_data.drop(target_col, 1)
+    x = pd.DataFrame.as_matrix(x)
+
+    return x, y
 
 
 def scale_numeric_data(pandas_data):
@@ -56,5 +67,13 @@ def get_prediction_type(target_column):
     return prediction_type
 
 
+# A standard way of retrieving data, separating this out in case we need to change it.
 def get_data(path, filename, separator):
     return pd.read_csv(path + filename, sep=separator)
+
+
+# A standard way to save the results of an applied model on an unlabeled test data set
+def save_predictions(path, predictions, filename):
+    with open(path + filename + "_predictions.csv", 'wb') as csvfile:
+        writer = csv.writer(csvfile, delimiter=',')
+        writer.writerows(predictions)

@@ -24,7 +24,7 @@ class TestDimensionalityReduction(TestCase):
         analyzer = scikit_component_analyzers.run_analyzer(PCA, 3, data)
         end = analyzer.shape
 
-        #Assert fewer rows
+        # Assert fewer rows
         self.assertLess(end[0], start[0], msg = "Failed to beat baseline")
 
     def test_independent_component_analyzer(self):
@@ -37,7 +37,7 @@ class TestDimensionalityReduction(TestCase):
         analyzer = scikit_component_analyzers.run_analyzer(FastICA, 3, data)
         end = analyzer.shape
 
-        #Assert fewer rows
+        # Assert fewer rows
         self.assertLess(end[0], start[0], msg = "Failed to beat baseline")
 
     def test_factor_component_analyzer(self):
