@@ -20,13 +20,8 @@ class TestDimensionalityReduction(TestCase):
         data = ft.get_data(setup.get_datasets_path(), "titanic_train.csv", ',')
         start = data.shape
 
-<<<<<<< HEAD
-        # Act
-        analyzer = scikit_component_analyzers.principle_component_analyzer(data)
-=======
         #Act
         analyzer = scikit_component_analyzers.run_analyzer(PCA, 3, data)
->>>>>>> master
         end = analyzer.shape
 
         # Assert fewer rows
@@ -38,13 +33,8 @@ class TestDimensionalityReduction(TestCase):
         data = ft.get_data(setup.get_datasets_path(), "titanic_train.csv", ',')
         start = data.shape
 
-<<<<<<< HEAD
-        # Act
-        analyzer = scikit_component_analyzers.independent_component_analyzer(data)
-=======
         #Act
         analyzer = scikit_component_analyzers.run_analyzer(FastICA, 3, data)
->>>>>>> master
         end = analyzer.shape
 
         # Assert fewer rows
