@@ -1,7 +1,7 @@
 {
   "name": "config",
   "version": "0.0.1",
-  "description": "Initialize MLTA",
+  "description": "MLTA Configuration Tool",
   "main": "mlta-config.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha -C"
