@@ -22,7 +22,7 @@ class TestClassificationLearning(unittest.TestCase):
         data, validation_pack = self.setup_data()
 
         # Act
-        model = scikit_classification_learners.train_random_forest(validation_pack, data)
+        model = scikit_classification_learners.train_random_forest()
         result = mr.model_use(model, validation_pack, data)
 
         # Assert
@@ -33,7 +33,7 @@ class TestClassificationLearning(unittest.TestCase):
         data, validation_pack = self.setup_data()
 
         # Act
-        model = scikit_classification_learners.train_knn(validation_pack, data)
+        model = scikit_classification_learners.train_knn()
         result = mr.model_use(model, validation_pack, data)
 
         # Assert
@@ -44,7 +44,7 @@ class TestClassificationLearning(unittest.TestCase):
         data, validation_pack = self.setup_data()
 
         # Act
-        model = scikit_classification_learners.train_svc(validation_pack, data)
+        model = scikit_classification_learners.train_svc()
         result = mr.model_use(model, validation_pack, data)
 
         # Assert

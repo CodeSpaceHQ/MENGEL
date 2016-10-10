@@ -21,4 +21,3 @@ class ValidationPackage(object):
         test = ft.get_data(setup.get_datasets_path(), "testing.data.csv", ",")
         self.x_train, self.y_train = ft.separate_target(train, target)
         self.x_test, self.y_test = ft.separate_target(test, target)
-

@@ -19,7 +19,7 @@ class TestRegressionLearning(TestCase):
         data, validation_pack = self.setup_data()
 
         # Act
-        model = scikit_regression_learners.train_bayesian_ridge(validation_pack, data)
+        model = scikit_regression_learners.train_bayesian_ridge()
         result = mr.model_use(model, validation_pack, data)
 
         # Assert
@@ -30,7 +30,7 @@ class TestRegressionLearning(TestCase):
         data, validation_pack = self.setup_data()
 
         # Act
-        model = scikit_regression_learners.train_support_vector_regression(validation_pack, data)
+        model = scikit_regression_learners.train_support_vector_regression()
         result = mr.model_use(model, validation_pack, data)
 
         # Assert

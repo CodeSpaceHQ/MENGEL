@@ -12,8 +12,7 @@ from modules.toolbox import *
 
 
 # Automatically gets all regression models and runs them. This is brute force, more elegant solution to follow later.
-def run_regressions(package):
-    validation_pack = package
+def run_regressions(validation_pack, package):
 
     results = []
 
