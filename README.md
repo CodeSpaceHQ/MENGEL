@@ -27,3 +27,14 @@ Software Engineering 2 class kaggle competition repo. We'll also be building a b
 
 ###### Coding Standards (Please Call Us On It)
 - [Python](https://google.github.io/styleguide/pyguide.html)
+
+###### Running The Framework
+We will be streamlining this over future iterations, but currently it works like this. The framework is also not fully featured and only a few algorithms are fully supported currently.
+- run "python launcher.py"
+- provide answers to the following questions,
+  - train or test: train means that you just want to see what kinds of results you might get, test means it will both train the model and run it against test data. Test is not fully supported yet.
+  - training file name: In either case, this is necessary. Please include the file ending (i.e. .csv).
+  - separator: This designates the type of separator used in the csv file, we will be modifying the way this works in the future to account for other file types.
+  - target column: Provide the *name* of the column that you want to target, the framework will find and isolate that column before training a model.
+
+We will be adding ways to see results, such as logger reports.
