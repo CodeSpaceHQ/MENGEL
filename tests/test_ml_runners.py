@@ -4,6 +4,7 @@ sys.path.insert(0, os.path.abspath('..'))
 
 from unittest import TestCase
 from modules.toolbox import data_package
+from modules.toolbox import validation_package
 from modules.toolbox import ml_runners as mr
 
 
@@ -15,12 +16,13 @@ class TestMLRunners(TestCase):
 
         # Arrange
         package = data_package.DataPackage()
-        package.setup_training_data("winequality-red.csv", ";", "quality")
         package.set_output_style("train")
+        validation_pack = validation_package.ValidationPackage()
+        validation_pack.split_file("winequality-red.csv", "quality")
 
         # Act
-        results = mr.run_regressions(package)
+        results = mr.run_regressions(validation_pack, package)
 
         # Assert
-        self.assertAlmostEqual(results[0], 0.329240031815, 0)
-        self.assertAlmostEqual(results[1], 0.373687993227, 0)
+        self.assertAlmostEqual(results[0], 0.329824925476, 0)
+        self.assertAlmostEqual(results[1], -0.0179604853689, 0)

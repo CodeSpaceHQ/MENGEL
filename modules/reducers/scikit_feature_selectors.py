@@ -5,7 +5,6 @@ sys.path.insert(0, os.path.abspath('..'))
 
 import numpy
 from modules.toolbox import framework_tools as ft
-import setup
 from sklearn.feature_selection import VarianceThreshold
 from sklearn.feature_selection import SelectPercentile
 from sklearn.feature_selection import SelectKBest
@@ -21,7 +20,7 @@ def format_selector(selector,data, target):
 
     # Retain the feature names
     features = selector.get_support(indices = True)  # Returns array of indexes of nonremoved features
-    features = [column for column in data[features] if column != target] #Gets feature names
+    features = [column for column in data[features] if column != target]  # Gets feature names
 
     # Transform, Format, Return
     selector = pd.DataFrame(selector.transform(data))
