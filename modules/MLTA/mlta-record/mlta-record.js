@@ -5,6 +5,8 @@ var jsonfile = require('jsonfile') //Config files are in JSON format
 var fs = require('fs') //fs = filesystem, used for creating files
 var path = require('path'); //Handles path naming
 
+var placeholderKey = "1234"; //When the data is only being validated, not uploaded, this is the key that is returned.
+
 //Logging stuff
 var tracer = require('tracer');
 tracer.setLevel(4) //'log':0, 'trace':1, 'debug':2, 'info':3, 'warn':4, 'error':5
@@ -18,6 +20,7 @@ var fb = require('../mlta/firebase-manager');
 
 //Helper function for handling errors
 function onError(err) {
+    console.log(1)
     logger.error('Message: %s',err.message)
     logger.debug('Stack: %j', err);
     return 1;
@@ -97,10 +100,12 @@ function saveRecordToFB(options, done) {
 
             };
 
-            fb.saveResult(result, function(err) {
+            fb.saveResult(result, function(err,key) {
                 if(err) {
                     return done(err);
                 } else {
+                    console.log("0")
+                    console.log(key)
                     return done(null);
                 }
             });
@@ -132,6 +137,9 @@ validateOptions(program, function(err, options) {
           if(err) return onError(err);
           process.exit();
       });
+    } else {
+      console.log("0")
+      console.log("%s",placeholderKey) //Place holder key
     }
 
 });
