@@ -40,6 +40,7 @@ function testData(val, data) {
 
 //Get arguemnts/options
 function validateOptions(program, done) {
+  logger.debug("Program: %j",program);
     var options = new Object();
     //Make sure all required arguments have been met and that all optional arguemnts that were not passed in have their default values set
     if(!program.project) {
@@ -73,7 +74,7 @@ function saveRecordToFB(options, done) {
     var configFile = configFileDir + '.config';
     fs.access(configFile, fs.F_OK, function(err) {
         if(err) {
-            log("Error: Could not load config file for " + options.project);
+            logger.error("Error: Could not load config file for %s",options.project);
             return done(err);
         }
 
