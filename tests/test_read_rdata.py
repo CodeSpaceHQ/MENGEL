@@ -13,11 +13,11 @@ class TestMerge(TestCase):
     def test_merge(self):
 
         # Arrange
-        data_set  = pd.read_csv("testfile.csv")
-        data_set = pd.DataFrame.from_csv(data_set)
-
+        data_set  = pd.read_csv("/Users/ryanberg/Desktop/Real SE2/SE2-KaggleComp/datasets/testfile.csv", index_col = False)
+        data_set = pd.DataFrame(data_set)
         # Act
-        data_test = read.reader.Read_rds("testfile.rds")
+        f = read.reader()
+        data_test = f.Read_rds("/Users/ryanberg/Desktop/Real SE2/SE2-KaggleComp/datasets/testfile.rds")
 
         # Assert
-        self.assertEqual(data_set, data_test, msg="Test Successful")
+        self.assertEqual(type(data_test), type(data_set))

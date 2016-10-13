@@ -13,7 +13,10 @@ import sys
 
 class reader:
 
-    def Read_rds(filepath):
+    def __init__(self):
+        return
+
+    def Read_rds(self, filepath):
         """
         :input: filepath to .rds file
         :return: A pandas Dataframe
