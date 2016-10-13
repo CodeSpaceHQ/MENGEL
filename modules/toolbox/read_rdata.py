@@ -4,6 +4,8 @@
 ###
 ### This function assums that there is a .rds file saved, and the filepath to that file is input from the command line.
 ###
+###  This Fucntion requires the rpy2 pacakge.
+###
 
 
 import rpy2.robjects as robjects
