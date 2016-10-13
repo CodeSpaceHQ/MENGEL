@@ -18,6 +18,7 @@ var fb = require('../mlta/firebase-manager');
 
 //Helper function for handling errors
 function onError(err) {
+    logger.error('Message: %s',err.message)
     logger.error('Stack: %j', err);
     return 1;
 }
