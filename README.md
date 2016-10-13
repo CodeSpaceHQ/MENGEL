@@ -12,9 +12,22 @@ These instructions will get you a copy of the project up and running on your loc
 
 What things you need to install the software and how to install them
 
-```
-Give examples
-```
+###### Python and Related Libraries
+1. [Install the latest Python 2.7](https://www.python.org/downloads/release/python-2712/)
+2. Go into your unix system and install [SciPy](https://www.scipy.org/install.html)
+  1. Note that installation might be different for different systems
+  2. For Ubuntu, try:
+  
+      ```shell
+      sudo apt-get install python-numpy python-scipy python-pandas python-sympy python-nose
+      ```
+3. Install [SciKit-Learn](http://scikit-learn.org/stable/install.html) using pip
+
+###### R and Related Libraries
+1. [Install latest version of R](
+
+###### Javascript, NodeJS, and Related Libraries
+
 
 ### Installing
 
