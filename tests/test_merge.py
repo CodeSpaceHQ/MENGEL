@@ -20,4 +20,4 @@ class TestMerge(TestCase):
         data_test = pd.read_csv("full.dataset.csv")
 
         # Assert
-        self.assertEqual(data_set, data_test, msg="Test Successful")
+        self.assertEqual(data_set, data_test, msg="Merge failed")

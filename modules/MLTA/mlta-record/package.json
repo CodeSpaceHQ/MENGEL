@@ -1,0 +1,28 @@
+{
+  "name": "analyzer",
+  "version": "0.0.1",
+  "description": "MLTA Recording Tool",
+  "main": "mlta-record.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha -C"
+  },
+  "bin": {
+    "mlta-record": "./mlta-record.js"
+  },
+  "author": "Alexander Clines",
+  "license": "ISC",
+  "files" : ["../utils/firebase-manager.js"],
+  "dependencies": {
+    "commander": "^2.9.0",
+    "fs": "0.0.1-security",
+    "jsonfile": "^2.4.0",
+    "path": "^0.12.7",
+    "tracer": "^0.8.3"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.1.0",
+    "rewire": "^2.5.2",
+    "mock-stdin": "^0.3.1"
+  }
+}
