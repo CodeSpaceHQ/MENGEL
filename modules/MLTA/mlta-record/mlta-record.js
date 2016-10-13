@@ -19,7 +19,7 @@ var fb = require('../mlta/firebase-manager');
 //Helper function for handling errors
 function onError(err) {
     logger.error('Message: %s',err.message)
-    logger.error('Stack: %j', err);
+    logger.debug('Stack: %j', err);
     return 1;
 }
 
@@ -74,8 +74,8 @@ function saveRecordToFB(options, done) {
     var configFile = configFileDir + '.config';
     fs.access(configFile, fs.F_OK, function(err) {
         if(err) {
-            logger.error("Error: Could not load config file for %s",options.project);
-            return done(err);
+            logger.info("Error: Could not load config file for %s",options.project);
+            return done(new Error("Could not load config file for " + options.project));
         }
 
         var config = jsonfile.readFileSync(configFile.toString());
