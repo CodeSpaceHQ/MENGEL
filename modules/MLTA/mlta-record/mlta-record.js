@@ -116,6 +116,7 @@ program
     .option('-m, --modelType <type>', 'Type of model used.')
     .option('-d, --modelData <key:value>', 'Key-value pair of info about the model', modelData, {})
     .option('-D, --testData < key:value>', 'Key-value pair of info about the test', testData, {})
+    .option('-v  --validate','Validate input only, does not upload to database')
     .parse(process.argv);
 
 
@@ -125,9 +126,12 @@ validateOptions(program, function(err, options) {
     }
     logger.info('onValidOptionsDone');
     logger.debug('Options: %j', options);
-    saveRecordToFB(options, function(err) {
-        logger.info('saved to firebase');
-        if(err) return onError(err);
-        process.exit();
-    });
+    if(!program.validate){
+      saveRecordToFB(options, function(err) {
+          logger.info('saved to firebase');
+          if(err) return onError(err);
+          process.exit();
+      });
+    }
+
 });
