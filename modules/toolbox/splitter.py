@@ -10,7 +10,7 @@ import sys
 import subprocess
 import os
 
-scriptpath = os.getcwd() + "/r_split.R"
+scriptpath = os.path.dirname(os.path.realpath(__file__)) + "/r_split.R"
 
 class Splitter:
 
@@ -24,14 +24,15 @@ class Splitter:
 
     """
 
-    def Split(filepath, separator):
+    def Split(self, filepath, separator):
         args = [filepath]
         sep = [separator]
         cmd = ["Rscript", scriptpath] + args + sep
         subprocess.call(cmd)
 
 
-    if __name__ == "__main__":
-        filepath = sys.argv[1]
-        separator = sys.argv[2]
-        Split(filepath, separator)
+if __name__ == "__main__":
+    filepath = sys.argv[1]
+    separator = sys.argv[2]
+    split = Splitter()
+    split.Split(filepath, separator)

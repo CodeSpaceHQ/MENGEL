@@ -6,10 +6,13 @@
 #  The Data is then split into training and testing data and exported to .csv in the folder
 #  That RealSplit.py is called from.
 
-path = paste0(getwd(), "/../../datasets")
-setwd(path) ### sets the path dynamically per machine, assuming this filestructure.
 
 library(dplyr)
+
+path = getwd()
+path = ifelse(length(grep("tests", path)) == 1, paste0(getwd(), "/../datasets"), paste0(getwd(), "/../../datasets"))
+
+setwd(path) ### sets the path dynamically per machine, assuming this filestructure.
 
 Args <- commandArgs(trailingOnly =  T)
 
