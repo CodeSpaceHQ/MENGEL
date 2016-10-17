@@ -10,7 +10,7 @@ class TestSplitter(TestCase):
 
     def test_Split_one(self):
         # Arrange
-        filepath = os.getcwd() + "/../datasets/"
+        filepath = setup.get_datasets_path()
         splitter = sp.Splitter();
         splitter.Split((filepath + "testfile.csv"), ",")
 
@@ -38,7 +38,7 @@ class TestSplitter(TestCase):
     def test_split_two(self):
 
         #Arrange
-        filepath = os.getcwd() + "/../datasets/"
+        filepath = setup.get_datasets_path()
         splitter = sp.Splitter();
         splitter.Split((filepath + "winequality-red.csv"), ";")
 
