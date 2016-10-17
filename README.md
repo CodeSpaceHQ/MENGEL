@@ -83,21 +83,22 @@ Please read [CONTRIBUTING.md](https://github.com/ASAAR/SE2-KaggleComp/blob/docum
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+We do not use versioning currently, we will likely use [SemVer](http://semver.org/) for versioning eventually. For the versions available, see the [tags on this repository](https://github.com/ASAAR/SE2-KaggleComp/tags). 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Alexander Clines** - *Initial work* - [asclines](https://github.com/asclines)
+* **Isaac Griswold-Steiner** - *Initial work* - [ASAAR](https://github.com/ASAAR)
+* **Zakery Fyke** - *Initial work* - [ZakeryFyke](https://github.com/ZakeryFyke)
+* **Ryan McBerg** - *Initial work* - [RyanMcBerg](https://github.com/RyanMcBerg)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/ASAAR/SE2-KaggleComp/graphs/contributors) who participated in this project.
 
 ## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+We haven't dealt with licensing yet.
 
 ## Acknowledgments
 
 * Hat tip to anyone who's code was used
-* Inspiration
-* etc
 * [template for README](https://gist.githubusercontent.com/PurpleBooth/109311bb0361f32d87a2/raw/4a39c2139c4caa4686addc1e5dd490170fb82006/README-Template.md)
+* etc
