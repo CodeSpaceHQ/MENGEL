@@ -52,7 +52,7 @@ python -m unittest discover
 
 This will run tests against every module, including ones that test R and Javascript modules. It will not run all tests, but every module will be covered.
 
-###### MLTA Testing
+### MLTA Testing
 Documentation pending
 
 ### Break down into end to end tests
@@ -79,7 +79,7 @@ Pending
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://github.com/ASAAR/SE2-KaggleComp/blob/documentation/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
