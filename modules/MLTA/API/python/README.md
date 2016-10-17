@@ -5,7 +5,7 @@
 Provides a Python wrapper over the 'mlta-record' command line call.
 Allows the developer to easily include MLTA Record into their Python project while at the same time providing error handling for 'mlta-record'.
 
-** Note: For this API to work, MLTA must have been installed globally. **
+**Note: For this API to work, MLTA must have been installed globally.**
 
 # Usage
 Since this Python file uses MLTA's global commands, it can be placed anywhere. So go ahead and copy the `record.py` file anywhere you want, or just include it from this folder here (that way you can get updates). Whatever works best for * you. *
