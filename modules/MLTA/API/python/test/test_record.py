@@ -89,7 +89,6 @@ def test_project_save_records(monkeypatch):
     def mock_call_mlta_record(self, args):
         args.append('-v')
         result = subprocess.check_output(args)
-        print "hello2"
         assert result[0] == '0'
         return result.splitlines()[1]
     monkeypatch.setattr(Project, '_call_mlta_record', mock_call_mlta_record)

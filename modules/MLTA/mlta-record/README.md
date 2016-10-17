@@ -16,7 +16,7 @@ The `-g` flag installs `mlta record` globally so you can call this program from 
  so you can use the command `mlta record`. However, if you do not or cannot install globally `npm install` will work and to call the program you will have to use `./mlta-record.js` instead of `mlta record`.
 
 
-### Usage 
+### Usage
  If you installed globally, you can launch the MLTA Record tool with this command:
  ```bash
  mlta record
@@ -79,7 +79,5 @@ and in Firebase, the JSON entry would look like this:
 
 Now, the CLI command was pretty ugly. It was not designed to be pretty, it was designed for flexibility, so that no matter what programming language the user is using and no matter the algorithm, `mlta record` could handle it. However, we understand that this is not convenient and that is why we are working on wrappers in other languages that can be included into your source code so you don't have to handle the CLI command.
 
-## (Coming Soon) API
-Currently, the API's under development are
-- An R module
-- A Python Module
+## API
+[Python API for MLTA Record](../API/python)
