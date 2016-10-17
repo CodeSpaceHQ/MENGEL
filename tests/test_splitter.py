@@ -8,11 +8,16 @@ import setup
 
 class TestSplitter(TestCase):
 
-    def test_Split_one(self):
+
+
+    # test_comma_split tests the functionality of the splitter, with the delimiter as a comma.
+
+
+    def test_comma_split(self):
         # Arrange
         filepath = os.getcwd() + "/../datasets/"
-        splitter = sp.Splitter();
-        splitter.Split((filepath + "testfile.csv"), ",")
+        splitter = sp.Splitter()
+        splitter.Split((filepath + "titanic_train.csv"), ",")
 
         #Act
         test_csv = False
@@ -35,11 +40,14 @@ class TestSplitter(TestCase):
         self.assertEquals = (test_rds, True)
         self.assertEquals = (train_rds, True)
 
-    def test_split_two(self):
+
+    # test_semicolon_split tests the functionality of the splitter, with the delimiter as a semicolon.
+
+    def test_semicolon_split(self):
 
         #Arrange
         filepath = os.getcwd() + "/../datasets/"
-        splitter = sp.Splitter();
+        splitter = sp.Splitter()
         splitter.Split((filepath + "winequality-red.csv"), ";")
 
         #Act
