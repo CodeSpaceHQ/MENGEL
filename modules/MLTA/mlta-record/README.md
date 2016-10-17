@@ -34,6 +34,7 @@ Options:
   -m, --modelType <type>       Type of model used.
   -d, --modelData <key:value>  Key-value pair of info about the model
   -D, --testData < key:value>  Key-value pair of info about the test
+  -v  --validate               Validate input only, does not upload to database
 ```
 
 
