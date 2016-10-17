@@ -1,8 +1,7 @@
 <a href="https://codeclimate.com/github/ASAAR/SE2-KaggleComp"><img src="https://codeclimate.com/github/ASAAR/SE2-KaggleComp/badges/gpa.svg" /></a> <a href="https://codeclimate.com/github/ASAAR/SE2-KaggleComp"><img src="https://codeclimate.com/github/ASAAR/SE2-KaggleComp/badges/issue_count.svg" /></a>
 
-# SE2 Machine Learning Framework
-
-Software Engineering 2 class kaggle competition repo. We'll also be building a bit of a framework to help make doing these easier in the future.
+# Machine Learning Framework
+This project is an effort to create a framework that automates basic machine learning and will help a team quickly get some results and an idea of what algorithms might be useful. It is **not** a replacement for custom built systems that leverage machine learning.
 
 ## Overview
 
@@ -35,7 +34,7 @@ All the information about the test including hyper-parameters of the model used,
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the entire project up and running on your local machine for development and testing purposes. If you wish to deploy submodules individually, please see the instructions for that specific module. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisities
 
@@ -103,8 +102,12 @@ Pending
 * Bash on Ubuntu on Windows
 * Pycharm
 * Python, Javascript, R
-* Various packages and libraries for each language
 * Firebase
+
+###### Libraries, Frameworks, and Packages Used
+- Python: Scikit-learn, scipy, pandas, numpy
+- R: dplyr
+- Javascript: NodeJS
 
 ## Contributing
 
