@@ -8,7 +8,7 @@ Allows the developer to easily include MLTA Record into their Python project whi
 **Note: For this API to work, MLTA must have been installed globally.**
 
 # Usage
-Since this Python file uses MLTA's global commands, it can be placed anywhere. So go ahead and copy the `record.py` file anywhere you want, or just include it from this folder here (that way you can get updates). Whatever works best for * you. *
+Since this Python file uses MLTA's global commands, it can be placed anywhere. So go ahead and copy the `mlta` file anywhere you want, or just include it from this folder here (that way you can get updates). Whatever works best for * you. *
 
 ## Example Usage
 ```python
