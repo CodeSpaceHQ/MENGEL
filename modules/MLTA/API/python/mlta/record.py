@@ -69,7 +69,6 @@ class Project(object):
             program_result = self._call_mlta_record(args)
             return program_result
         except MLTARecordError as exception:
-            print "So this happened as well"
             raise MLTAError('Unable to save record. Reason: {} '.format(exception.message))
 
 

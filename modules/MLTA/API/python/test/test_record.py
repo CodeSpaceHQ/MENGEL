@@ -5,6 +5,7 @@ import subprocess
 from random import randint
 import pytest
 sys.path.insert(0, os.path.abspath('..'))
+from mlta import record as MLTARecord
 from mlta.record import ResultRecord
 from mlta.record import Project
 from mlta.record import MLTARecordError
@@ -95,9 +96,9 @@ def test_project_save_records(monkeypatch):
     project.save_all_records()
 
 def test_project_call_mlta_record():
-    with pytest.raises(MLTARecordError) as excinfo:
+    with pytest.raises(MLTARecord.MLTARecordError) as excinfo:
         project = Project('TestProject2')
         result = project._call_mlta_record(["mlta-record", "--version"])
-        print result
-    print excinfo.value
-    print type(excinfo.value)
+
+    assert excinfo.type == MLTARecord.MLTARecordError
+    assert 'MLTA-Record' in str(excinfo.value.message)
