@@ -12,7 +12,8 @@ No files in this folder will be tracked
 | --- | --- | --- |
 | Red Wine | winequality-red.csv | [Site](https://archive.ics.uci.edu/ml/datasets/Wine+Quality)
 | White Wine | winequality-white.csv | [Site](https://archive.ics.uci.edu/ml/datasets/Wine+Quality)
-| Titanic | train.csv test.csv | [Site](https://www.kaggle.com/c/titanic/data)
+| Titanic | titanic_train.csv titanic_test.csv | [Site](https://www.kaggle.com/c/titanic/data)
+| Housing | housing_train.csv housing_test.csv | [Site](https://www.kaggle.com/c/house-prices-advanced-regression-techniques/data)
 
 
 
