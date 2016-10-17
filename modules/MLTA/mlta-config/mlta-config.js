@@ -33,9 +33,11 @@ mkdirp(mltaDirPath, function(err) {
 
 //Helper function for handling errors
 function onError(err) {
-    logger.error('Stack: %j', err);
+    logger.error('Message: %s',err.message)
+    logger.debug('Stack: %j', err);
     return 1;
 }
+
 
 //Get user input
 prompt.message = ("MLTA");
