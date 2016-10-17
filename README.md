@@ -4,6 +4,35 @@
 
 Software Engineering 2 class kaggle competition repo. We'll also be building a bit of a framework to help make doing these easier in the future.
 
+## Overview
+
+### Purpose
+To aid developers using machine learning algorithms in finding the best algorithms and optimal configurations for their specific situation. This is accomplished by recording as much information on a certain model as the developer wants, and then analyzing all the data to find which algorithms work best on a dataset and with what settings to they work best.
+
+### Features
+- Automatically applies several of a number of machine learning algorithms against the input data based on the settings it is given
+- Has a large number of tests that make sure algorithms included still run and haven't become outdated
+- Can be put in validation or application mode (train/test mode)
+- Record results from a machine learning algorithm test
+- Saves results in a Firebase Database
+- (Coming Soon) View results in a WebUI
+- (Coming Soon) Analyze data from results in the WebUI
+
+### Terminology
+
+#### Test
+Unless otherwise stated, when we say test we mean a way of determining if an algorithm works. (As opposed to testing of the actual code, etc..)
+
+#### Test Data
+Test data is data that is unlabeled, in other words it does not have a column or label which represents the target that a model is trying to predict. So if a model predicts housing prices, "test data" will not have the housing prices listed.
+
+#### Train Data
+Training data on the other hand does have the target column, because the model has to use that column to be trained.
+
+#### Result Record
+
+All the information about the test including hyper-parameters of the model used, information on the test data, results of test, etc.
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
@@ -20,7 +49,7 @@ What things you need in order to run this project. Detailed instructions include
 ### Installing
 The following instructions cover setup and install of the entire system.
 
-###### Python and Related Libraries
+#### Python and Related Libraries
 1. [Install the latest Python 2.7](https://www.python.org/downloads/release/python-2712/)
 2. Go into your unix system and install [SciPy](https://www.scipy.org/install.html)
   1. Note that installation might be different for different systems
@@ -31,13 +60,13 @@ The following instructions cover setup and install of the entire system.
       ```
 3. Install [SciKit-Learn](http://scikit-learn.org/stable/install.html) using pip
 
-###### R and Related Libraries
+#### R and Related Libraries
 [Install latest version of R](https://cran.r-project.org/mirrors.html)
 
-###### Javascript, NodeJS, and Related Libraries
+#### Javascript, NodeJS, and Related Libraries
 [Follow the instructions here, including submodules](https://github.com/ASAAR/SE2-KaggleComp/blob/master/modules/MLTA/README.md)
 
-###### Test Data
+#### Test Data
 [Download and setup the test data so that unit tests run properly](https://github.com/ASAAR/SE2-KaggleComp/blob/master/datasets/README.md)
 
 To verify correct setup, please run the tests.
