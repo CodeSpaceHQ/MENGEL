@@ -9,7 +9,7 @@ For more information, go to the language you are using. Using a language that is
 ## Languages
 
 ### Implemented
-- [Python](/python)
+- [Python](./python)
 
 ### Future
 - R
