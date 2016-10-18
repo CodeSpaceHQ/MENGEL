@@ -129,7 +129,7 @@ See also the list of [contributors](https://github.com/ASAAR/SE2-KaggleComp/grap
 ## License
 We haven't dealt with licensing yet.
 
-## Acknowledgments
+## Acknowledgements
 
 * Hat tip to anyone whose code was used
 * [template for README](https://gist.githubusercontent.com/PurpleBooth/109311bb0361f32d87a2/raw/4a39c2139c4caa4686addc1e5dd490170fb82006/README-Template.md)
