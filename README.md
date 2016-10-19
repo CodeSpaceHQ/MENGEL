@@ -61,8 +61,8 @@ The following instructions cover setup and install of the entire system.
 
 #### R and Related Libraries
 [Install latest version of R](https://cran.r-project.org/mirrors.html)
-
-    ```shell
+1. Install R packages
+    ```
     R
     install.packages("dplyr")
     q()
