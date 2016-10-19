@@ -61,12 +61,17 @@ The following instructions cover setup and install of the entire system.
 
 #### R and Related Libraries
 [Install latest version of R](https://cran.r-project.org/mirrors.html)
-1. Install R packages
-    ```
-    R
-    install.packages("dplyr")
-    q()
-    ```
+    1. Install R packages
+
+        ```
+        R
+        ```
+        ```
+        install.packages("dplyr")
+        ```
+        ```
+        q()
+        ```
 
 #### Javascript, NodeJS, and Related Libraries
 [Follow the instructions here, including submodules](https://github.com/ASAAR/SE2-KaggleComp/blob/master/modules/MLTA/README.md)
