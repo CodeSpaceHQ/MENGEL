@@ -3,7 +3,13 @@ Ryan Berg - updated 9/24/16
 
 User Story: As a user I want to split a dataset into training and testing files.
 
+DOCUMENTATION
+
+there are no external packages that need to be installed to run this yaay!
+
 """
+
+
 
 
 import sys
