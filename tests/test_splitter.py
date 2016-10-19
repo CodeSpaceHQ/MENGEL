@@ -9,13 +9,13 @@ import setup
 class TestSplitter(TestCase):
 
 
-
     # test_comma_split tests the functionality of the splitter, with the delimiter as a comma.
 
 
     def test_comma_split(self):
+
         # Arrange
-        filepath = os.getcwd() + "/../datasets/"
+        filepath = setup.get_datasets_path()
         splitter = sp.Splitter()
         splitter.Split((filepath + "titanic_train.csv"), ",")
 
@@ -46,7 +46,8 @@ class TestSplitter(TestCase):
     def test_semicolon_split(self):
 
         #Arrange
-        filepath = os.getcwd() + "/../datasets/"
+
+        filepath = setup.get_datasets_path()
         splitter = sp.Splitter()
         splitter.Split((filepath + "winequality-red.csv"), ";")
 
