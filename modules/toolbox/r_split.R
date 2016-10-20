@@ -7,14 +7,6 @@
 #  That RealSplit.py is called from.
 
 
-#### THIS RIGHT HERE IS MY DOCUMENTATION FOR r_split.r ####
-
-# In order to run this scrupt you must install the dplyr packages #
-# to install run install.packages("dplyr") in the R console       #
-
-####################################################################
-
-
 library(dplyr)
 
 path = getwd()

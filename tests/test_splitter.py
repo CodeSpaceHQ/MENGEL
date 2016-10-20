@@ -21,14 +21,19 @@ class TestSplitter(TestCase):
         self.test_rds = False
         self.train_rds = False
         for File in os.listdir(self.filepath):
+            print(self.filepath + File)
             if File.endswith(".testing.data.csv"):
                 self.test_csv = True
+                os.remove(self.filepath + File)
             if File.endswith(".training.data.csv"):
                 self.train_csv = True
+                os.remove(self.filepath + File)
             if File.endswith(".training.data.rds"):
                 self.train_rds = True
+                os.remove(self.filepath + File)
             if File.endswith(".testing.data.rds"):
                 self.test_rds = True
+                os.remove(self.filepath + File)
 
 
     def test_comma_split(self):
