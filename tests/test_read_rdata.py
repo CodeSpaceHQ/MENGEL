@@ -13,7 +13,7 @@ class TestMerge(TestCase):
     def test_merge(self):
 
         # Arrange
-        x = os.getcwd() + "/../datasets/"
+        x = setup.get_datasets_path()
         data_set  = pd.read_csv(x + "testfile.csv", index_col = False)
         data_set = pd.DataFrame(data_set)
 
