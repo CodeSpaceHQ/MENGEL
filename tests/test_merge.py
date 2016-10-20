@@ -12,12 +12,21 @@ class TestMerge(TestCase):
 
     def test_merge(self):
 
+        full_csv = False
+        full_rds = False
         # Arrange
-        data_set  = pd.read_csv("testfile")
+        filepath = setup.get_datasets_path() + "titanic_train.csv"
+
 
         # Act
-        mg.Merger.merge(["Variable", "filepath1", "filepah2", "filePath3"])
-        data_test = pd.read_csv("full.dataset.csv")
+        merge = mg.Merger()
+        merge.merge(["Name", filepath, filepath, filepath])
 
+        for File in os.listdir(setup.get_datasets_path()):
+            if File.endswith("full.dataset.csv"):
+                full_csv = True
+            if File.endswith("full.dataset.rds"):
+                full_rds = True
         # Assert
-        self.assertEqual(data_set, data_test, msg="Merge failed")
+        self.assertEqual(full_csv, True)
+        self.assertEqual(full_rds, True)
