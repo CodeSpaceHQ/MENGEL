@@ -3,20 +3,26 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath('../..'))
 
+import setup
+from validation_package import ValidationPackage
+from modules.toolbox import framework_tools as ft
+from modules.ml_models import scikit_online_regressors
+from modules.ml_models import scikit_regression_learners
 from modules.toolbox import *
 
 
 # Automatically gets all regression models and runs them. This is brute force, more elegant solution to follow later.
-def run_regressions(data, target_col):
-    x_train, x_test, y_train, y_test = ft.get_train_test(data, target_col)
-    model = None
+def run_regressions(validation_pack, package):
+
+    results = []
 
     for function in dir(scikit_regression_learners):
         item = getattr(scikit_regression_learners, function)
         if callable(item):
-            model = item(x_train, y_train)
+            model = item()
+            results.append(model_use(model, validation_pack, package))
 
-    return model_score(model, x_test, y_test)
+    return results
 
 
 # TODO: Finish this runner or build it into an overall runner
@@ -24,10 +30,14 @@ def run_classifications():
     return
 
 
-# In case we want to change the scoring method down the road, this is a easy way to standardize that system.
-def model_score(model, x_test, y_test):
-    # Scores the model using the coefficient of determination R^2 of the prediction.
-    return model.score(x_test, y_test)
+# This function takes a model, the validation data, and the original data
+# and either applies it to check how good the model might work, or to apply it
+# to new unlabeled data.
+def model_use(model, validation_pack, data_pack):
+    model = model.fit(validation_pack.x_train, validation_pack.y_train)
 
-
-#
+    if data_pack.output_style == "train":
+        return model.score(validation_pack.x_test, validation_pack.y_test)
+    elif data_pack.output_style == "test":
+        predictions = model.predict(model, data_pack)
+        ft.save_predictions(setup.get_datasets_path(), predictions, "random_forest")
