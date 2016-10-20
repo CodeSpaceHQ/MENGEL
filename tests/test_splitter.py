@@ -8,37 +8,43 @@ import setup
 
 class TestSplitter(TestCase):
 
-
     # test_comma_split tests the functionality of the splitter, with the delimiter as a comma.
+    test_csv = False
+    train_csv = False
+    test_rds = False
+    train_rds = False
+    filepath = setup.get_datasets_path()
+
+    def test_helper(self):
+        self.test_csv = False
+        self.train_csv = False
+        self.test_rds = False
+        self.train_rds = False
+        for File in os.listdir(self.filepath):
+            if File.endswith(".testing.data.csv"):
+                self.test_csv = True
+            if File.endswith(".training.data.csv"):
+                self.train_csv = True
+            if File.endswith(".training.data.rds"):
+                self.train_rds = True
+            if File.endswith(".testing.data.rds"):
+                self.test_rds = True
 
 
     def test_comma_split(self):
 
         # Arrange
-        filepath = setup.get_datasets_path()
         splitter = sp.Splitter()
-        splitter.Split((filepath + "titanic_train.csv"), ",")
+        splitter.Split((self.filepath + "titanic_train.csv"), ",")
 
         #Act
-        test_csv = False
-        train_csv = False
-        test_rds = False
-        train_rds = False
-        for File in os.listdir(filepath):
-            if File.endswith(".testing.data.csv"):
-                test_csv = True
-            if File.endswith(".training.data.csv"):
-                train_csv = True
-            if File.endswith(".training.data.rds"):
-                train_rds = True
-            if File.endswith(".testing.data.rds"):
-                test_rds = True
+        self.test_helper()
 
         # Assert
-        self.assertEquals = (test_csv, True)
-        self.assertEquals = (train_csv, True)
-        self.assertEquals = (test_rds, True)
-        self.assertEquals = (train_rds, True)
+        self.assertEquals = (self.test_csv, True)
+        self.assertEquals = (self.train_csv, True)
+        self.assertEquals = (self.test_rds, True)
+        self.assertEquals = (self.train_rds, True)
 
 
     # test_semicolon_split tests the functionality of the splitter, with the delimiter as a semicolon.
@@ -46,28 +52,15 @@ class TestSplitter(TestCase):
     def test_semicolon_split(self):
 
         #Arrange
-
-        filepath = setup.get_datasets_path()
         splitter = sp.Splitter()
-        splitter.Split((filepath + "winequality-red.csv"), ";")
+        splitter.Split((self.filepath + "winequality-red.csv"), ";")
 
         #Act
-        test_csv = False
-        train_csv = False
-        test_rds = False
-        train_rds = False
-        for File in os.listdir(filepath):
-            if File.endswith(".testing.data.csv"):
-                test_csv = True
-            if File.endswith(".training.data.csv"):
-                train_csv = True
-            if File.endswith(".training.data.rds"):
-                train_rds = True
-            if File.endswith(".testing.data.rds"):
-                test_rds = True
+        self.test_helper()
 
-        # Assert
-        self.assertEquals = (test_csv, True)
-        self.assertEquals = (train_csv, True)
-        self.assertEquals = (test_rds, True)
-        self.assertEquals = (train_rds, True)
+        #Assert
+        self.assertEquals = (self.test_csv, True)
+        self.assertEquals = (self.train_csv, True)
+        self.assertEquals = (self.test_rds, True)
+        self.assertEquals = (self.train_rds, True)
+
