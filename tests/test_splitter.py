@@ -21,7 +21,6 @@ class TestSplitter(TestCase):
         self.test_rds = False
         self.train_rds = False
         for File in os.listdir(self.filepath):
-            print(self.filepath + File)
             if File.endswith(".testing.data.csv"):
                 self.test_csv = True
                 os.remove(self.filepath + File)
