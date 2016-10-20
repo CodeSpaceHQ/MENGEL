@@ -25,8 +25,10 @@ class TestMerge(TestCase):
         for File in os.listdir(setup.get_datasets_path()):
             if File.endswith("full.dataset.csv"):
                 full_csv = True
+                os.remove(setup.get_datasets_path() + File)
             if File.endswith("full.dataset.rds"):
                 full_rds = True
+                os.remove(setup.get_datasets_path() + File)
         # Assert
         self.assertEqual(full_csv, True)
         self.assertEqual(full_rds, True)
