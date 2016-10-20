@@ -24,3 +24,9 @@ The Merge tool will combine a list of datasets on a common variable
 2. Required python packages
     -
     
+### READ RDA
+The read rda tool will read in a .rda (r binary file) and convert it to a pandas data frame
+
+1. Required python packages
+    - pandas
+    
