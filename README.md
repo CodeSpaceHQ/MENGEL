@@ -60,13 +60,19 @@ The following instructions cover setup and install of the entire system.
 3. Install [SciKit-Learn](http://scikit-learn.org/stable/install.html) using pip
 
 #### R and Related Libraries
-[Install latest version of R](https://cran.r-project.org/mirrors.html)
+1. [Install latest version of R](https://cran.r-project.org/mirrors.html)
+2.  Install R packages
+
+        R
+        install.packages("dplyr")
+        q()
+        
 
 #### Javascript, NodeJS, and Related Libraries
-[Follow the instructions here, including submodules](https://github.com/ASAAR/SE2-KaggleComp/blob/master/modules/MLTA/README.md)
+[Follow the instructions here, including submodules](modules/MLTA/README.md)
 
 #### Test Data
-[Download and setup the test data so that unit tests run properly](https://github.com/ASAAR/SE2-KaggleComp/blob/master/datasets/README.md)
+[Download and setup the test data so that unit tests run properly](datasets/README.md)
 
 To verify correct setup, please run the tests.
 
@@ -111,7 +117,7 @@ Pending
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://github.com/ASAAR/SE2-KaggleComp/blob/documentation/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 

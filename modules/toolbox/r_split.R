@@ -6,15 +6,20 @@
 #  The Data is then split into training and testing data and exported to .csv in the folder
 #  That RealSplit.py is called from.
 
-setwd("datasets") ### need to set dynamically
 
 library(dplyr)
+
+path = getwd()
+path = ifelse(length(grep("tests", path)) == 1, paste0(getwd(), "/../datasets"), paste0(getwd(), "/../../datasets"))
+
+setwd(path) ### sets the path dynamically per machine, assuming this filestructure.
 
 Args <- commandArgs(trailingOnly =  T)
 
 ### reads in to csv and makes all String variables Factors #####
+separator = toString(Args[2])
 
-dataset <- read.csv(as.character(Args), sep = ';', stringsAsFactors = T)
+dataset <- read.csv(as.character(Args[1]), sep = toString(separator), stringsAsFactors = T)
 
 ### Randomly samples 80% of the dataset for training purposes
 train.data <- data.frame(dplyr::sample_frac(dataset, .8, replace = F))
