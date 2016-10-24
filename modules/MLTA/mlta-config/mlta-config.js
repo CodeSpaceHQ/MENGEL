@@ -60,7 +60,12 @@ prompt.get({
     var configFilePath = configFileDir + '.config';
     cm.getConfigIfExists(result.name, function(err, config) {
         if(err) {
-            createNewConfig(result.name, configFilePath); //If that file does NOT exist, then it must be a new project
+            createNewConfig(result.name, configFilePath, function(err){
+              if(err) {
+                return onError(err);
+              }
+
+            }); //If that file does NOT exist, then it must be a new project
         } else {
             logger.info('Config file with name %s already exists.', result.name)
                 //modifyExistConfig(result.name,configFilePath); //If that file does exist, then this is an existing project
@@ -77,7 +82,7 @@ function modifyExistConfig(name, configFile) {
 
 
 //Get user input to create new project. This will include connecting it to firebase and creating local files for the project.
-function createNewConfig(name, configFile) {
+function createNewConfig(name, configFile, done) {
     var newConfig = new Object();
     newConfig.name = name;
     prompt.get({
@@ -98,8 +103,7 @@ function createNewConfig(name, configFile) {
                     try {
                         fs.accessSync(value, fs.F_OK)
                     } catch(e) {
-                        logger.error('Could not find file %s', value);
-                        process.exit(1);
+                        return done(new Error("Could not find file " + value));
                     }
                     return value;
                 }
@@ -127,8 +131,8 @@ function createNewConfig(name, configFile) {
                 } else {
                     logger.info('Configuration saved!')
                     logger.debug('Saved configuration: %j', newConfig);
+                    return;
                 }
-                process.exit();
             });
         });
 

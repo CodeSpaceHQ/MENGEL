@@ -127,7 +127,6 @@ validateOptions(program, function(err, options) {
       saveRecordToFB(options, function(err) {
           logger.info('saved to firebase');
           if(err) return onError(err);
-          process.exit();
       });
     } else {
       console.log("0")
