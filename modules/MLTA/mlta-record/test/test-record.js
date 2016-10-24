@@ -10,6 +10,8 @@ var logger = tracer.console({
     dateformat: "HH:MM:ss.L"
 });
 
+
+//Mocking stuff
 var programOptionsMockObj = {
     modelData: {
         'mockModelDataKey1': 'mockModelDataVal1',
@@ -64,6 +66,16 @@ recordModule.__set__({
 });
 
 
+//Helper method stuff
+function expectError(err,message){
+  expect(err).to.be.an('error');
+  expect(err.message).to.equal(message)
+}
+
+
+/**
+  TEST METHODS GO BELOW HERE
+
 /**
 Let false validation tests run first(in order that mlta-record checks the data), then they each add the data they were
 checking against to the mock obj.
@@ -74,16 +86,14 @@ describe('record', function() {
         validateOptionsMethod = recordModule.__get__('validateOptions');
         it('should return an error when the project name is missing', function(done) {
             validateOptionsMethod(programOptionsMockObj, function(err, options) {
-                expect(err).to.be.an('error');
-                expect(err.message).to.equal('Project name must be specified.')
+              expectError(err,'Project name must be specified.')
                 programOptionsMockObj.project = 'MockProjectName';
                 done();
             })
         })
         it('should return an error when the model type is missing', function(done) {
             validateOptionsMethod(programOptionsMockObj, function(err, options) {
-                expect(err).to.be.an('error');
-                expect(err.message).to.equal('Model type must be specified.')
+              expectError(err,'Model type must be specified.')
                 programOptionsMockObj.modelType = 'TestModelType';
                 done();
             })

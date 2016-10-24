@@ -11,8 +11,11 @@ from mlta.record import Project
 from mlta.record import MLTARecordError
 
 @pytest.fixture
-def mock_data():
-    seed = randint(0, 9)
+def mock_data(**opt_params):
+    if ('seed' in opt_params):
+        seed = opt_params['seed']
+    else:
+        seed = randint(0, 9)
     record = {}
     record['name'] = 'testRecord{}'.format(seed)
     record['model_type'] = 'model{}'.format(seed)
@@ -51,6 +54,9 @@ def createRecordFromData(mock_data):
 
     for key, val in mock_data['test_data'].items():
         record.add_test_data_pair(key, val)
+
+    assert len(record.model_data) == mock_data['seed']
+    assert len(record.test_data) == mock_data['seed']
 
     return record
 
@@ -102,3 +108,18 @@ def test_project_call_mlta_record():
 
     assert excinfo.type == MLTARecord.MLTARecordError
     assert 'MLTA-Record' in str(excinfo.value.message)
+
+def test_project_get_args():
+    project = Project('TestProjectArgs')
+    data = mock_data(seed=2)
+    record = createRecordFromData(data)
+    expected_args = ["mlta-record", "-p", "TestProjectArgs", \
+        "-m", "{}".format(data['model_type']), \
+        "-d", "modelKey1:modelValue1", \
+        "-d", "modelKey0:modelValue0", \
+        "-D", "testKey1:testValue1", \
+        "-D", "testKey0:testValue0"]
+
+    assert len(expected_args) == 13
+    project.add_record(record)
+    assert expected_args == project._get_args(record)
