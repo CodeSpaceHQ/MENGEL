@@ -10,7 +10,7 @@ import sys
 import subprocess
 import os
 
-scriptpath = os.getcwd()+ "/r_merge.R"
+scriptpath = os.path.dirname(os.path.realpath(__file__)) + "/r_merge.R"
 
 class Merger:
     """
@@ -19,17 +19,18 @@ class Merger:
     output: one dataset, that is all of the datasets full_joined, in both .csv and .rda format.
     """
 
-    def merge(files):
+    def merge(self, files):
         args = files
         cmd = ["Rscript", scriptpath] + args
         subprocess.call(cmd)
 
 
-    if __name__ == "__main__":
+if __name__ == "__main__":
 
-        files = []
+    files = []
+    for i in range(1,len(sys.argv)):
+        files = files + [sys.argv[i]]
 
-        for i in range(1,len(sys.argv)):
-            files = files + [sys.argv[i]]
+    merger = Merger()
 
-        merge(files)
+    merger.merge(files)
