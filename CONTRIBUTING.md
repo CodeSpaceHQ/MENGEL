@@ -9,7 +9,6 @@ Please note we have a code of conduct, please follow it in all your interactions
 We try to stick with Google's code standards. Please call us on them if we don't stick to them.
 
 * [Python](https://google.github.io/styleguide/pyguide.html)
-* [Javascript](https://google.github.io/styleguide/javascriptguide.xml)
 
 ## Pull Request Process
 
@@ -21,7 +20,18 @@ We try to stick with Google's code standards. Please call us on them if we don't
    do not have permission to do that, you may request the second reviewer to merge it for you.
 
 ## Issue Labels  
-If you are a contributor to this repository it is your responsibility to make sure all issues are properly labeled.
+If you are a contributor to this repository it is your responsibility to make sure all issues are properly labeled. We are following [this](https://robinpowered.com/blog/best-practice-system-for-organizing-and-tagging-github-issues/) standard. As follows,
+
+### Label Groups (Colors)
+- Light Blue -> Platform: Since the project includes multiple technologies and platforms, this helps specify the specific one the issue relates to. They are currently **firebase**, **javascript**, **python**, **R**.
+- Red -> Problems: Issues, bugs, design that was intentional but doesn't work. High priority. This includes **bug** and **priority** for us currently.
+- Blond -> Mindless: Repetitive but less impactful work. Necessary but not always fun. This includes **chore** and **cleanup** for us.
+- Orange -> Experience: This is for work that involves the user experience. Our only label currently is **design**.
+- Light Pink -> Environment: Testing and deployment related. We currently only have the **test** label.
+- Purple -> Feedback: Both user and dev feedback that requires further discussion before action. This includes **question** and **discussion** for us.
+- Blue -> Improvments: Additions to existing features. For us this includes **enhancement** and **optimization**.
+- Green -> Additions: New stuff! Our only one is **feature**.
+- Gold -> Pending: Something that is pending or in-progress, typically blocked by other stuff. Labels are **in progress** and **watchlist**.
 
 ## Code of Conduct
 
