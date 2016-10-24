@@ -29,7 +29,7 @@ If you are a contributor to this repository it is your responsibility to make su
 - Orange -> Experience: This is for work that involves the user experience. Our only label currently is **design**.
 - Light Pink -> Environment: Testing and deployment related. We currently only have the **test** label.
 - Purple -> Feedback: Both user and dev feedback that requires further discussion before action. This includes **question** and **discussion** for us.
-- Blue -> Improvments: Additions to existing features. For us this includes **enhancement** and **optimization**.
+- Blue -> Improvements: Additions to existing features. For us this includes **enhancement** and **optimization**.
 - Green -> Additions: New stuff! Our only one is **feature**.
 - Gold -> Pending: Something that is pending or in-progress, typically blocked by other stuff. Labels are **in progress** and **watchlist**.
 
