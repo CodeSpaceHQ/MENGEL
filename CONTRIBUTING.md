@@ -9,6 +9,7 @@ Please note we have a code of conduct, please follow it in all your interactions
 We try to stick with Google's code standards. Please call us on them if we don't stick to them.
 
 * [Python](https://google.github.io/styleguide/pyguide.html)
+* [Javascript](https://google.github.io/styleguide/javascriptguide.xml)
 
 ## Pull Request Process
 
