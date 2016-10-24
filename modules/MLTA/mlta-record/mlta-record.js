@@ -26,19 +26,11 @@ function onError(err) {
     return 1;
 }
 
-function modelData(val, data) {
-    var info = val.split(':');
-    var pair = {};
-    data[info[0]] = info[1];
-    return data;
-}
-
-
-function testData(val, data) {
-    var info = val.split(':');
-    var pair = {};
-    data[info[0]] = info[1];
-    return data;
+function recordData(val, data){
+      var info = val.split(':');
+      var pair = {};
+      data[info[0]] = info[1];
+      return data;
 }
 
 //Get arguemnts/options
@@ -119,8 +111,8 @@ program
     .option('-p, --project <name>', 'Name of project.')
     .option('-l, --label <label>', 'Used to identify specific models for future reference. ')
     .option('-m, --modelType <type>', 'Type of model used.')
-    .option('-d, --modelData <key:value>', 'Key-value pair of info about the model', modelData, {})
-    .option('-D, --testData < key:value>', 'Key-value pair of info about the test', testData, {})
+    .option('-d, --modelData <key:value>', 'Key-value pair of info about the model', recordData, {})
+    .option('-D, --testData < key:value>', 'Key-value pair of info about the test', recordData, {})
     .option('-v  --validate','Validate input only, does not upload to database')
     .parse(process.argv);
 
