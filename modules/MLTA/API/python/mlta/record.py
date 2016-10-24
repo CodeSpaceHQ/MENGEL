@@ -71,19 +71,23 @@ class Project(object):
         except MLTARecordError as exception:
             raise MLTAError('Unable to save record. Reason: {} '.format(exception.message))
 
+    def _get_data_args(self, data,opt):
+        """If model then opt = -d else -D"""
+        args = []
+        for key, val in data.items():
+            args.append(opt)
+            args.append("{}:{}".format(key, val))
+
+        return args
 
     def _get_args(self, record):
         """ Internal method used to create the args string needed to run the
         'mlta-record' command """
-        args = ["mlta-record", "-p", self.name, "-m", "{}".format(record.model_type)] #pylint disable=C0301
+        args = ["mlta-record", "-p", self.name, "-m", \
+            "{}".format(record.model_type)]
 
-        for key, val in record.model_data.items():
-            args.append("-d")
-            args.append("{}:{}".format(key, val))
-
-        for key, val in record.test_data.items():
-            args.append("-D")
-            args.append("{}:{}".format(key, val))
+        args.extend(self._get_data_args(record.model_data, '-d'))
+        args.extend(self._get_data_args(record.test_data, '-D'))
 
         return args
 
