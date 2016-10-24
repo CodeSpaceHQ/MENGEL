@@ -1,7 +1,7 @@
 # Contributing
 
 When contributing to this repository, please first discuss the change you wish to make via issue,
-email, or any other method with the owners of this repository before making a change. 
+email, or any other method with the owners of this repository before making a change.
 
 Please note we have a code of conduct, please follow it in all your interactions with the project.
 
@@ -12,12 +12,15 @@ We try to stick with Google's code standards. Please call us on them if we don't
 
 ## Pull Request Process
 
-1. Update the appropriate documentation with details of changes to the interface, this includes new environment 
+1. Update the appropriate documentation with details of changes to the interface, this includes new environment
    variables, exposed ports, useful file locations and container parameters.
 2. Increase the version numbers in any examples files and the relevant documentation to the new version that this
    Pull Request would represent. We do not currently use a versioning scheme, that will be fixed eventually.
-3. You may merge the Pull Request in once you have the sign-off of two other developers, or if you 
+3. You may merge the Pull Request in once you have the sign-off of two other developers, or if you
    do not have permission to do that, you may request the second reviewer to merge it for you.
+
+## Issue Labels  
+If you are a contributor to this repository it is your responsibility to make sure all issues are properly labeled.
 
 ## Code of Conduct
 
