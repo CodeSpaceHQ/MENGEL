@@ -1,11 +1,1 @@
-#####   rpart_classification.R
-#
-#
-
-
-###  DOCUMENTATION
-##   this module requires the rpart package be install.
-#    to install package type install.packages("rpart") in R console
-
-
-library(rpart)
+#####   rpart_classification.R ######    this module requires the rpart package be install.#    to install package type install.packages("rpart") in R consolelibrary(rpart)path = paste0(getwd(), "../datasets")setwd(path)Args <- commandArgs(trailingOnly = T)train_data <- read.csv(Args[1])test_data <- read.csv(Args[2])predictor <- Args[3]formula = paste0(predictor, "~", ".")model <- rpart(formula = formula,                data = train_data              )print(summary(model))
