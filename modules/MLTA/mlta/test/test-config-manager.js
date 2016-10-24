@@ -16,7 +16,7 @@ describe('config-manager', function() {
     describe('#saveConfig(config,done)', function() {
         it('should write the config to a JSON file', function(done) {
             cm.saveConfig(config, function(err) {
-                expect(err).to.be.null;
+                expect(err).to.be.null; //Hey CodeClimate! SHUT UP
                 done(err);
             });
         });

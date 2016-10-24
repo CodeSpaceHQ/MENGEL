@@ -68,7 +68,7 @@ prompt.get({
     })
 });
 
-//First try and refresh the config file from the DB, TODO: Complete this.
+//First try and refresh the config file from the DB
 function modifyExistConfig(name, configFile) {
     logger.info('Loading config file for %s', name);
     var obj = jsonfile.readFileSync(configFile.toString());

@@ -133,7 +133,7 @@ class ResultRecord(object):
         key = str(key)
         value = str(value)
         if data.has_key(key):
-            print "Error: key {} already exists".format(key)
+            print("Error: key {} already exists".format(key))
         else:
             data[key] = value
 
