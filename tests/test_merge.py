@@ -12,10 +12,11 @@ class TestMerge(TestCase):
 
     def test_merge(self):
 
-        # Arrange
-        filepath = setup.get_datasets_path() + "titanic_train.csv"
         full_csv = False
         full_rds = False
+        # Arrange
+        filepath = setup.get_datasets_path() + "titanic_train.csv"
+
 
         # Act
         merge = mg.Merger()
@@ -28,7 +29,6 @@ class TestMerge(TestCase):
             if File.endswith("full.dataset.rds"):
                 full_rds = True
                 os.remove(setup.get_datasets_path() + File)
-
         # Assert
         self.assertEqual(full_csv, True)
         self.assertEqual(full_rds, True)

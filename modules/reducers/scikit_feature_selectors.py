@@ -3,8 +3,8 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath('..'))
 
-from modules.DMZ.data_kit import data_io
-from modules.DMZ.data_kit import data_splitting
+import numpy
+from modules.toolbox import framework_tools as ft
 from sklearn.feature_selection import VarianceThreshold
 from sklearn.feature_selection import SelectPercentile
 from sklearn.feature_selection import SelectKBest
@@ -12,7 +12,7 @@ from sklearn.feature_selection import SelectKBest
 
 # Stores nonremoved feature names, transforms data, and returns formatted selector
 def format_selector(selector,data, target):
-    x_train, x_test, y_train, y_test = data_splitting.get_train_test(data, target)
+    x_train, x_test, y_train, y_test = ft.get_train_test(data, target)
 
     # Fit the model
     data.drop(target, 1, inplace=True)  # Remove target feature
