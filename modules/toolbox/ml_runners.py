@@ -5,9 +5,9 @@ sys.path.insert(0, os.path.abspath('../..'))
 
 import setup
 from validation_package import ValidationPackage
-from modules.toolbox import framework_tools as ft
-from modules.ml_models import scikit_online_regressors
-from modules.ml_models import scikit_regression_learners
+from modules.DMZ.data_kit import data_io
+from modules.DMZ.models.regression import scikit_online_regressors
+from modules.DMZ.models.regression import scikit_regression_learners
 from modules.toolbox import *
 
 
@@ -19,8 +19,11 @@ def run_regressions(validation_pack, package):
     for function in dir(scikit_regression_learners):
         item = getattr(scikit_regression_learners, function)
         if callable(item):
+
+            # model is a tuple. To access the properties of the model, use model[0],
+            # to get the model itself, use model[1].
             model = item()
-            results.append(model_use(model, validation_pack, package))
+            results.append(model_use(model[1], validation_pack, package))
 
     return results
 
@@ -40,4 +43,4 @@ def model_use(model, validation_pack, data_pack):
         return model.score(validation_pack.x_test, validation_pack.y_test)
     elif data_pack.output_style == "test":
         predictions = model.predict(model, data_pack)
-        ft.save_predictions(setup.get_datasets_path(), predictions, "random_forest")
+        data_io.save_predictions(setup.get_datasets_path(), predictions, "random_forest")
