@@ -1,10 +1,18 @@
-from modules.toolbox import *
 import pandas as pd
 from sklearn import preprocessing
 from sklearn import cross_validation
+import numpy as np
 
 
-# Helper functions for the whole framework to use
+# Gets the training and testing splits for training.
+# Input:
+# - Pandas Dataframe
+# - The target column or "label"
+# Output:
+# - target_train
+# - target_test
+# - input_data_train
+# - input_data_test
 def get_train_test(pandas_data, target_col):
 
     # Separating target from the rest of the data
@@ -21,6 +29,7 @@ def get_train_test(pandas_data, target_col):
     return cross_validation.train_test_split(x, y, test_size=0.2)
 
 
+# Removes the target column from the input data.
 def separate_target(pandas_data, target_col):
     # Selection of training/target data for validation and training.
     data = pd.DataFrame.as_matrix(pandas_data)
@@ -33,6 +42,11 @@ def separate_target(pandas_data, target_col):
     return x, y
 
 
+# Scales the numeric input data.
+# Input:
+# - Pandas Dataframe, non-scaled
+# Output:
+# - Pandas Dataframe that has been scaled.
 def scale_numeric_data(pandas_data):
     # Scaling is important because if the variables are too different from
     # one another, it can throw off the model.
@@ -43,38 +57,3 @@ def scale_numeric_data(pandas_data):
             pandas_data[col] = preprocessing.scale(pandas_data[col])
 
     return pandas_data
-
-
-# This will take the target "predicted" column and decide if classification or regression should be used.
-def get_prediction_type(target_column):
-    sorted_data = sorted(target_column)
-
-    prediction_type = "classification"
-
-    last = None
-
-    for val in sorted_data:
-        if not isinstance(val, (int, float)):
-            prediction_type = "invalid"
-        if not last:
-            last = val
-        else:
-            if last == val - 1:
-                last = val
-            elif last != val:
-                prediction_type = "regression"
-                break
-
-    return prediction_type
-
-
-# A standard way of retrieving data, separating this out in case we need to change it.
-def get_data(path, filename, separator):
-    return pd.read_csv(path + filename, sep=separator)
-
-
-# A standard way to save the results of an applied model on an unlabeled test data set
-def save_predictions(path, predictions, filename):
-    with open(path + filename + "_predictions.csv", 'wb') as csvfile:
-        writer = csv.writer(csvfile, delimiter=',')
-        writer.writerows(predictions)
