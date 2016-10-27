@@ -4,9 +4,7 @@ import os
 sys.path.insert(0, os.path.abspath('..'))
 
 from unittest import TestCase
-from modules.DMZ.data_kit import data_splitting
-from modules.DMZ.data_kit import data_analysis
-from modules.DMZ.data_kit import data_io
+from modules.toolbox import framework_tools as ft
 import setup
 import pandas as pd
 
@@ -16,10 +14,10 @@ class TestFrameworkTools(TestCase):
     def test_get_prediction_type_regression(self):
 
         # Arrange
-        data = data_io.get_data(setup.get_datasets_path(), "housing_train.csv")
+        data = ft.get_data(setup.get_datasets_path(), "housing_train.csv", ",")
 
         # Act
-        ml_type = data_analysis.get_prediction_type(data["SalePrice"])
+        ml_type = ft.get_prediction_type(data["SalePrice"])
 
         # Assert
         self.assertEqual(ml_type, "regression", "Type should be regression.")
@@ -27,10 +25,10 @@ class TestFrameworkTools(TestCase):
     def test_get_prediction_type_classification(self):
 
         # Arrange
-        data = data_io.get_data(setup.get_datasets_path(), "winequality-red.csv")
+        data = ft.get_data(setup.get_datasets_path(), "winequality-red.csv", ";")
 
         # Act
-        ml_type = data_analysis.get_prediction_type(data["quality"])
+        ml_type = ft.get_prediction_type(data["quality"])
 
         # Assert
         self.assertEqual(ml_type, "classification", "Type should be classification.")
@@ -38,10 +36,10 @@ class TestFrameworkTools(TestCase):
     def test_data_split(self):
 
         # Arrange
-        data = data_io.get_data(setup.get_datasets_path(), "winequality-red.csv")
+        data = ft.get_data(setup.get_datasets_path(), "winequality-red.csv", ";")
 
         # Act
-        x_train, x_test, y_train, y_test = data_splitting.get_train_test(data, "quality")
+        x_train, x_test, y_train, y_test = ft.get_train_test(data, "quality")
 
         # Assert
         self.assertEqual(len(x_train[:, 0]), len(y_train))
@@ -51,10 +49,10 @@ class TestFrameworkTools(TestCase):
     def test_scaling(self):
 
         # Arrange
-        data = data_io.get_data(setup.get_datasets_path(), "winequality-red.csv")
+        data = ft.get_data(setup.get_datasets_path(), "winequality-red.csv", ";")
 
         # Act
-        target = data_splitting.scale_numeric_data(data)
+        target = ft.scale_numeric_data(data)
         target = pd.DataFrame.as_matrix(target)
 
         # Assert

@@ -4,7 +4,7 @@ import sys
 sys.path.insert(0, os.path.abspath('..'))
 
 from unittest import TestCase
-from modules.DMZ.data_kit import data_io
+from modules.toolbox import framework_tools as ft
 from modules.reducers import scikit_feature_selectors
 import setup
 
@@ -20,7 +20,7 @@ class TestFeatureSelection(TestCase):
         end = reducer.shape
 
         # Assert fewer columns
-        self.assertLess(end[1], start[1], msg="Failed to beat baseline")
+        self.assertLess(end[1], start[1], msg = "Failed to beat baseline")
 
     def test_select_percentile_selector(self):
 
@@ -32,7 +32,7 @@ class TestFeatureSelection(TestCase):
         end = reducer.shape
 
         # Assert fewer columns
-        self.assertLess(end[1], start[1], msg="Failed to beat baseline")
+        self.assertLess(end[1], start[1], msg = "Failed to beat baseline")
 
     def test_select_k_best_selector(self):
 
@@ -44,10 +44,10 @@ class TestFeatureSelection(TestCase):
         end = reducer.shape
 
         # Assert fewer columns
-        self.assertLess(end[1], start[1], msg="Failed to beat baseline")
+        self.assertLess(end[1], start[1], msg = "Failed to beat baseline")
 
     def setup_data(self):
-        data = data_io.get_data(setup.get_datasets_path(), "winequality-red.csv")
+        data = ft.get_data(setup.get_datasets_path(), "winequality-red.csv", ';')
         target = 'quality'
         start = data.shape
         return data, start, target

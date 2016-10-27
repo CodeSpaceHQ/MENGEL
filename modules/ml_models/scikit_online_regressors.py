@@ -1,5 +1,6 @@
 from sklearn import linear_model
-from modules.DMZ.models import model_properties as mp
+import setup
+from modules.toolbox import framework_tools as ft
 
 #
 # There is also some repetitive code in terms of fitting and scoring models, this will
@@ -11,10 +12,10 @@ from modules.DMZ.models import model_properties as mp
 # http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDRegressor.html#sklearn.linear_model.SGDRegressor
 def train_sgd_regressor():
     # Picking model
-    return mp.ModelProperties(regression=True, online=True), linear_model.SGDRegressor()
+    return linear_model.SGDRegressor()
 
 
 # http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.PassiveAggressiveRegressor.html#sklearn.linear_model.PassiveAggressiveRegressor
 def train_passive_aggressive_regressor():
     # Picking model
-    return mp.ModelProperties(regression=True, online=True), linear_model.PassiveAggressiveRegressor()
+    return linear_model.PassiveAggressiveRegressor()
