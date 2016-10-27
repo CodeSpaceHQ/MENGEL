@@ -47,7 +47,7 @@ class TestFeatureSelection(TestCase):
         self.assertLess(end[1], start[1], msg="Failed to beat baseline")
 
     def setup_data(self):
-        data = data_io.get_data(setup.get_datasets_path(), "winequality-red.csv", ';')
+        data = data_io.get_data(setup.get_datasets_path(), "winequality-red.csv")
         target = 'quality'
         start = data.shape
         return data, start, target

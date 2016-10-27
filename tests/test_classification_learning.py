@@ -51,7 +51,7 @@ class TestClassificationLearning(unittest.TestCase):
     def setup_data(self):
         data = DataPackage()
         validation_pack = ValidationPackage()
-        data.setup_training_data("winequality-red.csv", ";", "quality")
+        data.setup_training_data("winequality-red.csv", "quality")
         data.set_output_style("train")
         validation_pack.setup_package(data)
         return data, validation_pack

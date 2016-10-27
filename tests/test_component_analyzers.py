@@ -63,7 +63,7 @@ class TestDimensionalityReduction(TestCase):
         self.assertLess(end[0], start[0], msg="Failed to beat baseline")
 
     def pre_test(self):
-        data = data_io.get_data(setup.get_datasets_path(), "winequality-red.csv", ';')
+        data = data_io.get_data(setup.get_datasets_path(), "winequality-red.csv")
         start = data.shape
 
         return data, start

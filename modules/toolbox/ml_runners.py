@@ -19,9 +19,10 @@ def run_regressions(validation_pack, package):
     for function in dir(scikit_regression_learners):
         item = getattr(scikit_regression_learners, function)
         if callable(item):
+
+            # model is a tuple. To access the properties of the model, use model[0],
+            # to get the model itself, use model[1].
             model = item()
-            print(model[0])
-            print(model[1])
             results.append(model_use(model[1], validation_pack, package))
 
     return results

@@ -16,7 +16,7 @@ class TestFrameworkTools(TestCase):
     def test_get_prediction_type_regression(self):
 
         # Arrange
-        data = data_io.get_data(setup.get_datasets_path(), "housing_train.csv", ",")
+        data = data_io.get_data(setup.get_datasets_path(), "housing_train.csv")
 
         # Act
         ml_type = data_analysis.get_prediction_type(data["SalePrice"])
@@ -27,7 +27,7 @@ class TestFrameworkTools(TestCase):
     def test_get_prediction_type_classification(self):
 
         # Arrange
-        data = data_io.get_data(setup.get_datasets_path(), "winequality-red.csv", ";")
+        data = data_io.get_data(setup.get_datasets_path(), "winequality-red.csv")
 
         # Act
         ml_type = data_analysis.get_prediction_type(data["quality"])
@@ -38,7 +38,7 @@ class TestFrameworkTools(TestCase):
     def test_data_split(self):
 
         # Arrange
-        data = data_io.get_data(setup.get_datasets_path(), "winequality-red.csv", ";")
+        data = data_io.get_data(setup.get_datasets_path(), "winequality-red.csv")
 
         # Act
         x_train, x_test, y_train, y_test = data_splitting.get_train_test(data, "quality")
@@ -51,7 +51,7 @@ class TestFrameworkTools(TestCase):
     def test_scaling(self):
 
         # Arrange
-        data = data_io.get_data(setup.get_datasets_path(), "winequality-red.csv", ";")
+        data = data_io.get_data(setup.get_datasets_path(), "winequality-red.csv")
 
         # Act
         target = data_splitting.scale_numeric_data(data)
