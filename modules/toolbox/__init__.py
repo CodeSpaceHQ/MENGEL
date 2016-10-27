@@ -9,8 +9,8 @@ from sklearn import preprocessing
 
 
 # ml_runners
-from modules.ml_models import scikit_online_regressors
-from modules.ml_models import scikit_regression_learners
+from modules.DMZ.models.regression import scikit_online_regressors
+from modules.DMZ.models.regression import scikit_regression_learners
 from modules.toolbox import framework_tools
 import setup
 

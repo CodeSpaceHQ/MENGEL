@@ -16,7 +16,7 @@ class ValidationPackage(object):
 
     def split_file(self, train_file, target):
         splitter = sp.Splitter()
-        splitter.Split(setup.get_datasets_path() + train_file)
+        splitter.Split(setup.get_datasets_path() + train_file, target)
         train = ft.get_data(setup.get_datasets_path(), "training.data.csv", ",")
         test = ft.get_data(setup.get_datasets_path(), "testing.data.csv", ",")
         self.x_train, self.y_train = ft.separate_target(train, target)

@@ -6,8 +6,8 @@ sys.path.insert(0, os.path.abspath('../..'))
 import setup
 from validation_package import ValidationPackage
 from modules.toolbox import framework_tools as ft
-from modules.ml_models import scikit_online_regressors
-from modules.ml_models import scikit_regression_learners
+from modules.DMZ.models.regression import scikit_online_regressors
+from modules.DMZ.models.regression import scikit_regression_learners
 from modules.toolbox import *
 
 
@@ -20,7 +20,9 @@ def run_regressions(validation_pack, package):
         item = getattr(scikit_regression_learners, function)
         if callable(item):
             model = item()
-            results.append(model_use(model, validation_pack, package))
+            print(model[0])
+            print(model[1])
+            results.append(model_use(model[1], validation_pack, package))
 
     return results
 
