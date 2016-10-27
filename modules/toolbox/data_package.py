@@ -1,4 +1,5 @@
-from modules.toolbox import framework_tools as ft
+from modules.DMZ.data_kit import data_io
+from modules.DMZ.data_kit import data_splitting
 import setup
 
 
@@ -12,14 +13,14 @@ class DataPackage(object):
 
     def setup_training_data(self, train_file, separator, target):
         # Loading training data
-        self.train_data = ft.get_data(setup.get_datasets_path(), train_file, separator)
+        self.train_data = data_io.get_data(setup.get_datasets_path(), train_file, separator)
 
         # Setting what to predict
         self.target_column = target
 
     def setup_test_data(self, test_file, separator):
         # Loading testing data
-        self.test_data = ft.get_data(setup.get_datasets_path(), test_file, separator)
+        self.test_data = data_io.get_data(setup.get_datasets_path(), test_file, separator)
 
     def set_output_style(self, style):
         if style == "train" or style == "test":

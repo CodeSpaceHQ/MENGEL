@@ -4,9 +4,7 @@ sys.path.insert(0, os.path.abspath('..'))
 
 from unittest import TestCase
 from modules.DMZ.models.regression import scikit_regression_learners
-from modules.toolbox import framework_tools as ft
 from modules.toolbox import ml_runners as mr
-import setup
 
 from modules.toolbox.data_package import DataPackage
 from modules.toolbox.validation_package import ValidationPackage

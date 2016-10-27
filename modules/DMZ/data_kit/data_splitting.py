@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn import preprocessing
 from sklearn import cross_validation
+import numpy as np
 
 
 # Gets the training and testing splits for training.

@@ -5,7 +5,7 @@ sys.path.insert(0, os.path.abspath('../..'))
 
 import setup
 from validation_package import ValidationPackage
-from modules.toolbox import framework_tools as ft
+from modules.DMZ.data_kit import data_io
 from modules.DMZ.models.regression import scikit_online_regressors
 from modules.DMZ.models.regression import scikit_regression_learners
 from modules.toolbox import *
@@ -42,4 +42,4 @@ def model_use(model, validation_pack, data_pack):
         return model.score(validation_pack.x_test, validation_pack.y_test)
     elif data_pack.output_style == "test":
         predictions = model.predict(model, data_pack)
-        ft.save_predictions(setup.get_datasets_path(), predictions, "random_forest")
+        data_io.save_predictions(setup.get_datasets_path(), predictions, "random_forest")

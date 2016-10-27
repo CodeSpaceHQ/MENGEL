@@ -11,7 +11,8 @@ from sklearn import preprocessing
 # ml_runners
 from modules.DMZ.models.regression import scikit_online_regressors
 from modules.DMZ.models.regression import scikit_regression_learners
-from modules.toolbox import framework_tools
+from modules.DMZ.data_kit import data_io
+from modules.DMZ.data_kit import data_splitting
 import setup
 
 
@@ -23,7 +24,7 @@ from sklearn import svm
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import AdaBoostRegressor
 
-__all__ = ["framework_tools", "setup", "csv", "pd", "np",
+__all__ = ["data_io", "data_splitting", "setup", "csv", "pd", "np",
            "cross_validation", "preprocessing",
            "scikit_regression_learners", "scikit_online_regressors",
            "neighbors", "RandomForestClassifier", "linear_model",
