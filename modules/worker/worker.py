@@ -10,3 +10,6 @@ class Worker(object):
 
     def split_data(self):
         return 0  # TODO finish
+
+
+# WTF
