@@ -8,6 +8,7 @@ class ConfigOptions(object):
         self.prediction_type = None
         self.target_column = None
         self.get_config_options()
+        self.validate_options()
 
     #Get input from user
     def get_config_options(self):
@@ -17,4 +18,10 @@ class ConfigOptions(object):
         self.prediction_type = raw_input("Provide the type of prediction being done (Auto, Regression, or Classification: ")
         self.target_column = raw_input("Provide the name of the column to be predicted: ")
 
+    #Check input from user
+    def validate_options(self):
+        predict = self.prediction_type.lower()
+        if predict != "regression" and predict != "classification" and predict != "auto":
+            print("Please input the type of prediction to be done.")
+            return
 
