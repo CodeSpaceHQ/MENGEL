@@ -5,7 +5,8 @@ sys.path.insert(0, os.path.abspath('..'))
 
 from unittest import TestCase
 from modules.DMZ.data_kit import data_splitting
-from modules.DMZ.data_kit import data_analysis
+from modules.DMZ.data_kit import data_prepping
+from modules.DMZ.data_kit import dataset_insight
 from modules.DMZ.data_kit import data_io
 import setup
 import pandas as pd
@@ -19,7 +20,7 @@ class TestFrameworkTools(TestCase):
         data = data_io.get_data(setup.get_datasets_path(), "housing_train.csv")
 
         # Act
-        ml_type = data_analysis.get_prediction_type(data["SalePrice"])
+        ml_type = dataset_insight.get_prediction_type(data["SalePrice"])
 
         # Assert
         self.assertEqual(ml_type, "regression", "Type should be regression.")
@@ -30,7 +31,7 @@ class TestFrameworkTools(TestCase):
         data = data_io.get_data(setup.get_datasets_path(), "winequality-red.csv")
 
         # Act
-        ml_type = data_analysis.get_prediction_type(data["quality"])
+        ml_type = dataset_insight.get_prediction_type(data["quality"])
 
         # Assert
         self.assertEqual(ml_type, "classification", "Type should be classification.")
@@ -54,7 +55,7 @@ class TestFrameworkTools(TestCase):
         data = data_io.get_data(setup.get_datasets_path(), "winequality-red.csv")
 
         # Act
-        target = data_splitting.scale_numeric_data(data)
+        target = data_prepping.scale_numeric_data(data)
         target = pd.DataFrame.as_matrix(target)
 
         # Assert
