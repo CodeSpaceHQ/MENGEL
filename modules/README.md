@@ -3,14 +3,16 @@ This folder divides the project into different modules, each of which has its ow
 
 ### Description and Status
 If a module is labeled as DEPRECATED, do not add anymore code to that folder. It is undergoing replacement.
-- MLTA: Under active development. This module is responsible for logging and analyzing data about trained models and their results.
-- data_supplier: Under active development. This module will have a primary singleton that uses other classes to load, clean, modify, and provide data to machine learning algorithms.
-- gym: Under active development. This module will train and validate machine learning models. This is also where results will be logged using MLTA.
+- DMZ: Under active developerment
+  - This module is for shared functionality, such at utility classes and machine learning models.
+- MLTA: Under active development
+  - This module is responsible for logging and analyzing data about trained models and their results.
+- hub: Under active development
+  - This module focuses on deploying workers that can train and test models. Eventually it will deploy workers to other servers on a network.
 - logger: DEPRECATED
-- ml_models: DEPRECATED
-- model_coach: Under active development. This module will select algorithms to use based on the configuration options provided for the given project. It will request data and pass the model and the data to the gym for training and validation.
 - reducers: DEPRECATED
-- supply_closet: Under active development. This module will contain helper classes and utilities for the project.
 - toolbox: DEPRECATED
+- worker: Under active development
+  - A worker requests tickets and satisfies the requirements of each ticket (or reports a failure). As part of a ticket they will be told what data to target, along with the model to use.
 
 This documentation is ongoing and we will be adding more information as needed.

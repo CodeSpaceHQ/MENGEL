@@ -1,6 +1,6 @@
 from modules.DMZ.data_kit import data_splitting
 from modules.DMZ.data_kit import data_io
-from modules.DMZ.data_kit import data_analysis
+from modules.DMZ.data_kit import dataset_insight
 from modules.toolbox import splitter as sp
 import setup
 
@@ -20,7 +20,7 @@ class ValidationPackage(object):
         path = setup.get_datasets_path() + train_file
         splitter = sp.Splitter()
 
-        splitter.Split(path, data_analysis.get_delimiter(path))
+        splitter.Split(path, dataset_insight.get_delimiter(path))
         train = data_io.get_data(setup.get_datasets_path(), "training.data.csv")
         test = data_io.get_data(setup.get_datasets_path(), "testing.data.csv")
 
