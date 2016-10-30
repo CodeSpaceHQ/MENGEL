@@ -8,9 +8,6 @@ import sys
 
 
 def get_models(prediction_type):
-    # temp until I get Zak's stuff
-    prediction_type = "regression"
-
     models = set()
 
     root_path = setup.get_root_path()

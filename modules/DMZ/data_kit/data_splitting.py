@@ -1,6 +1,6 @@
 import pandas as pd
 from sklearn import cross_validation
-import data_prepping
+import data_scaling
 import numpy as np
 
 
@@ -17,7 +17,7 @@ def get_train_test(pandas_data, target_col):
 
     # Separating target from the rest of the data
     x = pandas_data.drop(target_col, 1)
-    x = data_prepping.scale_numeric_data(x)
+    x = data_scaling.scale_numeric_data(x)
 
     # Selection of training/target data for validation and training.
     target_loc = pandas_data.columns.get_loc(target_col)

@@ -13,5 +13,10 @@ class ValidationPackage(object):
         self.y_train = None
         self.y_test = None
 
+    # Deprecated
     def setup_package(self, pack):
         self.x_train, self.x_test, self.y_train, self.y_test = data_splitting.get_train_test(pack.train_data, pack.target_column)
+
+    # This will be replacing the old function above. It sets up the split between training and testing data.
+    def prepare_package(self, train, target):
+        self.x_train, self.x_test, self.y_train, self.y_test = data_splitting.get_train_test(train, target)

@@ -5,7 +5,7 @@ sys.path.insert(0, os.path.abspath('..'))
 
 from unittest import TestCase
 from modules.DMZ.data_kit import data_splitting
-from modules.DMZ.data_kit import data_prepping
+from modules.DMZ.data_kit import data_scaling
 from modules.DMZ.data_kit import dataset_insight
 from modules.DMZ.data_kit import data_io
 import setup
@@ -55,7 +55,7 @@ class TestFrameworkTools(TestCase):
         data = data_io.get_data(setup.get_datasets_path(), "winequality-red.csv")
 
         # Act
-        target = data_prepping.scale_numeric_data(data)
+        target = data_scaling.scale_numeric_data(data)
         target = pd.DataFrame.as_matrix(target)
 
         # Assert
