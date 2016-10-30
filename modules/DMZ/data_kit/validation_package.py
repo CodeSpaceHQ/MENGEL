@@ -15,14 +15,3 @@ class ValidationPackage(object):
 
     def setup_package(self, pack):
         self.x_train, self.x_test, self.y_train, self.y_test = data_splitting.get_train_test(pack.train_data, pack.target_column)
-
-    def split_file(self, train_file, target):
-        path = setup.get_datasets_path() + train_file
-        splitter = sp.Splitter()
-
-        splitter.Split(path, dataset_insight.get_delimiter(path))
-        train = data_io.get_data(setup.get_datasets_path(), "training.data.csv")
-        test = data_io.get_data(setup.get_datasets_path(), "testing.data.csv")
-
-        self.x_train, self.y_train = data_splitting.separate_target(train, target)
-        self.x_test, self.y_test = data_splitting.separate_target(test, target)

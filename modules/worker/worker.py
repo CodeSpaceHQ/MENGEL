@@ -1,3 +1,4 @@
+from modules.DMZ.data_kit import validation_package
 
 
 # This is the starting point for a worker, this will be changed when we
@@ -6,10 +7,4 @@ class Worker(object):
 
     def __init__(self, hub):
         self.ticket = hub.get_ticket()
-        self.validation_pack = 0  # TODO finish
-
-    def split_data(self):
-        return 0  # TODO finish
-
-
-# WTF
+        # Next step is to add data_controller and model_controller
