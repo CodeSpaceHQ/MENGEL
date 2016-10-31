@@ -36,3 +36,4 @@ def fill_missing_data_average(pandas_data):
     for feature in features:
         pandas_data[feature].fillna(pandas_data[feature].mean(), inplace=True)
 
+    return pandas_data
