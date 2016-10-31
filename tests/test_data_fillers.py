@@ -24,7 +24,7 @@ class TestDataFilling(TestCase):
         end = (data_filler.drop_missing_data_columns(data, len(data))).shape
 
         #Assert
-        self.assertLess(end[1], start[1], msg="Failed to beat baseline")
+        self.assertLess(end[1], start[1], msg="Failed to remove any columns")
 
 
     def test_drop_missing_data_rows(self):
@@ -36,7 +36,7 @@ class TestDataFilling(TestCase):
         end = (data_filler.drop_missing_data_rows(data, len(data))).shape
 
         #Assert
-        self.assertLess(end[0], start[0], msg="Failed to beat baseline")
+        self.assertLess(end[0], start[0], msg="Failed to remove any rows")
 
     def test_drop_all_missing_data_columns(self):
         #Arrange
@@ -46,7 +46,7 @@ class TestDataFilling(TestCase):
         end = (data_filler.drop_all_missing_data_columns(data)).shape
 
         #Assert
-        self.assertLess(end[1], start[1], msg="Failed to beat baseline")
+        self.assertLess(end[1], start[1], msg="Failed to remove any columns")
 
 
     def test_drop_all_missing_data_rows(self):
@@ -58,7 +58,7 @@ class TestDataFilling(TestCase):
         end = (data_filler.drop_all_missing_data_rows(data)).shape
 
         #Assert
-        self.assertEqual(end[0], start[0], msg="Failed to beat baseline")
+        self.assertEqual(end[0], start[0], msg="Failed to remove any rows")
 
     def test_fill_missing_data(self):
 
@@ -69,7 +69,7 @@ class TestDataFilling(TestCase):
         data = data_filler.fill_missing_data(data, 7)
 
         #Assert
-        self.assertFalse(data.isnull().values.any(), msg="Failed to beat baseline")
+        self.assertFalse(data.isnull().values.any(), msg="Failed to remove all NaNs")
 
     def test_fill_missing_data_average(self):
         # Arrage
@@ -81,7 +81,7 @@ class TestDataFilling(TestCase):
         data = data_filler.fill_missing_data_average(data)
 
         # Assert
-        self.assertFalse(data.isnull().values.any(), msg="Failed to beat baseline")
+        self.assertFalse(data.isnull().values.any(), msg="Failed to remove all NaNs")
 
     def setup_data(self):
         data = data_io.get_data(setup.get_datasets_path(), "titanic_train.csv")
