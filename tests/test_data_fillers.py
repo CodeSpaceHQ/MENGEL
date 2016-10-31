@@ -21,7 +21,7 @@ class TestDataFilling(TestCase):
         data, start, target = self.setup_data()
 
         #Act
-        end = (data_filler.drop_missing_data_columns(data, 1)).shape
+        end = (data_filler.drop_missing_data_columns(data, len(data))).shape
 
         #Assert
         self.assertLess(end[1], start[1], msg="Failed to beat baseline")
@@ -33,7 +33,7 @@ class TestDataFilling(TestCase):
         data, start, target = self.setup_data()
 
         #Act
-        end = (data_filler.drop_missing_data_rows(data, 100)).shape
+        end = (data_filler.drop_missing_data_rows(data, len(data))).shape
 
         #Assert
         self.assertLess(end[0], start[0], msg="Failed to beat baseline")
