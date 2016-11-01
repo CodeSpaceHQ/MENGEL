@@ -5,5 +5,8 @@ from modules.DMZ.data_kit import validation_package
 # Eventually it will make changes to the data. Currently it does not.
 class DataController(object):
 
-    def __init__(self, training, target):
-        self.validation_pack = validation_package.ValidationPackage().prepare_package(training, target)
+    def __init__(self, training, testing, target):
+        # self.validation_pack = validation_package.ValidationPackage().prepare_package(training, target)
+        self.validation_pack = None
+
+    def prepare_data(self):
