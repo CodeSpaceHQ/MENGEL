@@ -36,5 +36,16 @@ columns in the dataset.
 
 This file can modify the dataset, but it should not add or remove columns.
 
+### Data Filling: data_filler.py
+This file is for the removal or replacement of values of data which are missing.
+- drop_missing_data_rows: Removes any rows which have fewer than threshold non NaN values.
+- drop_missing_data_columns: Removes any columns which have fewer than threshold non NaN values.
+- drop_all_missing_data_rows: Removes any rows which hold exclusively NaN values.
+- drop_all_missing_data_columns: Removes any columns which hold exclusively NaN values. 
+- fill_missing_data: Replaces any NaN values within the data with the passed filler value.
+- fill_missing_data_average: Replaces any NaN values within the data with the average value of that data's column. 
+
+This file can modify the dataset by removing rows or columns, but it cannot add either. 
+
 ##
 This documentation is a work in progress. Please create an issue if you need something added or fork it and do a PR.
