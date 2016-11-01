@@ -16,9 +16,11 @@ class Worker(object):
 
     def setup_controllers(self):
         self.data_control = data_controller.DataController(self.ticket.training, self.ticket.testing, self.ticket.target)
-        self.model_control = model_controller.ModelController(self.ticket.ml_algorithm)
+        self.model_control = model_controller.ModelController(self.ticket.ml_algorithm, self.ticket.target)
         self.model_gym = gym.Gym()
 
     def run_algorithm(self):
-        self.model_gym.validate_model(self.data_control, self.model_control)
-        self.model_gym.apply_model()
+        print(self.model_control.model)
+        print(self.model_control.model[0])
+        print(self.model_control.model[1])
+        self.model_gym.validate_model(self.data_control, self.ticket.ml_algorithm[1])

@@ -17,3 +17,9 @@ def scale_numeric_data(pandas_data):
             pandas_data[col] = preprocessing.scale(pandas_data[col])
 
     return pandas_data
+
+
+def scale_data(train, test):
+    scaler = preprocessing.StandardScaler().fit(train)
+
+    return scaler.transform(train), scaler.transform(test)
