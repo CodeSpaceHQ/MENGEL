@@ -47,5 +47,12 @@ This file is for the removal or replacement of values of data which are missing.
 
 This file can modify the dataset by removing rows or columns, but it cannot add either. 
 
+### Text Handling: text_handler.py
+This file is for the conversion or removal of text values from a dataset. 
+- text_column_to_numeric: Takes in a dataframe column and replaces all of the text values with corresponding categorical numeric values. If given a column of nontext values, it will return the unaltered column. 
+- convert_dataframe_text: Converts all text columns which have a ratio of unique components to number of components less than or equal to the desired ratio to corresponding categorical numeric data. 
+- convert_nonpredictive_text: Replaces all text values in a dataframe with "NaN"s. All other data is left unchanged. 
+
+This file can modify the dataset, but it cannot add or remove columns. 
 ##
 This documentation is a work in progress. Please create an issue if you need something added or fork it and do a PR.
