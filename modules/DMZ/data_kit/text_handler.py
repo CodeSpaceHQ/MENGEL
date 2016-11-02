@@ -7,8 +7,9 @@ from sklearn import preprocessing
 #Takes a pandas dataframe column and converts all values to categorical numeric values.
 #If given a column of nontext values, it will return the passed column unaltered.
 def text_column_to_numeric(col):
-    le = preprocessing.LabelEncoder()
-    col = le.fit_transform(col)
+    if(col.dtype == object):
+        le = preprocessing.LabelEncoder()
+        col = le.fit_transform(col)
     return col
 
 

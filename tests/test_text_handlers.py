@@ -33,7 +33,7 @@ class TestDataFilling(TestCase):
         data = self.setup_data()
 
         #Act
-        data = text_handler.convert_dataframe_text(data, 10)
+        data = text_handler.convert_dataframe_text(data, .5)
 
         #Assert
         self.assertTrue(data["Sex"].dtype != "object" and data["Name"].dtype == "object", msg="Converted incorrect features")
