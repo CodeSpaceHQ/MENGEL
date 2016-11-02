@@ -3,13 +3,12 @@ import numpy as np
 from sklearn import preprocessing
 
 
-# Takes a given column of a pandas dataframe and returns the column with all
-# text values changed to categorical numeric values
-def text_column_to_numeric(column):
-    le=preprocessing.LabelEncoder()
-    le.fit(column)
-    column = le.transform(column)
-    return column
+
+# http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.LabelEncoder.html
+def text_column_to_numeric(col):
+    le = preprocessing.LabelEncoder()
+    col = le.fit_transform(col)
+    return col
 
 
 # Iterates over every column of the given dataframe and checks if the column contains text. If so, and if it has fewer
@@ -27,3 +26,10 @@ def convert_dataframe_text(pandas_data, n):
 def convert_nonpredictive_text(pandas_data):
     pandas_data = pandas_data.apply(pd.to_numeric, errors='coerce')
     return pandas_data
+
+
+x = pd.read_csv("titanic_train.csv", sep = ',')
+column = x["Sex"]
+
+handler = text_column_to_numeric(column)
+print(handler)
