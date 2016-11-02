@@ -4,8 +4,8 @@ from sklearn import preprocessing
 
 
 # http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.LabelEncoder.html
-#Takes a pandas dataframe column and converts all values to categorical numeric values.
-#If given a column of nontext values, it will return the passed column unaltered.
+# Takes a pandas dataframe column and converts all values to categorical numeric values.
+# If given a column of nontext values, it will return the passed column unaltered.
 def text_column_to_numeric(col):
     if(col.dtype == object):
         le = preprocessing.LabelEncoder()
