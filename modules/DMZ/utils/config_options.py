@@ -2,12 +2,10 @@ class ConfigOptions(object):
 
     # Initialize the class
     def __init__(self):
-        self.training_file_name = None
-        self.test_file_name = None
-        self.prediction_type = None
-        self.target_column = None
-        self.get_config_options()
-        self.validate_options()
+        self.training_file_name = "titanic_train.csv"
+        self.test_file_name = "titanic_test.csv"
+        self.prediction_type = "regression"
+        self.target_column = "Survived"
 
     # Get input from user
     def get_config_options(self):

@@ -2,8 +2,6 @@ from modules.DMZ.data_kit import validation_package
 from modules.DMZ.data_kit import data_filler
 from modules.DMZ.data_kit import data_scaling
 from modules.DMZ.data_kit import data_splitting
-from sklearn import linear_model
-from sklearn import svm
 
 
 # This class will manage the data for the worker and prep it for use.
@@ -12,7 +10,7 @@ class DataController(object):
 
     def __init__(self, training, testing, target):
         # self.validation_pack = validation_package.ValidationPackage().prepare_package(training, target)
-        self.validation_pack = None
+        self.validation_pack = validation_package.ValidationPackage()
         self.unlabeled_data = None
 
         self.prepare_data(training, testing, target)
@@ -33,5 +31,5 @@ class DataController(object):
         training, testing = data_scaling.scale_data(training, testing)
 
         # Splitting into training and testing data
-        self.validation_pack = validation_package.ValidationPackage().prepare_package(training, label_data, .2)
+        self.validation_pack.prepare_package(training, label_data, .2)
         self.unlabeled_data = testing

@@ -6,6 +6,8 @@ import glob
 import setup
 import sys
 
+from modules.DMZ.models.regression import scikit_regression_learners
+
 
 def get_models(prediction_type):
     models = set()
@@ -20,8 +22,9 @@ def get_models(prediction_type):
     for filename in __all__:
         importer = __import__(filename)
         for function in dir(importer):
-            if function.__str__()[0:5] == "train":
-                models.add(function)
+            item = getattr(importer, function)
+            if function.__str__()[0:5] == "train" and callable(item):
+                models.add(item)
 
     return models
 

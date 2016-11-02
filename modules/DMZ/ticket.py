@@ -10,3 +10,9 @@ class Ticket(object):
         self.training = train
         self.testing = test
         self.target = label
+        self.hyperparameters = None
+        self.validation_results = None
+        self.test_results = None
+        self.parameters_used = None
+        self.max_iterations = 0
+        self.past_results = None
