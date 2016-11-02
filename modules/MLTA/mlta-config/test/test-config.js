@@ -63,6 +63,9 @@ describe('config', function() {
                     expect(config.databaseURL).to.equal(testConfigObj.databaseURL)
                     expect(config.serviceAccount).to.equal(testConfigObj.serviceAccount)
                     cb(null)
+                },
+                getConfigIfExists: function(name, cb) {
+                  cb(new Error('NoExist'));
                 }
             }
             mc.__set__({
