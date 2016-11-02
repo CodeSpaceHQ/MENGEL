@@ -1,23 +1,16 @@
 # This set of functions will assist in retrieving the desired models
 # based on configuration options.
 
-from os.path import dirname, basename, isfile
-import glob
-import setup
-import sys
+from modules.DMZ.utils import system_navigation as sn
 
 
 def get_models(prediction_type):
     models = set()
 
-    root_path = setup.get_root_path()
-    path_to_models = root_path + "/modules/DMZ/models/" + prediction_type + '/'
-    sys.path.append(path_to_models)
+    sn.add_path_to(sn.path_to_models(prediction_type))
+    modules = sn.get_modules(sn.path_to_models(prediction_type))
 
-    modules = glob.glob(dirname(path_to_models) + "/*.py")
-    __all__ = [basename(f)[:-3] for f in modules if isfile(f)]
-
-    for filename in __all__:
+    for filename in modules:
         importer = __import__(filename)
         for function in dir(importer):
             item = getattr(importer, function)
