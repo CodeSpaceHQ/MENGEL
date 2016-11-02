@@ -36,7 +36,7 @@ class TestDataFilling(TestCase):
         data = text_handler.convert_dataframe_text(data, 10)
 
         #Assert
-        self.assertTrue(data["Sex"].dtype != "object" and data["Name"].dtype=="object", msg = "Converted incorrect features")
+        self.assertTrue(data["Sex"].dtype != "object" and data["Name"].dtype == "object", msg="Converted incorrect features")
 
     def test_convert_nonpredictive_text(self):
 
