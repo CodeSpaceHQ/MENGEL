@@ -15,6 +15,8 @@ class DataController(object):
 
         self.prepare_data(training, testing, target)
 
+    # Runs a series of cleaning and data modification algorithms and tools to ready
+    # the data for training. TODO: Split and simplify with strategies.
     def prepare_data(self, training, testing, target):
         # Separating label data from training data.
         training, label_data = data_splitting.separate_target(training, target)

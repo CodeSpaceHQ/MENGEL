@@ -34,7 +34,8 @@ def get_train_test(pandas_data, target_col):
     return cross_validation.train_test_split(x, y, test_size=0.2)
 
 
-# Removes the target column from the input data. Returns DataFrames
+# Removes the target column from the input data.
+# Returns two DataFrames.
 def separate_target(pandas_data, target_col):
     # Selection of training/target data for validation and training.
     x = pandas_data.drop(target_col, 1)
@@ -43,5 +44,6 @@ def separate_target(pandas_data, target_col):
     return x, y
 
 
+# Removes all non-numeric columns from the dataset.
 def remove_non_numeric_columns(pandas_data):
     return pandas_data._get_numeric_data()

@@ -19,6 +19,13 @@ def scale_numeric_data(pandas_data):
     return pandas_data
 
 
+# Creates a standard scaler based on the training data and applies it to both train
+# and test data.
+# Input:
+# - Two Pandas DataFrames, same number of columns
+# Output:
+# - Two Pandas DataFrames, both of which have been scaled based on StandardScaler
+# trained on training data.
 def scale_data(train, test):
     scaler = preprocessing.StandardScaler().fit(train)
 

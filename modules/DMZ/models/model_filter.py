@@ -4,6 +4,12 @@
 from modules.DMZ.utils import system_navigation as sn
 
 
+# Gets all of the models that are compatible with the prediction type.
+# Input:
+# - prediction_type: "regression" or "classification"
+# Output:
+# - Functions that can be called and return the model along with the properties that
+# the model has.
 def get_models(prediction_type):
     models = set()
 

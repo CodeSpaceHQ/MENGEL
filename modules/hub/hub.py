@@ -35,11 +35,13 @@ class Hub(object):
     def launch_workers(self):
         worker.Worker(self)
 
+    # Creates the Tickets which are given to Workers.
     def create_tickets(self):
         for model in self.models:
             new_ticket = ticket.Ticket(model, self.training_data, self.testing_data, self.configuration.target_column)
             self.tickets.append(new_ticket)
 
+    # A function that is called by Workers which returns a Ticket.
     def get_ticket(self):
         return self.tickets.pop()
 

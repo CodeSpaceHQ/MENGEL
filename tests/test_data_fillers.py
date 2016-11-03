@@ -26,7 +26,6 @@ class TestDataFilling(TestCase):
         #Assert
         self.assertLess(end[1], start[1], msg="Failed to remove any columns")
 
-
     def test_drop_missing_data_rows(self):
 
         #Arrange
@@ -39,6 +38,7 @@ class TestDataFilling(TestCase):
         self.assertLess(end[0], start[0], msg="Failed to remove any rows")
 
     def test_drop_all_missing_data_columns(self):
+
         #Arrange
         data, start, target = self.setup_data()
 
@@ -47,7 +47,6 @@ class TestDataFilling(TestCase):
 
         #Assert
         self.assertLess(end[1], start[1], msg="Failed to remove any columns")
-
 
     def test_drop_all_missing_data_rows(self):
 
@@ -72,11 +71,11 @@ class TestDataFilling(TestCase):
         self.assertFalse(data.isnull().values.any(), msg="Failed to replace all NaNs")
 
     def test_fill_missing_data_average(self):
+
         # Arrage
         data, start, target = self.setup_data()
 
         # Act
-
         data = data_filler.drop_all_missing_data_columns(data)
         data = data_filler.fill_missing_data_average(data)
 
@@ -86,7 +85,7 @@ class TestDataFilling(TestCase):
     def setup_data(self):
         data = data_io.get_data(setup.get_datasets_path(), "titanic_train.csv")
         data["Nonsense"] = np.nan
-        data = data.apply(pd.to_numeric,errors='coerce')
+        data = data.apply(pd.to_numeric, errors='coerce')
         data.loc[data.shape[0]] = [np.nan] * data.shape[1]
         target = 'Survived'
         start = data.shape
