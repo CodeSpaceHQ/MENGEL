@@ -41,6 +41,15 @@ def get_missing_ratios(pandas_data):
     return ratios
 
 
+#Takes a dataframe and returns the ratio of missing data to existing data for each row of the dataframe
+def get_missing_ratios_rows(pandas_data):
+    missing_data_counts = pandas_data.isnull().sum(axis = 1)
+    ratios = []
+    for i in range(0, pandas_data.shape[0]):
+        ratio = float(missing_data_counts[i]) / pandas_data.shape[0]
+        ratios.append(ratio)
+    return ratios
+
 # Takes a dataframe and returns the ratio of missing data for each column and the dtypes for each column.
 def get_composition(pandas_data):
     missing_ratios = get_missing_ratios(pandas_data)
