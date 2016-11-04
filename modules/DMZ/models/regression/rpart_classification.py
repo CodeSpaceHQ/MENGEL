@@ -26,4 +26,4 @@ if __name__ == "__main__":
     train_data = sys.argv[2]
     predictor = sys.argv[3]
     rpart = Rpart()
-    rpart.Rpart(test_data, test_data)
+    rpart.rpart_classify(test_data, test_data, predictor)
