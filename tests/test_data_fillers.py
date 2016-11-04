@@ -15,60 +15,58 @@ from modules.toolbox.validation_package import ValidationPackage
 
 class TestDataFilling(TestCase):
 
-    def test_drop_missing_data_columns(self):
-
-        #Arrange
-        data, start, target = self.setup_data()
-
-        #Act
-        end = (data_filler.drop_missing_data_columns(data, len(data))).shape
-
-        #Assert
-        self.assertLess(end[1], start[1], msg="Failed to remove any columns")
-
-
     def test_drop_missing_data_rows(self):
 
-        #Arrange
+        # Arrange
         data, start, target = self.setup_data()
 
-        #Act
-        end = (data_filler.drop_missing_data_rows(data, len(data))).shape
+        # Act
+        end = (data_filler.drop_missing_data_rows(data, .99)).shape
 
-        #Assert
+        # Assert
         self.assertLess(end[0], start[0], msg="Failed to remove any rows")
 
-    def test_drop_all_missing_data_columns(self):
-        #Arrange
+    def test_drop_missing_data_columns(self):
+
+        # Arrange
         data, start, target = self.setup_data()
 
-        #Act
-        end = (data_filler.drop_all_missing_data_columns(data)).shape
+        # Act
+        end = (data_filler.drop_missing_data_columns(data, .99)).shape
 
-        #Assert
+        # Assert
         self.assertLess(end[1], start[1], msg="Failed to remove any columns")
 
+    def test_drop_all_missing_data_columns(self):
+        # Arrange
+        data, start, target = self.setup_data()
+
+        # Act
+        end = (data_filler.drop_all_missing_data_columns(data)).shape
+
+        # Assert
+        self.assertLess(end[1], start[1], msg="Failed to remove any columns")
 
     def test_drop_all_missing_data_rows(self):
 
-        #Arrange
+        # Arrange
         data, start, target = self.setup_data()
 
-        #Act
+        # Act
         end = (data_filler.drop_all_missing_data_rows(data)).shape
 
-        #Assert
+        # Assert
         self.assertLess(end[0], start[0], msg="Failed to remove any rows")
 
     def test_fill_missing_data(self):
 
-        #Arrage
+        # Arrage
         data, start, target = self.setup_data()
 
-        #Act
+        # Act
         data = data_filler.fill_missing_data(data, 7)
 
-        #Assert
+        # Assert
         self.assertFalse(data.isnull().values.any(), msg="Failed to replace all NaNs")
 
     def test_fill_missing_data_average(self):
