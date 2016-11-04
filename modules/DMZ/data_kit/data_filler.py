@@ -51,9 +51,3 @@ def fill_missing_data_average(pandas_data):
         pandas_data[feature].fillna(pandas_data[feature].mean(), inplace=True)
     return pandas_data
 
-
-z = pd.read_csv("titanic_train.csv", sep=",")
-x = z
-x = drop_missing_data_rows(z, .1)
-print x.shape
-
