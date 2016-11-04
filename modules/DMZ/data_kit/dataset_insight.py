@@ -26,6 +26,7 @@ def get_prediction_type(target_column):
     return prediction_type
 
 
+# Gets the delimiter of the data that is targeted by the file path.
 def get_delimiter(path):
     with open(path, 'rb') as csvfile:
         return csv.Sniffer().sniff(csvfile.read(), delimiters=';,').delimiter

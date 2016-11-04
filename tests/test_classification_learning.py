@@ -10,7 +10,7 @@ import unittest
 from modules.DMZ.models.classification import scikit_classification_learners
 
 from modules.toolbox.data_package import DataPackage
-from modules.toolbox.validation_package import ValidationPackage
+from modules.DMZ.data_kit.validation_package import ValidationPackage
 from modules.toolbox import ml_runners as mr
 
 

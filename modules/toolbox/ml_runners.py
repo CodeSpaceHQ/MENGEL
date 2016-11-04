@@ -1,13 +1,9 @@
 # This file has functions which call different machine learning algorithms and handle results.
-import sys
 import os
+import sys
+
 sys.path.insert(0, os.path.abspath('../..'))
 
-import setup
-from validation_package import ValidationPackage
-from modules.DMZ.data_kit import data_io
-from modules.DMZ.models.regression import scikit_online_regressors
-from modules.DMZ.models.regression import scikit_regression_learners
 from modules.toolbox import *
 
 
@@ -26,11 +22,6 @@ def run_regressions(validation_pack, package):
             results.append(model_use(model[1], validation_pack, package))
 
     return results
-
-
-# TODO: Finish this runner or build it into an overall runner
-def run_classifications():
-    return
 
 
 # This function takes a model, the validation data, and the original data
