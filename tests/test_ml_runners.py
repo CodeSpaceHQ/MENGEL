@@ -1,11 +1,11 @@
-import sys
 import os
+import sys
+
 sys.path.insert(0, os.path.abspath('..'))
 
 from unittest import TestCase
-from modules.toolbox import data_package
-from modules.toolbox import validation_package
-from modules.toolbox import ml_runners as mr
+from modules.DMZ.data_kit import validation_package
+from modules.toolbox import ml_runners as mr, data_package
 
 
 class TestMLRunners(TestCase):
@@ -17,8 +17,9 @@ class TestMLRunners(TestCase):
         # Arrange
         package = data_package.DataPackage()
         package.set_output_style("train")
+        package.setup_training_data("winequality-red.csv", "quality")
         validation_pack = validation_package.ValidationPackage()
-        validation_pack.split_file("winequality-red.csv", "quality")
+        validation_pack.setup_package(package)
 
         # Act
         results = mr.run_regressions(validation_pack, package)

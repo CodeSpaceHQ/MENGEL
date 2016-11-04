@@ -1,12 +1,13 @@
-import sys
 import os
+import sys
+
 sys.path.insert(0, os.path.abspath('..'))
 
 from unittest import TestCase
 from modules.DMZ.models.regression import scikit_online_regressors
 from modules.toolbox import ml_runners as mr
 from modules.toolbox.data_package import DataPackage
-from modules.toolbox.validation_package import ValidationPackage
+from modules.DMZ.data_kit.validation_package import ValidationPackage
 
 
 class TestOnlineLearning(TestCase):
