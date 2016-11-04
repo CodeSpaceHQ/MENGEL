@@ -32,12 +32,24 @@ def get_delimiter(path):
         return csv.Sniffer().sniff(csvfile.read(), delimiters=';,').delimiter
 
 
-# Takes a dataframe and returns the ratio of missing data to existing data for each column of the dataframe
-def get_missing_ratios(pandas_data):
-    missing_data_counts = pandas_data.isnull().sum()
+# Gets the ratio of missing values to existing values in a dataframe. Either operates on rows or columns, depending
+# on input.
+def get_missing_ratios(pandas_data, method):
+
+    if method == "column":
+        missing_data_counts = pandas_data.isnull().sum(axis=0)
+        shape_axis = 1
+        index_axis = 0
+    elif method == "row":
+        missing_data_counts = pandas_data.isnull().sum(axis=1)
+        shape_axis = 0
+        index_axis = 1
+    else:
+        print("Please input row or column.")
+        return pandas_data
     ratios = []
-    for col in pandas_data:
-        ratio = float(missing_data_counts[col]) / pandas_data.shape[0]
+    for i in range(0, pandas_data.shape[shape_axis]):
+        ratio = float(missing_data_counts[i]) / pandas_data.shape[index_axis]
         ratios.append(ratio)
     return ratios
 
