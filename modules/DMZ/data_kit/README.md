@@ -10,6 +10,7 @@ The purpose of this file is finding information that is key to understanding how
   - This function is a naive method of finding out if classification or regression should be used on a dataset.
   Isaac is not happy with the way it works, so it's currently not used and the system will force the user to
   give regression or classification.
+- get_missing_ratios: Gets the ratio of missing values to exisiting values in a dataframe. Either operates on rows or columns depending on input. 
 
 This file should only have functions that information about a dataset. None of the functions in here should
 modify the dataset.
@@ -38,8 +39,8 @@ This file can modify the dataset, but it should not add or remove columns.
 
 ### Data Filling: data_filler.py
 This file is for the removal or replacement of values of data which are missing.
-- drop_missing_data_rows: Removes any rows which have fewer than threshold non NaN values.
-- drop_missing_data_columns: Removes any columns which have fewer than threshold non NaN values.
+- drop_missing_data_rows: Removes any rows which have a missing to exisiting component ratio greater than desired_ratio. 
+- drop_missing_data_columns: Removes any columns which have a missing to existing component ratio greater than desired_ratio. 
 - drop_all_missing_data_rows: Removes any rows which hold exclusively NaN values.
 - drop_all_missing_data_columns: Removes any columns which hold exclusively NaN values. 
 - fill_missing_data: Replaces any NaN values within the data with the passed filler value.

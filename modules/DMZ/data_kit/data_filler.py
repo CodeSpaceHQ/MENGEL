@@ -3,8 +3,8 @@ import numpy as np
 import dataset_insight
 
 
-#Drops rows which have a missing to existing component ratio greater than the desired_Ratio.
-#e.g. if desired_Ratio is .5, and a row is missing 60% of its components, the row will be dropped.
+# Drops rows which have a missing to existing component ratio greater than the desired_ratio.
+# e.g. if desired_Ratio is .5, and a row is missing 60% of its components, the row will be dropped.
 def drop_missing_data_rows(pandas_data, desired_ratio):
     ratios = dataset_insight.get_missing_ratios(pandas_data, "row")
     ratios_dict = dict(zip(range(0, pandas_data.shape[0]), ratios))
@@ -50,4 +50,3 @@ def fill_missing_data_average(pandas_data):
     for feature in features:
         pandas_data[feature].fillna(pandas_data[feature].mean(), inplace=True)
     return pandas_data
-
