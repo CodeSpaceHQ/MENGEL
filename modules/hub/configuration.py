@@ -53,18 +53,25 @@ class Configuration(object):
         self._load_file()
         self._validate_loaded_dict()
 
+    def save_data(self):
+        """ Updates the XML with models from config_data then outputs to config_file_name"""
+
+        pass
+
 
     def _load_file(self):
         """ Loads the XML file and checks root tag for validaty"""
-        tree = ET.parse(self.config_file_name)
-        root = tree.getroot()
-        if not root.tag == TAG_ROOT:
-            raise ConfigurationError('Required XML root tag [{}] not found in {}'.format(TAG_ROOT, self.config_file_name))
+        self.tree = ET.parse(self.config_file_name)
+        self.root = self.tree.getroot()
+        if not self.root.tag == TAG_ROOT:
+            raise ConfigurationError('Required XML root tag [{}] not found in\
+             {}'.format(TAG_ROOT, self.config_file_name))
 
-        self.config_data = _get_dict_from_xml(root)
+        self.config_data = _get_dict_from_xml(self.root)
 
     def _validate_loaded_dict(self):
         """ Checks to make sure all required tags are in the loaded dictionary from the XML file """
         for tag in REQUIRED_TAGS:
             if not self.config_data.has_key(tag):
-                raise ConfigurationError('Required XML tag [{}] not found in {}'.format(tag, self.config_file_name))
+                raise ConfigurationError('Required XML tag [{}] not found in {}'\
+                .format(tag, self.config_file_name))
