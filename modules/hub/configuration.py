@@ -11,9 +11,9 @@ The list below contains the values of the required XML tags that should be
 in the configuration XML file. If any one of these is not in the XML file, an
 error will be thrown.
 """
-tag_root = "MLTF-Configuration"
-required_tags = ["Project-Name","User-Name","Firebase",\
-"Files","Prediction","Models"]
+TAG_ROOT = "MLTF-Configuration"
+REQUIRED_TAGS = ["Project-Name", "User-Name", "Firebase", \
+"Files", "Prediction", "Models"]
 
 
 class Error(Exception):
@@ -23,7 +23,7 @@ class Error(Exception):
 class ConfigurationError(Exception):
     """Generic error for exceptions created in this module."""
     def __init__(self, message):
-        super(ConfigurationError,self).__init__(message)
+        super(ConfigurationError, self).__init__(message)
         self.message = message
 
 def _get_dict_from_xml(root):
@@ -58,13 +58,13 @@ class Configuration(object):
         """ Loads the XML file and checks root tag for validaty"""
         tree = ET.parse(self.config_file_name)
         root = tree.getroot()
-        if not root.tag == tag_root:
-            raise ConfigurationError('Required XML root tag [{}] not found in {}'.format(tag_root,self.config_file_name))
+        if not root.tag == TAG_ROOT:
+            raise ConfigurationError('Required XML root tag [{}] not found in {}'.format(TAG_ROOT, self.config_file_name))
 
         self.config_data = _get_dict_from_xml(root)
 
     def _validate_loaded_dict(self):
         """ Checks to make sure all required tags are in the loaded dictionary from the XML file """
-        for tag in required_tags:
+        for tag in REQUIRED_TAGS:
             if not self.config_data.has_key(tag):
-                raise ConfigurationError('Required XML tag [{}] not found in {}'.format(tag,self.config_file_name))
+                raise ConfigurationError('Required XML tag [{}] not found in {}'.format(tag, self.config_file_name))
