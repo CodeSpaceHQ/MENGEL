@@ -50,9 +50,7 @@ def get_missing_ratios(pandas_data, method):
             ratios.append(ratio)
         return ratios
 
-    else:
-
-        return pandas_data
+    return pandas_data
 
 
 # Takes a dataframe and returns the ratio of missing data for each column and the dtypes for each column.
