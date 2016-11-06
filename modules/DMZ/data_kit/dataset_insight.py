@@ -53,9 +53,8 @@ def get_missing_ratios(pandas_data, method):
     return pandas_data
 
 
-# Takes a dataframe and returns the ratio of missing data for each column and the dtypes for each column.
+# Takes a dataframe and returns the ratio of missing data for each and dtypes for each column.
 def get_composition(pandas_data):
-    missing_ratios = get_missing_ratios(pandas_data)
     column_types = pandas_data.dtypes
     return missing_ratios, column_types
 
