@@ -1,0 +1,50 @@
+<MLTF-Configuration
+  name="SE2-KaggleComp"
+  user="asclines" >
+  <Firebase
+    url="FirebaseDatabaseURL"
+    account="FullPathToServiceAccount"/>
+  <Files>
+    <File
+      type="test"
+      path="/path/to/file"/>
+    <File
+      type="train"
+      path="/path/to/file"/>
+  </Files>
+  <Prediction
+    target="TargetVariable"
+    type="Regression"/>
+  <Models>
+    <Model name="SomeModel">
+      <Param name="Param1"
+        numeric="true"
+        defaultValue="0"
+        delta="2"
+        rangeStart="0"
+        rangeEnd="10" />
+      <Param name="Param2"
+        numeric="false"
+        defaultValue="value">
+        <Value> value1 </Value>
+        <Value> value2 </Value>
+        <Value> value3 </Value>
+      </Param>
+    </Model>
+    <Model name="SomeModel2">
+      <Param name="Param1"
+        numeric="true"
+        defaultValue="0"
+        delta="2"
+        rangeStart="0"
+        rangeEnd="10" />
+      <Param name="Param2"
+        numeric="false"
+        defaultValue="value">
+        <Value> value1 </Value>
+        <Value> value2 </Value>
+        <Value> value3 </Value>
+      </Param>
+    </Model>
+  </Models>
+</MLTF-Configuration>
