@@ -1,14 +1,12 @@
 class ConfigOptions(object):
 
-    # Initialize the class
+    # Initialize the class, currently mocking the config setup.
     def __init__(self):
-        self.training_file_name = None
-        self.test_file_name = None
-        self.prediction_type = None
-        self.target_column = None
-
-        self.get_config_options()
-        self.validate_options()
+        self.training_file_name = "titanic_train.csv"
+        self.test_file_name = "titanic_test.csv"
+        self.prediction_type = "classification"
+        self.target_column = "Survived"
+        self.id_column = "PassengerId"
 
     # Get input from user
     def get_config_options(self):
