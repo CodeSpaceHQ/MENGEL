@@ -26,20 +26,6 @@ class ConfigurationError(Exception):
         super(ConfigurationError, self).__init__(message)
         self.message = message
 
-def _get_dict_from_xml(root):
-    """
-    Recursively goes through the XML tree creating a dict object from the
-    XML elements.
-    Key = XML tag name
-    Value = a dict of the child elements OR the text between the elements
-    """
-    result = {}
-    if len(list(root)) == 0:
-        result[root.tag] = root.text.rstrip().strip()
-        return result
-    for child in root:
-        result[child.tag] = _get_dict_from_xml(child)
-    return result
 
 class Configuration(object):
     """
@@ -51,7 +37,6 @@ class Configuration(object):
         self.config_file_name = config_file_name
         self.config_data = {}
         self._load_file()
-        self._validate_loaded_dict()
 
     def _load_file(self):
         """ Loads the XML file and checks root tag for validaty"""
@@ -61,12 +46,5 @@ class Configuration(object):
             raise ConfigurationError('Required XML root tag [{}] not found in\
              {}'.format(TAG_ROOT, self.config_file_name))
 
-        self.config_data = _get_dict_from_xml(self.root)
-        print(self.config_data)
-
-    def _validate_loaded_dict(self):
-        """ Checks to make sure all required tags are in the loaded dictionary from the XML file """
-        for tag in REQUIRED_TAGS:
-            if not self.config_data.has_key(tag):
-                raise ConfigurationError('Required XML tag [{}] not found in {}'\
-                .format(tag, self.config_file_name))
+        self.project_name = self.root.attrib.get("name")
+        self.user_name = self.root.attrib.get("user")
