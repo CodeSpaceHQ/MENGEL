@@ -43,10 +43,13 @@ def fill_missing_data(pandas_data, filler):
     pandas_data = pandas_data.fillna(filler)
     return pandas_data
 
-
-# Will replace all "NaN"s with the average value for the column
 def fill_missing_data_average(pandas_data):
-    features = pandas_data.columns.values
-    for feature in features:
-        pandas_data[feature].fillna(pandas_data[feature].mean(), inplace=True)
+    pandas_data.fillna(pandas_data.mean(), inplace=True)
     return pandas_data
+
+# # Will replace all "NaN"s with the average value for the column
+# def fill_missing_data_average(pandas_data):
+#     #features = pandas_data.columns.values
+#     #for feature in features:
+#     pandas_data[feature].fillna(pandas_data[feature].mean(), inplace=True)
+#     return pandas_data

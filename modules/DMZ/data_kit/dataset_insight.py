@@ -6,6 +6,7 @@ import csv
 import pandas as pd
 from utils import toggle
 
+
 # This will take the target "predicted" column and decide if classification or regression should be used.
 def get_prediction_type(target_column):
     sorted_data = sorted(target_column)
@@ -55,6 +56,7 @@ def get_missing_ratios(pandas_data, method):
 
 # Takes a dataframe and returns the ratio of missing data for each and dtypes for each column.
 def get_composition(pandas_data):
+    missing_ratios = get_missing_ratios(pandas_data, "column")
     column_types = pandas_data.dtypes
     return missing_ratios, column_types
 
