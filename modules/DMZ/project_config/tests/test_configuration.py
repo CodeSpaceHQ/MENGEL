@@ -71,6 +71,10 @@ class TestConfigurationValidXML(TestCase):
         """ Tests that the firebase information is correct."""
         self.check_config_data('Firebase')
 
+    def test_configuration_prediction(self):
+        """ Tests that the prediction information is correct. """
+        self.check_config_data('Prediction')
+
 
     def check_config_data(self,tag):
         expected = self.attributes[tag]
