@@ -4,7 +4,7 @@ import os
 sys.path.insert(0, os.path.abspath('..'))
 import csv
 import pandas as pd
-from utils import toggle
+from modules.DMZ.utils import toggle
 
 
 # This will take the target "predicted" column and decide if classification or regression should be used.
