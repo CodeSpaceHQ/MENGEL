@@ -27,6 +27,8 @@ class Configuration(object):
     Holds all data and methods for manipulating data found in the configuration xml file.
     Will also handle saving data back to xml once done.
     """
+    # pylint: disable=too-many-instance-attributes
+    # nine is reasonable in this case.
     def __init__(self, config_file_name):
         super(Configuration, self).__init__()
         self.config_file_name = config_file_name
