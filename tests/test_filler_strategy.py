@@ -23,7 +23,7 @@ class TestFillerStrategy(TestCase):
         data.run_fillers()
 
         # Assert
-        self.assertFalse("Nonsense" in data.pandas_dataset.columns.values, msg = "Failed to remove empty column")
+        self.assertFalse("Nonsense" in data.pandas_dataset.columns.values, msg="Failed to remove empty column")
 
     def test_run_fillers_average(self):
 
@@ -35,15 +35,24 @@ class TestFillerStrategy(TestCase):
         data.get_missing_ratios_dict()
 
         # Assert
-        self.assertTrue(data.missing_ratios_dict["Age"] == 0)
+        self.assertTrue(data.missing_ratios_dict["Age"] == 0, msg="Failed to fill empty values")
 
     def test_run_fillers_value(self):
 
         # Arrange
         data = filler_strategy.FillerStrategy()
+        data.pandas_dataset = self.setup_data()
+        data.avg_thresh = .10
+        data.value_thresh = .20
 
         # Act
         data.run_fillers()
         data.get_missing_ratios_dict()
-        print data.missing_ratios_dict
+
         # Assert
+        self.assertTrue(data.missing_ratios_dict["Age"] == 0 and any(data.pandas_dataset["Age"] == data.fill_value),
+                        msg="Failed to fill empty values")
+
+    def setup_data(self):
+        data = data_io.get_data(setup.get_datasets_path(), "titanic_train.csv")
+        return data

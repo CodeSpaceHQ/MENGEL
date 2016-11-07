@@ -18,12 +18,9 @@ class FillerStrategy(object):
         self.run_fillers()
 
     def get_config_options(self):
-        # self.file_name = raw_input("Please input the file name: ")
-        # self.avg_thresh = raw_input("Please input the avg threshold: ")
-        # self.value_thresh = raw_input("Please input the value threshold: ")
         self.file_name = "titanic_train.csv"
         self.avg_thresh = .50
-        self.value_thresh = .80
+        self.value_thresh = .70
         self.fill_value = -9999
 
     def get_dataset(self):
@@ -45,4 +42,4 @@ class FillerStrategy(object):
                     else:
                         self.pandas_dataset.drop(col, axis = 1, inplace = True)
             # We'd eventually like to run data fillers on all nonstring values and use their filled values to
-            # predict what should fill missing string data, but that's an icebox goal.
+            # predict what should fill missing string data, but that's an icebox goal for the time being.
