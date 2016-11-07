@@ -10,6 +10,7 @@ from configuration import Configuration
 
 def create_addtributes():
     """
+    Only handles required info. Does NOT deal with <Files> or <Models>.
     Creates a dictionary of dictionaries where the initial key is the tag that
     is associated with the attributes described by the nested dictionary.
     """
@@ -23,24 +24,24 @@ def create_addtributes():
     firebase_attributes = {}
     firebase_attributes['url'] = 'FirebaseDatabaseURL'
     firebase_attributes['account'] = 'FullPathToServiceAccount'
-    attributes['firebase'] = firebase_attributes
+    attributes['Firebase'] = firebase_attributes
 
     prediction_attributes = {}
     prediction_attributes['target'] = 'TARGET'
     prediction_attributes['type'] = 'TYPE'
-    attributes['prediction'] = prediction_attributes
+    attributes['Prediction'] = prediction_attributes
 
     return attributes
 
 def create_xml_project(attributes):
     """
+    Only handles required info. Does NOT deal with <Files> or <Models>.
     Creates an ET.Element object that acts as the root of the XML file. Uses
     passed in attributes object to define attributes of XML.
-    This method will NOT create the Files or Models elements or attributes.
     """
     root = ET.Element('MLTF-Configuration', attrib=attributes['project'])
-    ET.SubElement(root, 'Firebase', attrib=attributes['firebase'])
-    ET.SubElement(root, 'Prediction', attrib=attributes['prediction'])
+    ET.SubElement(root, 'Firebase', attrib=attributes['Firebase'])
+    ET.SubElement(root, 'Prediction', attrib=attributes['Prediction'])
 
     return root
 
@@ -65,3 +66,14 @@ class TestConfigurationValidXML(TestCase):
         self.assertEqual(self.config.config_file_name, self.xml_file_name)
         self.assertEqual(self.config.project_name, self.attributes['project']['name'])
         self.assertEqual(self.config.user_name, self.attributes['project']['user'])
+
+    def test_configuration_firebase(self):
+        """ Tests that the firebase information is correct."""
+        self.check_config_data('Firebase')
+
+
+    def check_config_data(self,tag):
+        expected = self.attributes[tag]
+        actual = self.config.config_data[tag]
+        for key, value in expected.items():
+            self.assertEqual(actual[key],value)
