@@ -43,32 +43,19 @@ class FillerStrategy(object):
     #     self.missing_ratios_dict = dict(zip(self.pandas_dataset.columns.values, missing_ratios))
 
     def run_fillers(self):
-        # for ratio in self.missing_ratios:
-        #     if(ratio > 0 and ratio <= self.avg_thresh):
-        #         self.pandas_dataset[ratio] = data_filler.fill_missing_data_average(self.pandas_dataset[ratio])
-        #     elif(ratio <= self.value_thresh):
-        #         print(ratio)
-        #         print(self.pandas_dataset[ratio])
-        #         self.pandas_dataset[ratio] = data_filler.fill_missing_data(self.pandas_dataset[ratio], self.fill_value)
-        #     else:
-        #         self.pandas_dataset[ratio] = self.pandas_dataset.drop([ratio], axis = 1, inplace= True)
+
         for col in self.pandas_dataset:
-            if(self.pandas_dataset[col].dtype != "object"):
-                if(self.missing_ratios_dict[col] > 0):
-                    if(self.missing_ratios_dict[col] <= self.avg_thresh):
+            if self.pandas_dataset[col].dtype != "object":
+                if self.missing_ratios_dict[col] > 0:
+                    if self.missing_ratios_dict[col] <= self.avg_thresh:
                         self.pandas_dataset[col] = data_filler.fill_missing_data_average(self.pandas_dataset[col])
-                    elif(self.missing_ratios_dict[col] <= self.value_thresh):
+                    elif self.missing_ratios_dict[col] <= self.value_thresh:
                         self.pandas_dataset[col] = data_filler.fill_missing_data(self.pandas_dataset[col], self.fill_value)
                     else:
                         self.pandas_dataset[col] = self.pandas_dataset.drop(col, axis = 1, inplace = True)
-            else:
-                print("Oh shit it's an object")
+            # We'd eventually like to run data fillers on all nonstring values and use their filled values to
+            # predict what should fill missing string data, but that's an icebox goal.
+
 
 x = FillerStrategy()
-print x.missing_ratios_dict
-print x.column_types
-missing_ratios = dataset_insight.get_missing_ratios(x.pandas_dataset, "column")
-x.missing_ratios_dict = dict(zip(x.pandas_dataset.columns.values, missing_ratios))
-print x.missing_ratios_dict
-
-#print x.pandas_dataset
+print x.pandas_dataset
