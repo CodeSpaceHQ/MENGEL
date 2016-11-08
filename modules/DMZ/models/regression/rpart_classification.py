@@ -6,6 +6,7 @@ Ryan Berg 10/19/16
 import sys
 import subprocess
 import os
+from modules.DMZ.models import model_properties as mp
 
 scriptpath = os.path.dirname(os.path.realpath(__file__)) + "/r_classification.R"
 
