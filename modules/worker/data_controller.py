@@ -8,16 +8,17 @@ from modules.DMZ.data_kit import data_splitting
 # Eventually it will make changes to the data. Currently it does not.
 class DataController(object):
 
-    def __init__(self, training, testing, target):
-        # self.validation_pack = validation_package.ValidationPackage().prepare_package(training, target)
+    def __init__(self, ticket):
         self.validation_pack = validation_package.ValidationPackage()
         self.unlabeled_data = None
+        self.unlabeled_id = None
 
-        self.prepare_data(training, testing, target)
+        self.prepare_data(ticket.training, ticket.testing,
+                          ticket.target, ticket.id_column)
 
     # Runs a series of cleaning and data modification algorithms and tools to ready
     # the data for training. TODO: Split and simplify with strategies.
-    def prepare_data(self, training, testing, target):
+    def prepare_data(self, training, testing, target, id_column):
         # Separating label data from training data.
         training, label_data = data_splitting.separate_target(training, target)
 
