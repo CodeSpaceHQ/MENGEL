@@ -41,5 +41,4 @@ class FillerStrategy(object):
                     elif self.missing_ratios_dict[col] <= self.value_thresh:
                         self.pandas_dataset[col] = data_filler.fill_missing_data(self.pandas_dataset[col], self.fill_value)
                     else:
-                        self.pandas_dataset.drop(col, axis = 1, inplace = True)
-
+                        self.pandas_dataset.drop(col, axis = 1, inplace=True)
