@@ -1,7 +1,8 @@
 import pandas as pd
 import dataset_insight
 import data_filler
-
+import data_io
+import setup
 
 class FillerStrategy(object):
 
@@ -26,7 +27,7 @@ class FillerStrategy(object):
         self.fill_value = -9999
 
     def get_dataset(self):
-        self.pandas_dataset = pd.read_csv(self.file_name, sep=None)
+        self.pandas_dataset = data_io.get_data(setup.get_datasets_path(), "titanic_train.csv")
 
     def get_missing_ratios_dict(self):
         missing_ratios = dataset_insight.get_missing_ratios(self.pandas_dataset, "column")
