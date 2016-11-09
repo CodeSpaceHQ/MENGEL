@@ -12,8 +12,13 @@ scriptpath = os.path.dirname(os.path.realpath(__file__)) + "/r_classification.R"
 
 class Rpart:
 
+
     def __init__(self):
         return
+
+    def get_ticket_info(self):
+        ticket = get_ticket()
+
 
     def rpart_classify(self, test_data_filepath, train_data_filepath, predictor):
         test_d = [test_data_filepath]
