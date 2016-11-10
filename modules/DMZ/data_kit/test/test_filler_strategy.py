@@ -17,9 +17,10 @@ class TestFillerStrategy(TestCase):
         # Arrange
         data = filler_strategy.FillerStrategy()
         data.pandas_dataset["Nonsense"] = np.nan
-        data.get_missing_ratios_dict()
 
         # Act
+        data.get_missing_ratios_dict()
+        data.get_to_do_list()
         data.run_fillers()
 
         # Assert
@@ -42,10 +43,11 @@ class TestFillerStrategy(TestCase):
         # Arrange
         data = filler_strategy.FillerStrategy()
         data.pandas_dataset = self.setup_data()
-        data.avg_thresh = .10
-        data.value_thresh = .20
+        data.avg_range = [0,.10]
+        data.value_range = [.10, .20]
 
         # Act
+        data.get_to_do_list()
         data.run_fillers()
         data.get_missing_ratios_dict()
 
