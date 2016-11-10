@@ -43,6 +43,13 @@ def fill_missing_data(pandas_data, filler):
     pandas_data = pandas_data.fillna(filler)
     return pandas_data
 
+#Deletes columns of pandas_data passed to it.
+def drop_column(pandas_data):
+    pandas_data = pd.DataFrame(pandas_data)
+    for col in pandas_data:
+        pandas_data.drop(col, axis=1, inplace=True)
+    return pandas_data
+
 
 # Will replace all "NaN"s with the average value for the column
 def fill_missing_data_average(pandas_data):
