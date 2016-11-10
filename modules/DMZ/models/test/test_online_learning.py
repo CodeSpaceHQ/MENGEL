@@ -1,35 +1,34 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath('..'))
+sys.path.insert(0, os.path.abspath('../../../..'))
 
 from unittest import TestCase
-from modules.DMZ.models.regression import scikit_regression_learners
+from modules.DMZ.models.regression import scikit_online_regressors
 from modules.toolbox import ml_runners as mr
-
 from modules.toolbox.data_package import DataPackage
 from modules.DMZ.data_kit.validation_package import ValidationPackage
 
 
-class TestRegressionLearning(TestCase):
+class TestOnlineLearning(TestCase):
 
-    def test_bayesian_ridge(self):
+    def test_sgd_regressor(self):
         # Arrange
         data, validation_pack = self.setup_data()
 
         # Act
-        model = scikit_regression_learners.train_bayesian_ridge()
+        model = scikit_online_regressors.train_sgd_regressor()
         result = mr.model_use(model[1], validation_pack, data)
 
         # Assert
         self.assertGreater(result, 0, msg="Failed to beat baseline")
-
-    def test_support_vector_regression(self):
+    
+    def test_passive_aggressive_regressor(self):
         # Arrange
         data, validation_pack = self.setup_data()
 
         # Act
-        model = scikit_regression_learners.train_support_vector_regression()
+        model = scikit_online_regressors.train_passive_aggressive_regressor()
         result = mr.model_use(model[1], validation_pack, data)
 
         # Assert
