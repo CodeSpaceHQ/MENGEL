@@ -1,7 +1,7 @@
 # This is for analyzing columns or datasets, to figure out how to best act upon them.
 import sys
 import os
-sys.path.insert(0, os.path.abspath('..'))
+sys.path.insert(0, os.path.abspath('../../..'))
 import csv
 import pandas as pd
 from modules.DMZ.utils import toggle
