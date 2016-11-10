@@ -59,21 +59,8 @@ class FillerStrategy(object):
             if(self.pandas_dataset[col].dtype != "object"):
                 self.pandas_dataset[col] = dispatcher[self.to_do_list[col]](self.pandas_dataset, self.fill_value)
 
-
-        # for col in self.pandas_dataset:
-        #     if self.pandas_dataset[col].dtype != "object":
-        #         if self.missing_ratios_dict[col] > 0:
-        #             if self.missing_ratios_dict[col] <= self.avg_thresh:
-        #                 self.pandas_dataset[col] = data_filler.fill_missing_data_average(self.pandas_dataset[col])
-        #             elif self.missing_ratios_dict[col] <= self.value_thresh:
-        #                 self.pandas_dataset[col] = data_filler.fill_missing_data(self.pandas_dataset[col], self.fill_value)
-        #             else:
-        #                 self.pandas_dataset.drop(col, axis=1, inplace=True)
-
-
 x = FillerStrategy()
 x.get_missing_ratios_dict()
 print x.missing_ratios_dict
-print x.pandas_dataset
 
 
