@@ -28,9 +28,9 @@ class TestFeatureSelection(TestCase):
         # Arrange
         data, start, target = self.setup_data()
         value = 99
-        
+
         # Act
-        reducer = scikit_feature_selectors.select_percentile_selector(data, target,value)
+        reducer = scikit_feature_selectors.select_percentile_selector(data, target, value)
         end = reducer.shape
 
         # Assert fewer columns
@@ -50,6 +50,7 @@ class TestFeatureSelection(TestCase):
         self.assertEqual(end[1], value, msg="Failed to remove any columns")
 
     def setup_data(self):
+
         data = data_io.get_data(setup.get_datasets_path(), "winequality-red.csv")
         data["Nonsense"] = 0
         target = 'quality'
