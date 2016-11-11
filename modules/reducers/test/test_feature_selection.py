@@ -14,40 +14,44 @@ class TestFeatureSelection(TestCase):
 
         # Arrange
         data, start, target = self.setup_data()
+        value = 0
 
         # Act
-        reducer = scikit_feature_selectors.variance_threshold_selector(data, target)
+        reducer = scikit_feature_selectors.variance_threshold_selector(data, target, value)
         end = reducer.shape
 
         # Assert fewer columns
-        self.assertLess(end[1], start[1], msg="Failed to beat baseline")
+        self.assertLess(end[1], start[1]-1, msg="Failed to remove any columns")
 
     def test_select_percentile_selector(self):
 
         # Arrange
         data, start, target = self.setup_data()
-
+        value = 99
+        
         # Act
-        reducer = scikit_feature_selectors.select_percentile_selector(data, target)
+        reducer = scikit_feature_selectors.select_percentile_selector(data, target,value)
         end = reducer.shape
 
         # Assert fewer columns
-        self.assertLess(end[1], start[1], msg="Failed to beat baseline")
+        self.assertLess(end[1], start[1]-1, msg="Failed to remove any columns")
 
     def test_select_k_best_selector(self):
 
         # Arrange
         data, start, target = self.setup_data()
+        value = 3
 
         # Act
-        reducer = scikit_feature_selectors.select_k_best_selector(data, target)
+        reducer = scikit_feature_selectors.select_k_best_selector(data, target, value)
         end = reducer.shape
 
         # Assert fewer columns
-        self.assertLess(end[1], start[1], msg="Failed to beat baseline")
+        self.assertEqual(end[1], value, msg="Failed to remove any columns")
 
     def setup_data(self):
         data = data_io.get_data(setup.get_datasets_path(), "winequality-red.csv")
+        data["Nonsense"] = 0
         target = 'quality'
         start = data.shape
         return data, start, target

@@ -29,30 +29,30 @@ def format_selector(selector,data, target):
 
 
 # http://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.VarianceThreshold.html
-def variance_threshold_selector(data,target):
+def variance_threshold_selector(data,target, value):
 
     # Select Model
-    selector = VarianceThreshold(0)  # Defaults to 0.0, e.g. only remove features with the same value in all samples
+    selector = VarianceThreshold(value)  # Defaults to 0.0, e.g. only remove features with the same value in all samples
 
     # Fit, Format, and Return
     return format_selector(selector,data,target)
 
 
 # http://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.SelectPercentile.html
-def select_percentile_selector(data,target):
+def select_percentile_selector(data,target,value):
 
     # Select Model
-    selector = SelectPercentile(percentile = 75)  # Default is 10%
+    selector = SelectPercentile(percentile = value)  # Default is 10%
 
     # Fit, Format, and Return
     return format_selector(selector, data, target)
 
 
 # http://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.SelectKBest.html
-def select_k_best_selector(data,target):
+def select_k_best_selector(data,target,value):
 
     # Select Model
-    selector = SelectKBest(k=3)  # default is 10 features
+    selector = SelectKBest(k=value)  # default is 10 features
 
     # Fit, Format, and Return
     return format_selector(selector, data, target)
