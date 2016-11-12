@@ -12,6 +12,7 @@ from sklearn.decomposition import FactorAnalysis
 from sklearn.decomposition import FastICA
 import setup
 
+
 class TestDimensionalityReduction(TestCase):
 
     def test_principle_component_analyzer(self):
