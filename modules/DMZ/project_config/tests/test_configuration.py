@@ -10,7 +10,7 @@ sys.path.insert(0, os.path.abspath('..'))
 from configuration import Configuration
 
 
-def create_addtributes():
+def create_attributes():
     """
     Only handles required info. Does NOT deal with <Files> or <Models>.
     Creates a dictionary of dictionaries where the initial key is the tag that
@@ -159,7 +159,7 @@ class TestConfigurationValidXML(TestCase):
     """ Happy Path Testing for XML file """
     def setUp(self):
         # Create attributes
-        self.attributes = create_addtributes()
+        self.attributes = create_attributes()
         self.attributes = create_attrib_files(self.attributes)
         self.attributes = create_attrib_models(self.attributes)
         self.xml_root = create_xml_project(self.attributes)
