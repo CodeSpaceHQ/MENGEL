@@ -8,7 +8,9 @@ def get_data(path, filename):
 
 
 # A standard way to save the results of an applied model on an unlabeled test data set
-def save_predictions(path, predictions, filename):
+def save_predictions(path, predictions, filename, col_names):
     with open(path + filename + "_predictions.csv", 'wb') as csvfile:
         writer = csv.writer(csvfile, delimiter=',')
-        writer.writerows(predictions)
+        writer.writerow(col_names)
+        for row in predictions:
+            writer.writerow(row)
