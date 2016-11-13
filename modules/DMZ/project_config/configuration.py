@@ -51,6 +51,7 @@ class Configuration(object):
         self.user_name = self.root.attrib.get('user', '')
 
         for child in self.root:
+            #print(child)
             if child.tag == TAG_MODELS:
                 self._load_models(child)
             elif child.tag == TAG_FILES:

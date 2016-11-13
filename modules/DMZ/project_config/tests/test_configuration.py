@@ -79,7 +79,7 @@ def create_attrib_models(attributes):
         model['params'] = create_attrib_params(3)#i+(2*i))
         models[model['name']] = model
 
-    attributes['models'] = models
+    attributes['Models'] = models
     return attributes
 
 
@@ -100,8 +100,8 @@ def create_attrib_params(seed):
             param['numeric'] = 'false'
             param['defaultValue'] = 'somevalue'
             values = []
-            for v in range(0, i+1):
-                values.append('value{}'.format(v))
+            for val in range(0, i+1):
+                values.append('value{}'.format(val))
             param['values'] = values
         params[param['name']] = param
     return params
@@ -127,7 +127,7 @@ def add_xml_models(attributes, root):
     Adds the dummy data generated to the passed in root.
     """
     models_element = ET.SubElement(root, 'Models')
-    for model in attributes['models'].values():
+    for model in attributes['Models'].values():
         model_attrib = {}
         model_attrib['name'] = model['name']
         model_element = ET.SubElement(models_element, 'Model', attrib=model_attrib)
@@ -146,14 +146,12 @@ def add_xml_param(attributes, root):
     param_attrib = {}
 
     for key, value in attributes.items():
-        #print(key, ' ', value)
         if key != 'values':
             param_attrib[key] = value
-    print(param_attrib)
     element = ET.SubElement(root, 'Param', attrib=param_attrib)
     if attributes.has_key('values'):
         for value in attributes['values']:
-            ET.SubElement(element,'Value').text=value
+            ET.SubElement(element, 'Value').text = value
     return root
 
 
@@ -172,7 +170,6 @@ class TestConfigurationValidXML(TestCase):
         self.xml_file_name = 'valid.xml'
 
         tree = ET.ElementTree(self.xml_root)
-        ET.dump(tree)
         tree.write(self.xml_file_name)
         self.config = Configuration(self.xml_file_name)
 
@@ -207,16 +204,77 @@ class TestConfigurationValidXML(TestCase):
         for train_file in act_train:
             self.assertEqual(exp[train_file], 'train')
 
-
+    def test_configuration_models(self):
+        """
+        Tests that the models were correctly loaded into the
+        configuration object.
+        """
+        exp_attrib = self.attributes['Models']
+        act_models = self.config.models
+        self.assertEqual(len(exp_attrib.keys()), len(act_models.keys()))
+        for exp_key, exp_model in exp_attrib.items():
+            self.assertTrue(act_models.has_key(exp_key))
+            self.check_model(exp_model, act_models[exp_key])
 
 
     def check_config_data(self, tag):
+        """
+        Used to check the attributes of the second-level elements in the
+        XML file.
+        """
         expected = self.attributes[tag]
         actual = self.config.config_data[tag]
-        for key, value in expected.items():
-            self.assertEqual(actual[key], value)
+        self.compare_dicts(expected, actual)
+
+
+    def check_model(self, exp_attrib, act_model):
+        """
+        More or less this just iterates through the models making sure the
+        name field is correct before passing it's params to the check_param
+        methods
+        """
+        self.assertEqual(exp_attrib['name'], act_model.name)
+        self.assertEqual(len(exp_attrib['params']), len(act_model.params))
+        for key, exp_param in exp_attrib['params'].items():
+            self.assertTrue(act_model.params.has_key(key),\
+                msg='Key = {}'.format(key))
+            self.check_param(exp_param, act_model.params[key])
+
+
+    def check_param(self, exp_attrib, act_param):
+        """
+        So there is one major difference when comparing parameters that are
+        numeric vs ones that are not, and that difference is the 'values' field.
+        Numeric ones do not have it. More importantly, we need to deal with the
+        scenario where we do have a values field. The way the exp_attrib is
+        setup, it will have an extra key (values) for holding the list of values.
+        This extra key will mess up the comparision methods as the exp_attrib
+        will have an extra key. So keep that in mind. Good luck.
+        """
+
+        self.assertTrue(act_param.details.has_key('numeric'))
+        exp_attrib.pop('name', None)
+        exp_len = len(exp_attrib) if exp_attrib['numeric'] == 'true' else len(exp_attrib)-1
+        self.assertEqual(exp_len, len(act_param.details),\
+            msg="act = {}\nexp={}".format(act_param.details, exp_attrib))
+
+        if exp_attrib['numeric'] == 'false':
+            self.compare_lists(exp_attrib['values'], act_param.values)
+            exp_attrib.pop('values', None)
+
+        self.compare_dicts(exp_attrib, act_param.details)
+
+
+    def compare_dicts(self, dict1, dict2):
+        """ Helper method for comparing two dictionaries."""
+        self.assertEqual(len(dict1.keys()), len(dict2.keys()))
+        for key, value in dict1.items():
+            self.assertEqual(dict2[key], value,\
+                msg='dict1[{}] = {} != dict2[{}]={}'.format(key, value, key, dict2[key]))
 
     def compare_lists(self, list1, list2):
-        self.assertEqual(len(list1), len(list2))
+        """ Helper method for comparing two lists, lists cannot can duplicate items"""
+        self.assertEqual(len(list1), len(list2),\
+            msg='list1={},\n list2={}'.format(list1, list2))
         interset = set(list1) & set(list2)
         self.assertEqual(len(interset), len(list1))
