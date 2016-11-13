@@ -10,13 +10,14 @@ sys.path.insert(0, os.path.abspath('..'))
 from configuration import Configuration
 
 
-def create_attributes():
+def create_attributes(seed):
     """
     Only handles required info. Does NOT deal with <Files> or <Models>.
     Creates a dictionary of dictionaries where the initial key is the tag that
     is associated with the attributes described by the nested dictionary.
     """
     attributes = {}
+    attributes['seed'] = seed
 
     project_attributes = {}
     project_attributes['name'] = 'PROJECT_NAME'
@@ -54,7 +55,7 @@ def create_attrib_files(attributes):
     Files and the value is a dictionary with the key,value = path,type
     """
     files = {}
-    for i in range(1, 5):
+    for i in range(1, attributes['seed']%10):
         files['/path/to/test/file{}'.format(i)] = 'test'
         files['/path/to/train/file{}'.format(i)] = 'train'
 
@@ -73,10 +74,10 @@ def create_attrib_models(attributes):
     If number=false, then there will be a value attribute with a list of values.
     """
     models = {}
-    for i in range(1, 2):
+    for i in range(1, attributes['seed']%5):
         model = {}
         model['name'] = 'model{}'.format(i)
-        model['params'] = create_attrib_params(3)#i+(2*i))
+        model['params'] = create_attrib_params(attributes['seed']%3 + (2*i))
         models[model['name']] = model
 
     attributes['Models'] = models
@@ -159,7 +160,7 @@ class TestConfigurationValidXML(TestCase):
     """ Happy Path Testing for XML file """
     def setUp(self):
         # Create attributes
-        self.attributes = create_attributes()
+        self.attributes = create_attributes(5)
         self.attributes = create_attrib_files(self.attributes)
         self.attributes = create_attrib_models(self.attributes)
         self.xml_root = create_xml_project(self.attributes)
