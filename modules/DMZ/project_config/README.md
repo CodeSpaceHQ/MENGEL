@@ -1,5 +1,5 @@
 # Project Configuration
-_ Handles all user input and output _
+_Handles all user input and output_
 
 ## Overview
 While there are a many modules & files in this project, as a _user_, I expect there to be a single point of entry where I can go and take care of everything.
