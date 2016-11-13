@@ -80,3 +80,11 @@ The variables the program can access from this object are:
 
 
 - `train_files`: A list of file names to be used for training. Comes from the `<Files>` tag where the `<File>` attribute `type` equals "train".
+
+
+### Model
+Holds all data for a Model and all methods for manipulating said data.
+#### Variables
+- `name`: Model name as defined by the `name` attribute in the `<Model>` tag
+
+- `params`: A dictionary holding the parameter data as defined by the `<Params>` tags under the `<Model>` tag where the _key_ is the name of the parameter and the _value_ is the `Param` object
