@@ -53,7 +53,7 @@ The following instructions cover setup and install of the entire system.
 2. Go into your unix system and install [SciPy](https://www.scipy.org/install.html)
   1. Note that installation might be different for different systems
   2. For Ubuntu, try:
-  
+
       ```shell
       sudo apt-get install python-numpy python-scipy python-pandas python-sympy python-nose
       ```
@@ -66,13 +66,13 @@ The following instructions cover setup and install of the entire system.
         R
         install.packages("dplyr")
         q()
-        
+
 
 #### Javascript, NodeJS, and Related Libraries
-[Follow the instructions here, including submodules](https://github.com/ASAAR/SE2-KaggleComp/blob/master/modules/MLTA/README.md)
+[Follow the instructions here, including submodules](modules/MLTA/README.md)
 
 #### Test Data
-[Download and setup the test data so that unit tests run properly](https://github.com/ASAAR/SE2-KaggleComp/blob/master/datasets/README.md)
+[Download and setup the test data so that unit tests run properly](datasets/README.md)
 
 To verify correct setup, please run the tests.
 
@@ -117,11 +117,11 @@ Pending
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://github.com/ASAAR/SE2-KaggleComp/blob/documentation/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
-We do not use versioning currently, we will likely use [SemVer](http://semver.org/) for versioning eventually. For the versions available, see the [tags on this repository](https://github.com/ASAAR/SE2-KaggleComp/tags). 
+We do not use versioning currently, we will likely use [SemVer](http://semver.org/) for versioning eventually. For the versions available, see the [tags on this repository](https://github.com/ASAAR/SE2-KaggleComp/tags).
 
 ## Authors
 
@@ -139,4 +139,4 @@ We haven't dealt with licensing yet.
 
 * Hat tip to anyone whose code was used
 * [template for README](https://gist.githubusercontent.com/PurpleBooth/109311bb0361f32d87a2/raw/4a39c2139c4caa4686addc1e5dd490170fb82006/README-Template.md)
-* etc
+* The labels used in the issues section were inspired by [this site](https://robinpowered.com/blog/best-practice-system-for-organizing-and-tagging-github-issues/)

@@ -42,10 +42,10 @@ exports.connectToFirebase = function(mltaConfig, done) {
     function ready() {
         clearTimeout(connFailTimeout); //We've connected to lets go ahead and tell the connFailTimeout dude up there ^ that he can leave his post.
         done(null);
-    };
+    }
 
     //The way the mock firebase-server currently works, the database is offline so we have to do it this way
-    if(mltaConfig.name == "MLTA-Test") {
+    if(mltaConfig.name === "MLTA-Test") {
         ready();
     }
     /*
