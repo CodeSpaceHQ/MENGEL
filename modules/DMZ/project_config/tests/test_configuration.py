@@ -230,7 +230,8 @@ class TestConfigurationValidXML(TestCase):
         """
         output_name = "test_configuration_save.xml"
         self.files_used.append(output_name)
-        self.assertEqual(self.config.project_name,'SE2-KaggleComp')
+        self.assertEqual(self.config.project_name, self.attributes['project']['name'])
+        self.config.save()
         self.config.save(output_name)
         config2 = Configuration(output_name)
         self.assertEqual(self.config.project_name, config2.project_name)
