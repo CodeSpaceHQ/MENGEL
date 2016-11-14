@@ -8,6 +8,8 @@ import xml.etree.ElementTree as ET
 
 sys.path.insert(0, os.path.abspath('..'))
 from configuration import Configuration
+from configuration import ConfigurationError
+from configuration import ConfigurationXMLError
 
 
 def create_attributes(seed):
@@ -43,8 +45,11 @@ def create_xml_project(attributes):
     passed in attributes object to define attributes of XML.
     """
     root = ET.Element('MLTF-Configuration', attrib=attributes['project'])
-    ET.SubElement(root, 'Firebase', attrib=attributes['Firebase'])
-    ET.SubElement(root, 'Prediction', attrib=attributes['Prediction'])
+    if attributes.has_key('Firebase'):
+        ET.SubElement(root, 'Firebase', attrib=attributes['Firebase'])
+
+    if attributes.has_key('Prediction'):
+        ET.SubElement(root, 'Prediction', attrib=attributes['Prediction'])
 
     return root
 
@@ -83,7 +88,6 @@ def create_attrib_models(attributes):
     attributes['Models'] = models
     return attributes
 
-
 def create_attrib_params(seed):
     """ returns a dictionary of random generated params """
     params = {}
@@ -106,7 +110,6 @@ def create_attrib_params(seed):
             param['values'] = values
         params[param['name']] = param
     return params
-
 
 def add_xml_files(attributes, root):
     """
@@ -161,27 +164,40 @@ class TestConfigurationBase(TestCase):
     Holds all common methods.
     """
 
-    def setUp(self,filename):
+    def setUp(self):
+        """ Base setup for all test cases"""
         self.files_used = []
+
+        # The following lines are to please linters
+        self.config = None
+        self.xml_root = None
+        self.xml_file_name = None
+        self.attributes = None
+
+
+
+    def tearDown(self):
+        """ Base teardown for all test cases"""
+        self.xml_root = None
+        for file_used in self.files_used:
+            os.remove(file_used)
+
+    def prep(self, filename):
+        """ Handles all intializing. Attributes should be created before
+        this method is run."""
         self.files_used.append(filename)
         self.xml_file_name = filename
         self.create_xml_root()
         self.create_xml_file()
 
-    def tearDown(self):
-        self.xml_root = None
-        for file_used in self.files_used:
-            os.remove(file_used)
-
-
-
-
     def create_all_attributes(self, seed):
+        """ Helper method for creating all atriibutes including file and models"""
         self.attributes = create_attributes(seed)
         self.attributes = create_attrib_files(self.attributes)
         self.attributes = create_attrib_models(self.attributes)
 
     def create_xml_root(self):
+        """ Creates the XML object"""
         self.xml_root = create_xml_project(self.attributes)
         if self.attributes.has_key('Files'):
             self.xml_root = add_xml_files(self.attributes, self.xml_root)
@@ -190,6 +206,7 @@ class TestConfigurationBase(TestCase):
             self.xml_root = add_xml_models(self.attributes, self.xml_root)
 
     def create_xml_file(self):
+        """ Writes the XML object created in #create_xml_root to file"""
         tree = ET.ElementTree(self.xml_root)
         tree.write(self.xml_file_name)
 
@@ -201,6 +218,7 @@ class TestConfigurationBase(TestCase):
         expected = self.attributes[tag]
         actual = self.config.config_data[tag]
         self.compare_dicts(expected, actual)
+
     def check_model(self, exp_attrib, act_model):
         """
         More or less this just iterates through the models making sure the
@@ -213,7 +231,6 @@ class TestConfigurationBase(TestCase):
             self.assertTrue(act_model.params.has_key(key),\
                 msg='Key = {}'.format(key))
             self.check_param(exp_param, act_model.params[key])
-
 
     def check_param(self, exp_attrib, act_param):
         """
@@ -238,7 +255,6 @@ class TestConfigurationBase(TestCase):
 
         self.compare_dicts(exp_attrib, act_param.details)
 
-
     def compare_dicts(self, dict1, dict2):
         """ Helper method for comparing two dictionaries."""
         self.assertEqual(len(dict1.keys()), len(dict2.keys()))
@@ -254,15 +270,12 @@ class TestConfigurationBase(TestCase):
         self.assertEqual(len(interset), len(list1))
 
 
-
-
-
 class TestConfigurationHappyPath(TestConfigurationBase):
     """ Happy Path Testing for XML file """
     def setUp(self):
-        super(TestConfigurationHappyPath,self).create_all_attributes(5)
-        super(TestConfigurationHappyPath,self).setUp('valid.xml')
-
+        super(TestConfigurationHappyPath, self).setUp()
+        self.create_all_attributes(5)
+        self.prep('valid.xml')
         self.config = Configuration(self.xml_file_name)
 
 
@@ -330,3 +343,13 @@ class TestConfigurationHappyPath(TestConfigurationBase):
                 c2_param = c2_model.params[param_name]
                 self.compare_lists(param.values, c2_param.values)
                 self.compare_dicts(param.details, c2_param.details)
+
+class TestConfigurationSadPath(TestConfigurationBase):
+    """ Sad Path Testing for XML file """
+    def test_configuration_bad_xml_root_tag(self):
+        self.attributes = create_attributes(1) # It really doesnt matter cause the root tag is wrong
+        self.xml_file_name = 'invalid_root_tag.xml'
+        self.xml_root = ET.Element('MLF-Configuration', attrib=self.attributes['project'])
+        self.create_xml_file()
+        with self.assertRaises(ConfigurationXMLError):
+            Configuration(self.xml_file_name)
