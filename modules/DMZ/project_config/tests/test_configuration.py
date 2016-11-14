@@ -140,7 +140,6 @@ def add_xml_models(attributes, root):
 
     return root
 
-
 def add_xml_param(attributes, root):
     """
     To be used in #add_xml_models
@@ -268,7 +267,6 @@ class TestConfigurationBase(TestCase):
         interset = set(list1) & set(list2)
         self.assertEqual(len(interset), len(list1))
 
-
 class TestConfigurationHappyPath(TestConfigurationBase):
     """ Happy Path Testing for XML file """
     def setUp(self):
@@ -364,7 +362,32 @@ class TestConfigurationSadPath(TestConfigurationBase):
         self.prep('test_configuration_bad_xml_project_attrib_user.xml')
         self.check_configuration_error()
 
+    def test_configuration_bad_xml_tags(self):
+        """Tests missing required XMl tags such as Models and Files."""
+        self.create_all_attributes(5)
+
+        self.check_required_tag('Files')
+        self.check_required_tag('Models')
+        self.check_required_tag('Prediction')
 
     def check_configuration_error(self):
+        """ Helper method to check that the Configuration constructor
+        raised a ConfigurationError. """
         with self.assertRaises(ConfigurationError):
             Configuration(self.xml_file_name)
+
+    def check_configuration_xml_error(self):
+        """ Helper method to check that the Configuration constructor
+        raised a ConfigurationXMLError. """
+        with self.assertRaises(ConfigurationXMLError):
+            Configuration(self.xml_file_name)
+
+    def check_required_tag(self, tag):
+        """ Helper method to help reduce code in #test_configuration_bad_xml_tags
+        """
+        temp_data = self.attributes[tag]
+        self.attributes.pop(tag, None)
+        self.prep('test_configuration_bad_xml_tags_{}.xml'.format(tag))
+        self.check_configuration_xml_error()
+        self.attributes[tag] = temp_data
+        self.check_configuration_xml_error()
