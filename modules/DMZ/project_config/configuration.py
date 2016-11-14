@@ -123,7 +123,6 @@ in {}'.format(TAG_ROOT, self.config_file_name), self.root)
         Assumes the root is the <Files> XML tag. Adds file to one of two lists
         depending on type attribute.
         """
-        #TODO, add real error checking to this
         for child in root:
             file_type = child.get('type', -1)
             file_path = child.get('path', -1)
@@ -132,4 +131,4 @@ in {}'.format(TAG_ROOT, self.config_file_name), self.root)
             elif file_type == 'train':
                 self.train_files.append(file_path)
             else:
-                print "Error: Type invalid for file"
+                raise ConfigurationXMLError('Invalid file type value: {}'.format(file_type), child)

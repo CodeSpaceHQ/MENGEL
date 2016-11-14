@@ -370,6 +370,14 @@ class TestConfigurationSadPath(TestConfigurationBase):
         self.check_required_tag('Models')
         self.check_required_tag('Prediction')
 
+    def test_configuration_bad_file_type(self):
+        """ Tests having a file type that is not 'test' or 'train' """
+        self.create_all_attributes(5)
+        self.attributes['Files']['InvalidFile.cvs'] = 'nottest'
+        self.prep('test_configuration_bad_file_type.xml')
+        self.check_configuration_xml_error()
+
+
     def check_configuration_error(self):
         """ Helper method to check that the Configuration constructor
         raised a ConfigurationError. """
