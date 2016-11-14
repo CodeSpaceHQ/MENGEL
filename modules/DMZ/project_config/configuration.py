@@ -38,6 +38,20 @@ class Configuration(object):
         self.train_files = []
         self._load_file()
 
+    def save(self,filename='-1'):
+        if filename == '-1':
+            filename = self.config_file_name
+
+        #Update models
+        for model_xml in self.root.iter('Model'):
+            model = self.models[model_xml.get('name')]
+            for param_xml in model_xml.iter('Param'):
+                param = model.params[param_xml.get('name')]
+                for detail, value in param.details.items():
+                    param_xml.set(detail,value)
+        self.tree.write(filename)
+
+
 
     def _load_file(self):
         """ Loads the XML file and checks root tag for validaty"""
@@ -51,7 +65,6 @@ class Configuration(object):
         self.user_name = self.root.attrib.get('user', '')
 
         for child in self.root:
-            #print(child)
             if child.tag == TAG_MODELS:
                 self._load_models(child)
             elif child.tag == TAG_FILES:

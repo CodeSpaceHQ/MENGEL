@@ -174,9 +174,13 @@ class TestConfigurationValidXML(TestCase):
         tree.write(self.xml_file_name)
         self.config = Configuration(self.xml_file_name)
 
+        self.files_used = []
+        self.files_used.append(self.xml_file_name)
+
     def tearDown(self):
         self.xml_root = None
-        os.remove(self.xml_file_name)
+        #for file_used in self.files_used:
+            #os.remove(file_used)
 
     def test_configuration_properties(self):
         """ Tests that basic data (properties) are correct"""
@@ -216,6 +220,35 @@ class TestConfigurationValidXML(TestCase):
         for exp_key, exp_model in exp_attrib.items():
             self.assertTrue(act_models.has_key(exp_key))
             self.check_model(exp_model, act_models[exp_key])
+
+    def test_configuration_save(self):
+        """
+        Tests the save method of the Confgiuration object.
+        Essenetially what happens is this calls the save command on the
+        Configuration object, uses it to create a new Congifuration object
+        then compares the two.
+        """
+        output_name = "test_configuration_save.xml"
+        self.files_used.append(output_name)
+        self.assertEqual(self.config.project_name,'SE2-KaggleComp')
+        self.config.save(output_name)
+        config2 = Configuration(output_name)
+        self.assertEqual(self.config.project_name, config2.project_name)
+        self.assertEqual(self.config.user_name, config2.user_name)
+        self.compare_lists(self.config.test_files, config2.test_files)
+        self.compare_lists(self.config.train_files, config2.train_files)
+        self.assertEqual(len(self.config.models.items()), len(config2.models.items()))
+        for name, model in self.config.models.items():
+            c2_model = config2.models[name]
+            self.assertEqual(len(model.params.items()), len(c2_model.params.items()))
+            for param_name, param in model.params.items():
+                c2_param = c2_model.params[param_name]
+                self.compare_lists(param.values, c2_param.values)
+                self.compare_dicts(param.details, c2_param.details)
+
+
+
+
 
 
     def check_config_data(self, tag):
