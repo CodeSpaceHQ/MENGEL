@@ -69,6 +69,8 @@ There should be _one instance_ of this object throughout the life-cycle of the p
 This object is to be created by passing in the name of the configuration XML file as a constructor parameter. From there the `Configuration` object will load up the file and create itself and all its child classes as defined in the XML file. _This should be the only time in the program life-cycle that the XML file is handled._
 #### Variables
 The variables the program can access from this object are:
+- `config_file_name`: The filepath to the input XML file passed in on construction.
+
 - `project_name`: As defined by the attribute `name` in `<MLTF-Configuration>` attributes.
 
 - `user_name`: As defined by the attribute `user` in `<MLTF-Configuration>` attributes.
@@ -81,6 +83,10 @@ The variables the program can access from this object are:
 
 
 - `train_files`: A list of file names to be used for training. Comes from the `<Files>` tag where the `<File>` attribute `type` equals "train".
+
+#### API
+- `save(filename=config_file_name)`: Saves the current configuration to XML. By default uses the same name as what was passed in.
+
 
 
 ### Model
