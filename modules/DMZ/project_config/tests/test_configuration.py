@@ -193,6 +193,69 @@ class TestConfigurationBase(TestCase):
         tree = ET.ElementTree(self.xml_root)
         tree.write(self.xml_file_name)
 
+    def check_config_data(self, tag):
+        """
+        Used to check the attributes of the second-level elements in the
+        XML file.
+        """
+        expected = self.attributes[tag]
+        actual = self.config.config_data[tag]
+        self.compare_dicts(expected, actual)
+    def check_model(self, exp_attrib, act_model):
+        """
+        More or less this just iterates through the models making sure the
+        name field is correct before passing it's params to the check_param
+        methods
+        """
+        self.assertEqual(exp_attrib['name'], act_model.name)
+        self.assertEqual(len(exp_attrib['params']), len(act_model.params))
+        for key, exp_param in exp_attrib['params'].items():
+            self.assertTrue(act_model.params.has_key(key),\
+                msg='Key = {}'.format(key))
+            self.check_param(exp_param, act_model.params[key])
+
+
+    def check_param(self, exp_attrib, act_param):
+        """
+        So there is one major difference when comparing parameters that are
+        numeric vs ones that are not, and that difference is the 'values' field.
+        Numeric ones do not have it. More importantly, we need to deal with the
+        scenario where we do have a values field. The way the exp_attrib is
+        setup, it will have an extra key (values) for holding the list of values.
+        This extra key will mess up the comparision methods as the exp_attrib
+        will have an extra key. So keep that in mind. Good luck.
+        """
+
+        self.assertTrue(act_param.details.has_key('numeric'))
+        exp_attrib.pop('name', None)
+        exp_len = len(exp_attrib) if exp_attrib['numeric'] == 'true' else len(exp_attrib)-1
+        self.assertEqual(exp_len, len(act_param.details),\
+            msg="act = {}\nexp={}".format(act_param.details, exp_attrib))
+
+        if exp_attrib['numeric'] == 'false':
+            self.compare_lists(exp_attrib['values'], act_param.values)
+            exp_attrib.pop('values', None)
+
+        self.compare_dicts(exp_attrib, act_param.details)
+
+
+    def compare_dicts(self, dict1, dict2):
+        """ Helper method for comparing two dictionaries."""
+        self.assertEqual(len(dict1.keys()), len(dict2.keys()))
+        for key, value in dict1.items():
+            self.assertEqual(dict2[key], value,\
+                msg='dict1[{}] = {} != dict2[{}]={}'.format(key, value, key, dict2[key]))
+
+    def compare_lists(self, list1, list2):
+        """ Helper method for comparing two lists, lists cannot can duplicate items"""
+        self.assertEqual(len(list1), len(list2),\
+            msg='list1={},\n list2={}'.format(list1, list2))
+        interset = set(list1) & set(list2)
+        self.assertEqual(len(interset), len(list1))
+
+
+
+
 
 class TestConfigurationHappyPath(TestConfigurationBase):
     """ Happy Path Testing for XML file """
@@ -267,66 +330,3 @@ class TestConfigurationHappyPath(TestConfigurationBase):
                 c2_param = c2_model.params[param_name]
                 self.compare_lists(param.values, c2_param.values)
                 self.compare_dicts(param.details, c2_param.details)
-
-
-    def check_config_data(self, tag):
-        """
-        Used to check the attributes of the second-level elements in the
-        XML file.
-        """
-        expected = self.attributes[tag]
-        actual = self.config.config_data[tag]
-        self.compare_dicts(expected, actual)
-
-
-    def check_model(self, exp_attrib, act_model):
-        """
-        More or less this just iterates through the models making sure the
-        name field is correct before passing it's params to the check_param
-        methods
-        """
-        self.assertEqual(exp_attrib['name'], act_model.name)
-        self.assertEqual(len(exp_attrib['params']), len(act_model.params))
-        for key, exp_param in exp_attrib['params'].items():
-            self.assertTrue(act_model.params.has_key(key),\
-                msg='Key = {}'.format(key))
-            self.check_param(exp_param, act_model.params[key])
-
-
-    def check_param(self, exp_attrib, act_param):
-        """
-        So there is one major difference when comparing parameters that are
-        numeric vs ones that are not, and that difference is the 'values' field.
-        Numeric ones do not have it. More importantly, we need to deal with the
-        scenario where we do have a values field. The way the exp_attrib is
-        setup, it will have an extra key (values) for holding the list of values.
-        This extra key will mess up the comparision methods as the exp_attrib
-        will have an extra key. So keep that in mind. Good luck.
-        """
-
-        self.assertTrue(act_param.details.has_key('numeric'))
-        exp_attrib.pop('name', None)
-        exp_len = len(exp_attrib) if exp_attrib['numeric'] == 'true' else len(exp_attrib)-1
-        self.assertEqual(exp_len, len(act_param.details),\
-            msg="act = {}\nexp={}".format(act_param.details, exp_attrib))
-
-        if exp_attrib['numeric'] == 'false':
-            self.compare_lists(exp_attrib['values'], act_param.values)
-            exp_attrib.pop('values', None)
-
-        self.compare_dicts(exp_attrib, act_param.details)
-
-
-    def compare_dicts(self, dict1, dict2):
-        """ Helper method for comparing two dictionaries."""
-        self.assertEqual(len(dict1.keys()), len(dict2.keys()))
-        for key, value in dict1.items():
-            self.assertEqual(dict2[key], value,\
-                msg='dict1[{}] = {} != dict2[{}]={}'.format(key, value, key, dict2[key]))
-
-    def compare_lists(self, list1, list2):
-        """ Helper method for comparing two lists, lists cannot can duplicate items"""
-        self.assertEqual(len(list1), len(list2),\
-            msg='list1={},\n list2={}'.format(list1, list2))
-        interset = set(list1) & set(list2)
-        self.assertEqual(len(interset), len(list1))
