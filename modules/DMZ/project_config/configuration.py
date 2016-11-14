@@ -82,7 +82,7 @@ class Configuration(object):
 in {}'.format(TAG_ROOT, self.config_file_name), self.root)
 
         if self.root.attrib.has_key('name'):
-            self.project_name = self.root.attrib.get('name', '')
+            self.project_name = self.root.attrib.get('name')
         else:
             raise ConfigurationError('Project name not defined.')
 

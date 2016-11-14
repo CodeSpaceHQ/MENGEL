@@ -174,8 +174,6 @@ class TestConfigurationBase(TestCase):
         self.xml_file_name = None
         self.attributes = None
 
-
-
     def tearDown(self):
         """ Base teardown for all test cases"""
         self.xml_root = None
@@ -185,7 +183,6 @@ class TestConfigurationBase(TestCase):
     def prep(self, filename):
         """ Handles all intializing. Attributes should be created before
         this method is run."""
-        self.files_used.append(filename)
         self.xml_file_name = filename
         self.create_xml_root()
         self.create_xml_file()
@@ -207,6 +204,8 @@ class TestConfigurationBase(TestCase):
 
     def create_xml_file(self):
         """ Writes the XML object created in #create_xml_root to file"""
+        self.files_used.append(self.xml_file_name)
+
         tree = ET.ElementTree(self.xml_root)
         tree.write(self.xml_file_name)
 
@@ -278,7 +277,6 @@ class TestConfigurationHappyPath(TestConfigurationBase):
         self.prep('valid.xml')
         self.config = Configuration(self.xml_file_name)
 
-
     def test_configuration_properties(self):
         """ Tests that basic data (properties) are correct"""
         self.assertEqual(self.config.config_file_name, self.xml_file_name)
@@ -347,9 +345,26 @@ class TestConfigurationHappyPath(TestConfigurationBase):
 class TestConfigurationSadPath(TestConfigurationBase):
     """ Sad Path Testing for XML file """
     def test_configuration_bad_xml_root_tag(self):
+        """ Tests having an inncorrect root tag in the XML file"""
         self.attributes = create_attributes(1) # It really doesnt matter cause the root tag is wrong
         self.xml_file_name = 'invalid_root_tag.xml'
         self.xml_root = ET.Element('MLF-Configuration', attrib=self.attributes['project'])
         self.create_xml_file()
         with self.assertRaises(ConfigurationXMLError):
+            Configuration(self.xml_file_name)
+
+    def test_configuration_bad_xml_project_attrib(self):
+        """Tests missing the project attributes"""
+        self.create_all_attributes(1)
+        self.attributes['project'].pop('name', None)
+        self.prep('test_configuration_bad_xml_project_attrib_name.xml')
+        self.check_configuration_error()
+        self.attributes['project']['name'] = 'TEST_PROJECT'
+        self.attributes['project'].pop('user', None)
+        self.prep('test_configuration_bad_xml_project_attrib_user.xml')
+        self.check_configuration_error()
+
+
+    def check_configuration_error(self):
+        with self.assertRaises(ConfigurationError):
             Configuration(self.xml_file_name)
