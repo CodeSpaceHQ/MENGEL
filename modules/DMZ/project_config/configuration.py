@@ -16,11 +16,25 @@ class Error(Exception):
     pass
 
 class ConfigurationError(Exception):
-    """Generic error for exceptions created in this module."""
+    """Generic error for Configuration.
+
+     Used for exceptions created in this module that do not have a specific
+     exception for them."""
+
     def __init__(self, message):
         super(ConfigurationError, self).__init__(message)
         self.message = message
 
+class ConfigurationXMLError(Exception):
+    """ XML File error for Configuration.
+
+    Error for exceptions created by Configuration that specifically have to
+    deal with the XML file. """
+
+    def __init__(self, message, trouble_xml):
+        super(ConfigurationXMLError, self).__init__(message)
+        self.message = message
+        self.bad_xml = trouble_xml
 
 class Configuration(object):
     """
@@ -38,7 +52,8 @@ class Configuration(object):
         self.train_files = []
         self._load_file()
 
-    def save(self,filename='-1'):
+    def save(self, filename='-1'):
+        """ Saves the configuration to an XML file output"""
         if filename == '-1':
             filename = self.config_file_name
 
@@ -48,7 +63,7 @@ class Configuration(object):
             for param_xml in model_xml.iter('Param'):
                 param = model.params[param_xml.get('name')]
                 for detail, value in param.details.items():
-                    param_xml.set(detail,value)
+                    param_xml.set(detail, value)
         self.tree.write(filename)
 
 
@@ -57,14 +72,28 @@ class Configuration(object):
         """ Loads the XML file and checks root tag for validaty"""
         self.tree = ET.parse(self.config_file_name)
         self.root = self.tree.getroot()
-        if not self.root.tag == TAG_ROOT:
-            raise ConfigurationError('Required XML root tag [{}] not found in\
-             {}'.format(TAG_ROOT, self.config_file_name))
+        required_tags = {}
+        required_tags[TAG_MODELS] = 0
+        required_tags[TAG_FILES] = 0
+        required_tags['Prediction'] = 0
 
-        self.project_name = self.root.attrib.get('name', '')
-        self.user_name = self.root.attrib.get('user', '')
+        if not self.root.tag == TAG_ROOT:
+            raise ConfigurationXMLError('Required XML root tag [{}] not found \
+            in {}'.format(TAG_ROOT, self.config_file_name), self.root)
+
+        if self.root.attrib.has_key('name'):
+            self.project_name = self.root.attrib.get('name', '')
+        else:
+            raise ConfigurationError('Project name not defined.')
+
+        if self.root.attrib.has_key('user'):
+            self.user_name = self.root.attrib.get('user', '')
+        else:
+            raise ConfigurationError('User name not defined.')
 
         for child in self.root:
+            if required_tags.has_key(child.tag):
+                required_tags[child.tag] = 1
             if child.tag == TAG_MODELS:
                 self._load_models(child)
             elif child.tag == TAG_FILES:
@@ -72,6 +101,10 @@ class Configuration(object):
             else:
                 self.config_data[child.tag] = child.attrib
 
+        for key, value in required_tags.items():
+            if value == 0:
+                raise ConfigurationXMLError('Required XML tag [{}] not found \
+                int {}'.format(key, self.config_file_name), self.root)
 
 
 
