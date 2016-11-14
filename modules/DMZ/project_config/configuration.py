@@ -104,7 +104,7 @@ class Configuration(object):
         for key, value in required_tags.items():
             if value == 0:
                 raise ConfigurationXMLError('Required XML tag [{}] not found \
-                int {}'.format(key, self.config_file_name), self.root)
+                in {}'.format(key, self.config_file_name), self.root)
 
 
 
