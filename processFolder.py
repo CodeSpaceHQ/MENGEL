@@ -15,8 +15,7 @@
 from PIL import Image # image libraries and operations
 import os, sys        # directories 
 import imghdr         # image file recognition
-import numpy as np    # numpy arrays
-import cv2
+import numpy          # numpy arrays
 
 # Sample Paths
 # /mnt/c/Users/Owner/Pictures/SamplePictures/
@@ -28,11 +27,13 @@ print("Start.")
 
 #list of image types 
 imgfiles = ['rgb','gif','pbm','pgm','ppm','tiff','rast','xbm','jpeg','jpg','bmp','png','webp','exr']
-i = 0
 imgArray = []
 
 
 def resizeFolder():
+    i = 0
+    imgArray = []
+    
     for item in dirs:
         print("Converting: " + item)
         if imghdr.what(path+item) in imgfiles:       #if the file has the correct type
@@ -40,14 +41,15 @@ def resizeFolder():
             img = Image.open(path+item) #.convert('L') #open and convert to greyscale
             a,b = os.path.splitext(path+item)
             newImg = img.resize((75,75), Image.ANTIALIAS) #resize and keep quality
-            newImg.save(a + 'edit.jpg', 'JPEG', quality = 90) #save the image with edit appended to it
-
-            imgNumPy = cv2.imread(a + 'edit.jpg') # convert edited images to numpy array
-            imgArray[i] = imgNumPy                # add to array
-            i = i+1
+            #newImg.save(a + 'edit.jpg', 'JPEG', quality = 90) #save the image with edit appended to it
             
+            imgNumPy = numpy.array(newImg) # convert edited images to numpy array
+            imgArray[i] = imgNumPy         # add to array
+            i = i+1
+            newImg.save(a + 'edit.jpg', 'JPEG', quality = 90) #save the image with edit appended to it
             print("New image saved: " + item + "\n")
-            print("Image array: " + imgNumPy)
+            print("Image Array for " + item)
+            print(imgNumPy)
 
     print("Done!")
 
