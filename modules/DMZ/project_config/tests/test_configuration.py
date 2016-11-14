@@ -155,32 +155,53 @@ def add_xml_param(attributes, root):
             ET.SubElement(element, 'Value').text = value
     return root
 
+class TestConfigurationBase(TestCase):
+    """ Base class for all configuration tests to extend.
 
-class TestConfigurationValidXML(TestCase):
-    """ Happy Path Testing for XML file """
-    def setUp(self):
-        # Create attributes
-        self.attributes = create_attributes(5)
-        self.attributes = create_attrib_files(self.attributes)
-        self.attributes = create_attrib_models(self.attributes)
-        self.xml_root = create_xml_project(self.attributes)
+    Holds all common methods.
+    """
 
-        self.xml_root = add_xml_files(self.attributes, self.xml_root)
-        self.xml_root = add_xml_models(self.attributes, self.xml_root)
-
-        self.xml_file_name = 'valid.xml'
-
-        tree = ET.ElementTree(self.xml_root)
-        tree.write(self.xml_file_name)
-        self.config = Configuration(self.xml_file_name)
-
+    def setUp(self,filename):
         self.files_used = []
-        self.files_used.append(self.xml_file_name)
+        self.files_used.append(filename)
+        self.xml_file_name = filename
+        self.create_xml_root()
+        self.create_xml_file()
 
     def tearDown(self):
         self.xml_root = None
-        #for file_used in self.files_used:
-            #os.remove(file_used)
+        for file_used in self.files_used:
+            os.remove(file_used)
+
+
+
+
+    def create_all_attributes(self, seed):
+        self.attributes = create_attributes(seed)
+        self.attributes = create_attrib_files(self.attributes)
+        self.attributes = create_attrib_models(self.attributes)
+
+    def create_xml_root(self):
+        self.xml_root = create_xml_project(self.attributes)
+        if self.attributes.has_key('Files'):
+            self.xml_root = add_xml_files(self.attributes, self.xml_root)
+
+        if self.attributes.has_key('Models'):
+            self.xml_root = add_xml_models(self.attributes, self.xml_root)
+
+    def create_xml_file(self):
+        tree = ET.ElementTree(self.xml_root)
+        tree.write(self.xml_file_name)
+
+
+class TestConfigurationHappyPath(TestConfigurationBase):
+    """ Happy Path Testing for XML file """
+    def setUp(self):
+        super(TestConfigurationHappyPath,self).create_all_attributes(5)
+        super(TestConfigurationHappyPath,self).setUp('valid.xml')
+
+        self.config = Configuration(self.xml_file_name)
+
 
     def test_configuration_properties(self):
         """ Tests that basic data (properties) are correct"""
@@ -246,10 +267,6 @@ class TestConfigurationValidXML(TestCase):
                 c2_param = c2_model.params[param_name]
                 self.compare_lists(param.values, c2_param.values)
                 self.compare_dicts(param.details, c2_param.details)
-
-
-
-
 
 
     def check_config_data(self, tag):
