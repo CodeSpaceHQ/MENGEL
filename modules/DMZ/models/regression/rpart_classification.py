@@ -5,7 +5,8 @@ Ryan Berg 10/19/16
 import sys
 import pandas as pd
 import numpy as np
-from rpy2.robjects import DataFrame, pandas2ri
+from rpy2.robjects import DataFrame
+from rpy2.robjects import pandas2ri
 from rpy2.robjects.packages import  importr
 pandas2ri.activate()
 

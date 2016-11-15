@@ -1,7 +1,6 @@
 import os
 import sys
 
-
 sys.path.insert(0, os.path.abspath('../../../..'))
 
 from unittest import TestCase
@@ -20,7 +19,8 @@ class Test_Rpart_Learning(TestCase):
         #Act
         rpart = rpart_classification.Rpart()
         rpart_model = rpart.fit(data.train_data, data.target_column)
-        result = rpart.predict(rpart_model, data.test_data)
+        rpart.predict(rpart_model, data.test_data)
+        result = rpart.score()
 
         #Assert
         self.assertGreater(result, 0, Msg = "Failed to beat baseline")
