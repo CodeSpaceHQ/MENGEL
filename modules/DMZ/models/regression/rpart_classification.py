@@ -1,6 +1,3 @@
-"""
-Ryan Berg 10/19/16
-"""
 
 import sys
 import pandas as pd
@@ -17,7 +14,6 @@ stats = importr("stats")
 
 class Rpart:
 
-
     def __init__(self):
         self.model = pd.DataFrame
         self.error_matrix = pd.DataFrame
@@ -29,7 +25,7 @@ class Rpart:
     def fit(self, training_data,  target):
         """
         :param training_data: a pandas dataframe.
-        :param target: a string referring to the target varialbe to be predicted
+        :param target: a string referring to the target variable to be predicted
         :return: An rpart model
         """
 
@@ -42,15 +38,13 @@ class Rpart:
         #TODO: HyperParameter Incorporateion
 
         #train the model
-        model = rparty.rpart(formula = formula,
+        self.model = rparty.rpart(formula = formula,
                              data = train_data,
                              method = "class"
                              #control = rparty.rpart_control(minsplit = ?, cp = ?)
                              )
 
-        self.model = model
-        return model
-
+        return self.model
 
     #Uses a model to make predictions on a dataset.
     def predict(self, model, dataset):
@@ -64,19 +58,16 @@ class Rpart:
         self.error_matrix = base.table(pred, dataset[self.outcome])
         return self.error_matrix
 
-
     def score(self):
         """
         :return: accuracy of model with respect to test data input into predict function
         """
-
 
         numerator = pd.DataFrame.sum(pd.DataFrame(np.diag(self.error_matrix)))[0]
         denominator = pd.DataFrame.sum(pd.DataFrame(np.ndarray.flatten(np.asarray(self.error_matrix))))[0]
 
         self.accuracy = float(numerator)/float(denominator)
         return self.accuracy
-
 
 
 if __name__ == "__main__":

@@ -11,7 +11,7 @@ from modules.DMZ.data_kit.validation_package import ValidationPackage
 
 
 
-class Test_Rpart_Learning(TestCase):
+class TestRpartLearning(TestCase):
 
 
     def test_rpart(self):
