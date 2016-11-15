@@ -7,8 +7,6 @@ from unittest import TestCase
 from modules.DMZ.data_kit import data_filler
 from modules.DMZ.utils import test_prep
 
-# from modules.toolbox.data_package import DataPackage
-# from modules.toolbox.validation_package import ValidationPackage
 
 class TestDataFilling(TestCase):
 
@@ -22,7 +20,6 @@ class TestDataFilling(TestCase):
 
         start, end = test_prep.prep_data_filler_tests_droppers("drop_cols")
 
-        # Assert
         self.assertLess(end[1], start[1], msg="Failed to remove any columns")
 
     def test_drop_all_missing_data_columns(self):
@@ -48,5 +45,3 @@ class TestDataFilling(TestCase):
         data = test_prep.prep_data_filler_tests_fillers("fill_averages")
 
         self.assertFalse(data.isnull().values.any(), msg="Failed to replace all NaNs")
-
-
