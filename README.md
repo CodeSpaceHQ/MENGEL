@@ -65,6 +65,9 @@ The following instructions cover setup and install of the entire system.
 
         R
         install.packages("dplyr")
+        install.packages("rpart")
+        install.packages("C50")
+        install.packages("stats")
         q()
 
 
