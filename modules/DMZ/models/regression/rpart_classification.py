@@ -17,11 +17,13 @@ stats = importr("stats")
 
 class Rpart:
 
+
     def __init__(self):
         self.model = pd.DataFrame
         self.error_matrix = pd.DataFrame
         self.outcome = ""
         self.accuracy = 0
+
 
     #Trains the model.
     def fit(self, training_data,  target):
@@ -31,7 +33,6 @@ class Rpart:
         :return: An rpart model
         """
 
-        #needed for later
         self.outcome = target
 
         #Converting to proper format for R functions
@@ -50,6 +51,7 @@ class Rpart:
         self.model = model
         return model
 
+
     #Uses a model to make predictions on a dataset.
     def predict(self, model, dataset):
         """
@@ -62,10 +64,13 @@ class Rpart:
         self.error_matrix = base.table(pred, dataset[self.outcome])
         return self.error_matrix
 
+
     def score(self):
         """
         :return: accuracy of model with respect to test data input into predict function
         """
+
+
         numerator = pd.DataFrame.sum(pd.DataFrame(np.diag(self.error_matrix)))[0]
         denominator = pd.DataFrame.sum(pd.DataFrame(np.ndarray.flatten(np.asarray(self.error_matrix))))[0]
 

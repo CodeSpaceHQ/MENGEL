@@ -10,7 +10,9 @@ from modules.toolbox.data_package import DataPackage
 from modules.DMZ.data_kit.validation_package import ValidationPackage
 
 
+
 class Test_Rpart_Learning(TestCase):
+
 
     def test_rpart(self):
         # Arrange
@@ -33,4 +35,3 @@ class Test_Rpart_Learning(TestCase):
         data.set_output_style("train")
         validation_pack.setup_package(data)
         return data, validation_pack
-
