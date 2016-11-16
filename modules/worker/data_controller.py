@@ -2,6 +2,7 @@ from modules.DMZ.data_kit import validation_package
 from modules.DMZ.data_kit import data_filler
 from modules.DMZ.data_kit import data_scaling
 from modules.DMZ.data_kit import data_splitting
+from modules.DMZ.data_kit import filler_strategy
 
 
 # This class will manage the data for the worker and prep it for use.
@@ -27,8 +28,10 @@ class DataController(object):
         testing = data_splitting.remove_non_numeric_columns(testing)
 
         # Will need a function which governs what missing data system is used.
-        training = data_filler.fill_missing_data(training, -9999)
-        testing = data_filler.fill_missing_data(testing, -9999)
+        train_filler = filler_strategy.FillerStrategy(training)
+        test_filler = filler_strategy.FillerStrategy(testing)
+        training = train_filler.pandas_dataset
+        testing = test_filler.pandas_dataset
 
         # Scaling data. Will need a function which governs scaling method.
         training, testing = data_scaling.scale_data(training, testing)
