@@ -47,7 +47,7 @@ class TestFeatureSelection(TestCase):
         end = reducer.shape
 
         # Assert fewer columns
-        self.assertEqual(end[1], value, msg="Failed to remove any columns")
+        self.assertEqual(end[1], value, msg="Failed to reduce down to K columns")
 
     def setup_data(self):
 
