@@ -1,7 +1,7 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath('../../../..'))
+sys.path.insert(0, os.path.abspath('../../..'))
 
 from unittest import TestCase
 from modules.DMZ.data_kit import data_io
@@ -11,6 +11,7 @@ from sklearn.decomposition import PCA
 from sklearn.decomposition import FactorAnalysis
 from sklearn.decomposition import FastICA
 import setup
+
 
 class TestDimensionalityReduction(TestCase):
 
