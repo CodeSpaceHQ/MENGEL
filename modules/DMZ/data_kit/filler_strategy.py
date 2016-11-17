@@ -4,7 +4,6 @@ import data_filler
 import data_io
 import setup
 
-
 class FillerStrategy(object):
 
     def __init__(self):
@@ -15,7 +14,6 @@ class FillerStrategy(object):
         self.pandas_dataset = None
         self.missing_ratios_dict = None
         self.to_do_list = dict()
-
         self.get_config_options()
         self.get_dataset()
         self.get_missing_ratios_dict()
@@ -35,6 +33,7 @@ class FillerStrategy(object):
     def get_missing_ratios_dict(self):
         missing_ratios = dataset_insight.get_missing_ratios(self.pandas_dataset, "column")
         self.missing_ratios_dict = dict(zip(self.pandas_dataset.columns.values, missing_ratios))
+
 
     def get_to_do_list(self):
         for col in self.missing_ratios_dict:
@@ -56,3 +55,4 @@ class FillerStrategy(object):
                     self.pandas_dataset.drop(col, axis=1, inplace=True)
                 else:
                     self.pandas_dataset[col] = dispatcher[self.to_do_list[col]](self.pandas_dataset[col], self.fill_value)
+
