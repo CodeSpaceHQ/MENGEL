@@ -14,6 +14,15 @@ def drop_missing_data_rows(pandas_data, desired_ratio):
     return pandas_data
 
 
+def drop_complete_data_rows(pandas_data):
+    ratios = dataset_insight.get_missing_ratios(pandas_data, "row")
+    ratios_dict = dict(zip(range(0, pandas_data.shape[0]), ratios))
+    for i in range(0, len(ratios)):
+        if ratios_dict[i] == 0:
+            pandas_data = pandas_data.drop(i, 0)
+    return pandas_data
+
+
 # Drops columns which have a missing to existing component ratio greater than the desired_ratio.
 # e.g. if desired_ratio is .5, and a column is missing 60% of its components, the column will be dropped.
 def drop_missing_data_columns(pandas_data, desired_ratio):

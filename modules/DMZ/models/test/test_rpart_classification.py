@@ -10,13 +10,15 @@ from modules.toolbox.data_package import DataPackage
 from modules.DMZ.data_kit.validation_package import ValidationPackage
 
 
-
 class TestRpartLearning(TestCase):
-
 
     def test_rpart(self):
         # Arrange
-        data, validation_pack = self.setup_data()
+        data = DataPackage()
+        validation_pack = ValidationPackage()
+        data.setup_training_data("winequality-red.csv", "quality")
+        data.set_output_style("train")
+        validation_pack.setup_package(data)
 
         #Act
         rpart = rpart_classification.Rpart()
@@ -25,13 +27,4 @@ class TestRpartLearning(TestCase):
         result = rpart.score()
 
         #Assert
-        self.assertGreater(result, 0, Msg = "Failed to beat baseline")
-
-
-    def setup_data(self):
-        data = DataPackage()
-        validation_pack = ValidationPackage()
-        data.setup_training_data("winequality-red.csv", "quality")
-        data.set_output_style("train")
-        validation_pack.setup_package(data)
-        return data, validation_pack
+        self.assertGreater(result, 0, msg="Failed to beat baseline")

@@ -15,7 +15,7 @@ class TestSplitter(TestCase):
     train_rds = False
     filepath = setup.get_datasets_path()
 
-    def test_helper(self):
+    def helper(self):
         self.test_csv = False
         self.train_csv = False
         self.test_rds = False
@@ -34,33 +34,14 @@ class TestSplitter(TestCase):
                 self.test_rds = True
                 os.remove(self.filepath + File)
 
-
-    def test_comma_split(self):
-
-        # Arrange
-        splitter = sp.Splitter()
-        splitter.Split((self.filepath + "titanic_train.csv"), ",")
-
-        #Act
-        self.test_helper()
-
-        # Assert
-        self.assertEquals = (self.test_csv, True)
-        self.assertEquals = (self.train_csv, True)
-        self.assertEquals = (self.test_rds, True)
-        self.assertEquals = (self.train_rds, True)
-
-
-    # test_semicolon_split tests the functionality of the splitter, with the delimiter as a semicolon.
-
-    def test_semicolon_split(self):
+    def split_body(self, path, delim):
 
         #Arrange
         splitter = sp.Splitter()
-        splitter.Split((self.filepath + "winequality-red.csv"), ";")
+        splitter.Split(path, delim)
 
         #Act
-        self.test_helper()
+        self.helper()
 
         #Assert
         self.assertEquals = (self.test_csv, True)
@@ -68,3 +49,9 @@ class TestSplitter(TestCase):
         self.assertEquals = (self.test_rds, True)
         self.assertEquals = (self.train_rds, True)
 
+    def test_comma_split(self):
+        self.split_body(self.filepath + "titanic_train.csv", ",")
+
+    # test_semicolon_split tests the functionality of the splitter, with the delimiter as a semicolon.
+    def test_semicolon_split(self):
+        self.split_body(self.filepath + "winequality-red.csv", ";")
