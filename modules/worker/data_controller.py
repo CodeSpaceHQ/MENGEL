@@ -32,7 +32,6 @@ class DataController(object):
         testing = data_splitting.remove_non_numeric_columns(testing)
 
         # Will need a function which governs what missing data system is used.
-        reg_filler = filler_regression.RegressionFiller(training, testing)
         train_filler = filler_strategy.FillerStrategy(training)
         test_filler = filler_strategy.FillerStrategy(testing)
         training = train_filler.pandas_dataset
