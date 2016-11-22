@@ -10,44 +10,32 @@ import setup
 
 
 class TestFeatureSelection(TestCase):
+
+    def setUp(self):
+        self.data = data_io.get_data(setup.get_datasets_path(), "winequality-red.csv")
+        self.target = 'quality'
+        self.start = self.data.shape
+
     def test_variance_threshold_selector(self):
-
-        # Arrange
-        data, start, target = self.setup_data()
-
         # Act
-        reducer = scikit_feature_selectors.variance_threshold_selector(data, target)
+        reducer = scikit_feature_selectors.variance_threshold_selector(self.data, self.target)
         end = reducer.shape
 
         # Assert fewer columns
-        self.assertLess(end[1], start[1], msg="Failed to beat baseline")
+        self.assertLess(end[1], self.start[1], msg="Failed to beat baseline")
 
     def test_select_percentile_selector(self):
-
-        # Arrange
-        data, start, target = self.setup_data()
-
         # Act
-        reducer = scikit_feature_selectors.select_percentile_selector(data, target)
+        reducer = scikit_feature_selectors.select_percentile_selector(self.data, self.target)
         end = reducer.shape
 
         # Assert fewer columns
-        self.assertLess(end[1], start[1], msg="Failed to beat baseline")
+        self.assertLess(end[1], self.start[1], msg="Failed to beat baseline")
 
     def test_select_k_best_selector(self):
-
-        # Arrange
-        data, start, target = self.setup_data()
-
         # Act
-        reducer = scikit_feature_selectors.select_k_best_selector(data, target)
+        reducer = scikit_feature_selectors.select_k_best_selector(self.data, self.target)
         end = reducer.shape
 
         # Assert fewer columns
-        self.assertLess(end[1], start[1], msg="Failed to beat baseline")
-
-    def setup_data(self):
-        data = data_io.get_data(setup.get_datasets_path(), "winequality-red.csv")
-        target = 'quality'
-        start = data.shape
-        return data, start, target
+        self.assertLess(end[1], self.start[1], msg="Failed to beat baseline")

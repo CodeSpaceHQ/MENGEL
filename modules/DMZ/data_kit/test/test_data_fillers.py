@@ -24,33 +24,24 @@ class TestDataFilling(TestCase):
         self.target = 'Survived'
         self.start = self.data.shape
 
-    def test_drop_missing_data_rows(self):
+    def standard_drop(self, result, orientation, message):
         # Act
-        end = (data_filler.drop_missing_data_rows(self.data, .99)).shape
+        end = result.shape
 
         # Assert
-        self.assertLess(end[0], self.start[0], msg="Failed to remove any rows")
+        self.assertLess(end[orientation], self.start[orientation], msg=message)
+
+    def test_drop_missing_data_rows(self):
+        self.standard_drop(data_filler.drop_missing_data_rows(self.data, .99), 0, "Failed to remove any rows")
 
     def test_drop_missing_data_columns(self):
-        # Act
-        end = (data_filler.drop_missing_data_columns(self.data, .99)).shape
-
-        # Assert
-        self.assertLess(end[1], self.start[1], msg="Failed to remove any columns")
+        self.standard_drop(data_filler.drop_missing_data_columns(self.data, .99), 1, "Failed to remove any columns")
 
     def test_drop_all_missing_data_columns(self):
-        # Act
-        end = (data_filler.drop_all_missing_data_columns(self.data)).shape
-
-        # Assert
-        self.assertLess(end[1], self.start[1], msg="Failed to remove any columns")
+        self.standard_drop(data_filler.drop_all_missing_data_columns(self.data), 1, "Failed to remove any columns")
 
     def test_drop_all_missing_data_rows(self):
-        # Act
-        end = (data_filler.drop_all_missing_data_rows(self.data)).shape
-
-        # Assert
-        self.assertLess(end[0], self.start[0], msg="Failed to remove any rows")
+        self.standard_drop(data_filler.drop_all_missing_data_rows(self.data), 0, "Failed to remove any rows")
 
     def test_fill_missing_data(self):
         # Act
