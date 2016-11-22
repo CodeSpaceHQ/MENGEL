@@ -14,6 +14,12 @@ import pandas as pd
 
 class TestDatasetInsight(TestCase):
 
+    def setUp(self):
+        self.data = data_io.get_data(setup.get_datasets_path(), "titanic_train.csv")
+        self.data["Nonsense"] = np.nan
+        self.data["Filled"] = 1
+        self.data = self.data.apply(pd.to_numeric,errors='coerce')
+
     def test_get_prediction_type_regression(self):
 
         # Arrange
@@ -75,35 +81,22 @@ class TestDatasetInsight(TestCase):
             self.assertIn(model.__name__, expected_functions, "Function does not exist as expected")
 
     def test_get_missing_ratios_col(self):
+        # Act
+        ratios = (dataset_insight.get_missing_ratios(self.data, "column"))
+        ratios_dict = dict(zip(self.data.columns.values, ratios))
 
-        # Arrange
-        data = self.setup_data()
-
-        #Act
-        ratios = (dataset_insight.get_missing_ratios(data, "column"))
-        ratios_dict = dict(zip(data.columns.values, ratios))
-
-        #Assert
-        self.assertTrue(ratios_dict["Nonsense"] == 1 and ratios_dict["Filled"] == 0, msg= "Calculation failed!")
+        # Assert
+        self.assertTrue(ratios_dict["Nonsense"] == 1 and ratios_dict["Filled"] == 0, msg="Calculation failed!")
 
     def test_get_missing_ratios_row(self):
 
         # Arrange
-        data = self.setup_data()
-        data.loc[data.shape[0]] = [np.nan] * data.shape[1]
-        data.loc[data.shape[0]] = [7] * data.shape[1]
+        self.data.loc[self.data.shape[0]] = [np.nan] * self.data.shape[1]
+        self.data.loc[self.data.shape[0]] = [7] * self.data.shape[1]
 
-        #Act
-        ratios = (dataset_insight.get_missing_ratios(data, "row"))
-        ratios_dict = dict(zip(range(0, data.shape[0]), ratios))
+        # Act
+        ratios = (dataset_insight.get_missing_ratios(self.data, "row"))
+        ratios_dict = dict(zip(range(0, self.data.shape[0]), ratios))
 
-        #Assert
-        self.assertTrue(ratios_dict[data.shape[0]-1] == 0 and ratios_dict[data.shape[0]-2] == 1, msg = "Calculation failed!")
-
-    def setup_data(self):
-        data = data_io.get_data(setup.get_datasets_path(), "titanic_train.csv")
-        data["Nonsense"] = np.nan
-        data["Filled"] = 1
-        data = data.apply(pd.to_numeric,errors='coerce')
-        return data
-
+        # Assert
+        self.assertTrue(ratios_dict[self.data.shape[0]-1] == 0 and ratios_dict[self.data.shape[0]-2] == 1, msg="Calculation failed!")

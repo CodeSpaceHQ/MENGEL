@@ -12,32 +12,25 @@ from modules.DMZ.data_kit.validation_package import ValidationPackage
 
 class TestOnlineLearning(TestCase):
 
-    def test_sgd_regressor(self):
-        # Arrange
-        data, validation_pack = self.setup_data()
+    def setUp(self):
+        self.data = DataPackage()
+        self.validation_pack = ValidationPackage()
+        self.data.setup_training_data("winequality-red.csv", "quality")
+        self.data.set_output_style("train")
+        self.validation_pack.setup_package(self.data)
 
+    def test_sgd_regressor(self):
         # Act
         model = scikit_online_regressors.train_sgd_regressor()
-        result = mr.model_use(model[1], validation_pack, data)
+        result = mr.model_use(model[1], self.validation_pack, self.data)
 
         # Assert
         self.assertGreater(result, 0, msg="Failed to beat baseline")
     
     def test_passive_aggressive_regressor(self):
-        # Arrange
-        data, validation_pack = self.setup_data()
-
         # Act
         model = scikit_online_regressors.train_passive_aggressive_regressor()
-        result = mr.model_use(model[1], validation_pack, data)
+        result = mr.model_use(model[1], self.validation_pack, self.data)
 
         # Assert
         self.assertGreater(result, 0, msg="Failed to beat baseline")
-
-    def setup_data(self):
-        data = DataPackage()
-        validation_pack = ValidationPackage()
-        data.setup_training_data("winequality-red.csv", "quality")
-        data.set_output_style("train")
-        validation_pack.setup_package(data)
-        return data, validation_pack

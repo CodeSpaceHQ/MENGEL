@@ -7,9 +7,9 @@ import sys
 import xml.etree.ElementTree as ET
 
 sys.path.insert(0, os.path.abspath('..'))
-from configuration import Configuration
-from configuration import ConfigurationError
-from configuration import ConfigurationXMLError
+from modules.DMZ.project_config.configuration import Configuration
+from modules.DMZ.project_config.configuration import ConfigurationError
+from modules.DMZ.project_config.configuration import ConfigurationXMLError
 
 
 def create_attributes(seed):
@@ -156,6 +156,7 @@ def add_xml_param(attributes, root):
         for value in attributes['values']:
             ET.SubElement(element, 'Value').text = value
     return root
+
 
 class TestConfigurationBase(TestCase):
     """ Base class for all configuration tests to extend.
@@ -376,7 +377,6 @@ class TestConfigurationSadPath(TestConfigurationBase):
         self.attributes['Files']['InvalidFile.cvs'] = 'nottest'
         self.prep('test_configuration_bad_file_type.xml')
         self.check_configuration_xml_error()
-
 
     def check_configuration_error(self):
         """ Helper method to check that the Configuration constructor

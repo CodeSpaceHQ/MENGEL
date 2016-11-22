@@ -13,42 +13,34 @@ from sklearn import preprocessing
 from modules.toolbox.data_package import DataPackage
 from modules.toolbox.validation_package import ValidationPackage
 
+
 class TestDataFilling(TestCase):
+
+    def setUp(self):
+        self.data = data_io.get_data(setup.get_datasets_path(), "titanic_train.csv")
 
     def test_text_column_to_numeric(self):
 
-        #Arrange
-        data = self.setup_data()
-        column = data["Sex"]
+        # Arrange
+        column = self.data["Sex"]
 
-        #Act
-        data["Sex"] = text_handler.text_column_to_numeric(column)
+        # Act
+        self.data["Sex"] = text_handler.text_column_to_numeric(column)
 
-        #Assert
-        self.assertTrue(data["Sex"].dtype != "object", msg="Failed to convert text to categorical values")
+        # Assert
+        self.assertTrue(self.data["Sex"].dtype != "object", msg="Failed to convert text to categorical values")
 
     def test_convert_dataframe_text(self):
+        # Act
+        data = text_handler.convert_dataframe_text(self.data, .5)
 
-        #Arrange
-        data = self.setup_data()
-
-        #Act
-        data = text_handler.convert_dataframe_text(data, .5)
-
-        #Assert
-        self.assertTrue(data["Sex"].dtype != "object" and data["Name"].dtype == "object", msg="Converted incorrect features")
+        # Assert
+        self.assertTrue(data["Sex"].dtype != "object" and data["Name"].dtype == "object",
+                        msg="Converted incorrect features")
 
     def test_convert_nonpredictive_text(self):
+        # Act
+        data = text_handler.convert_nonpredictive_text(self.data)
 
-        #Arrange
-        data = self.setup_data()
-
-        #Act
-        data = text_handler.convert_nonpredictive_text(data)
-
-        #Assert
-        self.assertTrue(data["Name"].isnull, msg = "Failed to convert text to NaN")
-
-    def setup_data(self):
-        data = data_io.get_data(setup.get_datasets_path(), "titanic_train.csv")
-        return data
+        # Assert
+        self.assertTrue(data["Name"].isnull, msg="Failed to convert text to NaN")

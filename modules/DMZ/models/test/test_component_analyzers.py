@@ -14,57 +14,38 @@ import setup
 
 class TestDimensionalityReduction(TestCase):
 
+    def setUp(self):
+        self.data = data_io.get_data(setup.get_datasets_path(), "winequality-red.csv")
+        self.start = self.data.shape
+
     def test_principle_component_analyzer(self):
-
-        # Arrange
-        data, start = self.pre_test()
-
-        #Act
-        analyzer = scikit_component_analyzers.run_analyzer(PCA, 3, data)
+        # Act
+        analyzer = scikit_component_analyzers.run_analyzer(PCA, 3, self.data)
         end = analyzer.shape
 
         # Assert fewer rows
-        self.assertLess(end[0], start[0], msg="Failed to beat baseline")
+        self.assertLess(end[0], self.start[0], msg="Failed to beat baseline")
 
     def test_independent_component_analyzer(self):
-
-        # Arrange
-        data, start = self.pre_test()
-
-        #Act
-        analyzer = scikit_component_analyzers.run_analyzer(FastICA, 3, data)
+        # Act
+        analyzer = scikit_component_analyzers.run_analyzer(FastICA, 3, self.data)
         end = analyzer.shape
 
         # Assert fewer rows
-        self.assertLess(end[0], start[0], msg="Failed to beat baseline")
+        self.assertLess(end[0], self.start[0], msg="Failed to beat baseline")
 
     def test_factor_component_analyzer(self):
-
-        # Arrange
-        data, start = self.pre_test()
-
         # Act
-        analyzer = scikit_component_analyzers.run_analyzer(FactorAnalysis, 3, data)
+        analyzer = scikit_component_analyzers.run_analyzer(FactorAnalysis, 3, self.data)
         end = analyzer.shape
 
         # Assert fewer rows
-        self.assertLess(end[0], start[0], msg="Failed to beat baseline")
+        self.assertLess(end[0], self.start[0], msg="Failed to beat baseline")
 
     def test_gaussian_random_projection(self):
-
-        # Arrange
-        data, start = self.pre_test()
-
         # Act
-        analyzer = scikit_component_analyzers.run_analyzer(GaussianRandomProjection, 3, data)
+        analyzer = scikit_component_analyzers.run_analyzer(GaussianRandomProjection, 3, self.data)
         end = analyzer.shape
 
         # Assert fewer rows
-        self.assertLess(end[0], start[0], msg="Failed to beat baseline")
-
-    def pre_test(self):
-        data = data_io.get_data(setup.get_datasets_path(), "winequality-red.csv")
-        start = data.shape
-
-        return data, start
-
+        self.assertLess(end[0], self.start[0], msg="Failed to beat baseline")
