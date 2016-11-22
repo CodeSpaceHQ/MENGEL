@@ -20,65 +20,34 @@ class TestDatasetInsight(TestCase):
         self.data["Filled"] = 1
         self.data = self.data.apply(pd.to_numeric,errors='coerce')
 
-    def test_get_prediction_type_regression(self):
-
+    def standard_pred_type(self, filename, target, goal, message):
         # Arrange
-        data = data_io.get_data(setup.get_datasets_path(), "housing_train.csv")
+        data = data_io.get_data(setup.get_datasets_path(), filename)
 
         # Act
-        ml_type = dataset_insight.get_prediction_type(data["SalePrice"])
+        ml_type = dataset_insight.get_prediction_type(data[target])
 
         # Assert
-        self.assertEqual(ml_type, "regression", "Type should be regression.")
+        self.assertEqual(ml_type, goal, msg=message)
+
+    def standard_delim(self, filename, target_delim):
+        # Act
+        delim = dataset_insight.get_delimiter(setup.get_datasets_path() + filename)
+
+        # Assert
+        self.assertEqual(delim, target_delim, "Delimiter detected incorrectly.")
+
+    def test_get_prediction_type_regression(self):
+        self.standard_pred_type("housing_train.csv", "SalePrice", "regression", "Type should be regression.")
 
     def test_get_prediction_type_classification(self):
-
-        # Arrange
-        data = data_io.get_data(setup.get_datasets_path(), "winequality-red.csv")
-
-        # Act
-        ml_type = dataset_insight.get_prediction_type(data["quality"])
-
-        # Assert
-        self.assertEqual(ml_type, "classification", "Type should be classification.")
+        self.standard_pred_type("winequality-red.csv", "quality", "classification", "Type should be classification.")
 
     def test_get_delim_comma(self):
-
-        # Arrange
-        file_name = "housing_train.csv"
-
-        # Act
-        delim = dataset_insight.get_delimiter(setup.get_datasets_path() + file_name)
-
-        # Assert
-        self.assertEqual(delim, ",", "Delimiter detected incorrectly.")
+        self.standard_delim("housing_train.csv", ",")
 
     def test_get_delim_semicolon(self):
-
-        # Arrange
-        file_name = "winequality-red.csv"
-
-        # Act
-        delim = dataset_insight.get_delimiter(setup.get_datasets_path() + file_name)
-
-        # Assert
-        self.assertEqual(delim, ";", "Delimiter detected incorrectly.")
-
-    def test_model_filter(self):
-
-        # Arrange
-        pred_type = "regression"
-        expected_functions = {"train_passive_aggressive_regressor",
-                              "train_support_vector_regression",
-                              "train_bayesian_ridge",
-                              "train_sgd_regressor"}
-
-        # Act
-        model_functions = model_filter.get_models(pred_type)
-
-        # Assert
-        for model in model_functions:
-            self.assertIn(model.__name__, expected_functions, "Function does not exist as expected")
+        self.standard_delim("winequality-red.csv", ";")
 
     def test_get_missing_ratios_col(self):
         # Act

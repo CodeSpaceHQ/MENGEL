@@ -12,40 +12,29 @@ from sklearn.decomposition import FactorAnalysis
 from sklearn.decomposition import FastICA
 import setup
 
+
 class TestDimensionalityReduction(TestCase):
 
     def setUp(self):
         self.data = data_io.get_data(setup.get_datasets_path(), "winequality-red.csv")
         self.start = self.data.shape
 
-    def test_principle_component_analyzer(self):
+    def standard_check(self, check):
         # Act
-        analyzer = scikit_component_analyzers.run_analyzer(PCA, 3, self.data)
+        analyzer = scikit_component_analyzers.run_analyzer(check, 3, self.data)
         end = analyzer.shape
 
         # Assert fewer rows
         self.assertLess(end[0], self.start[0], msg="Failed to beat baseline")
+
+    def test_principle_component_analyzer(self):
+        self.standard_check(PCA)
 
     def test_independent_component_analyzer(self):
-        # Act
-        analyzer = scikit_component_analyzers.run_analyzer(FastICA, 3, self.data)
-        end = analyzer.shape
-
-        # Assert fewer rows
-        self.assertLess(end[0], self.start[0], msg="Failed to beat baseline")
+        self.standard_check(FastICA)
 
     def test_factor_component_analyzer(self):
-        # Act
-        analyzer = scikit_component_analyzers.run_analyzer(FactorAnalysis, 3, self.data)
-        end = analyzer.shape
-
-        # Assert fewer rows
-        self.assertLess(end[0], self.start[0], msg="Failed to beat baseline")
+        self.standard_check(FactorAnalysis)
 
     def test_gaussian_random_projection(self):
-        # Act
-        analyzer = scikit_component_analyzers.run_analyzer(GaussianRandomProjection, 3, self.data)
-        end = analyzer.shape
-
-        # Assert fewer rows
-        self.assertLess(end[0], self.start[0], msg="Failed to beat baseline")
+        self.standard_check(GaussianRandomProjection)
