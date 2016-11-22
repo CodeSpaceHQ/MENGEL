@@ -11,7 +11,7 @@ from modules.DMZ.models.classification import scikit_classification_learners
 
 from modules.toolbox.data_package import DataPackage
 from modules.DMZ.data_kit.validation_package import ValidationPackage
-from modules.toolbox import ml_runners as mr
+from modules.DMZ.utils import ml_test_utils
 
 
 class TestClassificationLearning(unittest.TestCase):
@@ -24,25 +24,10 @@ class TestClassificationLearning(unittest.TestCase):
         self.validation_pack.setup_package(self.data)
 
     def test_random_forest(self):
-        # Act
-        model = scikit_classification_learners.train_random_forest()
-        result = mr.model_use(model[1], self.validation_pack, self.data)
-
-        # Assert
-        self.assertGreater(result, 0, msg="Failed to beat baseline")
+        ml_test_utils.ml_test(scikit_classification_learners.train_random_forest(), self.validation_pack)
 
     def test_knn(self):
-        # Act
-        model = scikit_classification_learners.train_knn()
-        result = mr.model_use(model[1], self.validation_pack, self.data)
-
-        # Assert
-        self.assertGreater(result, 0, msg="Failed to beat baseline")
+        ml_test_utils.ml_test(scikit_classification_learners.train_knn(), self.validation_pack)
 
     def test_svc(self):
-        # Act
-        model = scikit_classification_learners.train_svc()
-        result = mr.model_use(model[1], self.validation_pack, self.data)
-
-        # Assert
-        self.assertGreater(result, 0, msg="Failed to beat baseline")
+        ml_test_utils.ml_test(scikit_classification_learners.train_svc(), self.validation_pack)

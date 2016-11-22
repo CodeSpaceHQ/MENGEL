@@ -9,6 +9,7 @@ from modules.toolbox import ml_runners as mr
 
 from modules.toolbox.data_package import DataPackage
 from modules.DMZ.data_kit.validation_package import ValidationPackage
+from modules.DMZ.utils import ml_test_utils
 
 
 class TestRegressionLearning(TestCase):
@@ -21,17 +22,7 @@ class TestRegressionLearning(TestCase):
         self.validation_pack.setup_package(self.data)
 
     def test_bayesian_ridge(self):
-        # Act
-        model = scikit_regression_learners.train_bayesian_ridge()
-        result = mr.model_use(model[1], self.validation_pack, self.data)
-
-        # Assert
-        self.assertGreater(result, 0, msg="Failed to beat baseline")
+        ml_test_utils.ml_test(scikit_regression_learners.train_bayesian_ridge(), self.validation_pack)
 
     def test_support_vector_regression(self):
-        # Act
-        model = scikit_regression_learners.train_support_vector_regression()
-        result = mr.model_use(model[1], self.validation_pack, self.data)
-
-        # Assert
-        self.assertGreater(result, 0, msg="Failed to beat baseline")
+        ml_test_utils.ml_test(scikit_regression_learners.train_support_vector_regression(), self.validation_pack)

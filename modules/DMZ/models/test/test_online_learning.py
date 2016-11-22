@@ -8,6 +8,7 @@ from modules.DMZ.models.regression import scikit_online_regressors
 from modules.toolbox import ml_runners as mr
 from modules.toolbox.data_package import DataPackage
 from modules.DMZ.data_kit.validation_package import ValidationPackage
+from modules.DMZ.utils import ml_test_utils
 
 
 class TestOnlineLearning(TestCase):
@@ -20,17 +21,7 @@ class TestOnlineLearning(TestCase):
         self.validation_pack.setup_package(self.data)
 
     def test_sgd_regressor(self):
-        # Act
-        model = scikit_online_regressors.train_sgd_regressor()
-        result = mr.model_use(model[1], self.validation_pack, self.data)
-
-        # Assert
-        self.assertGreater(result, 0, msg="Failed to beat baseline")
+        ml_test_utils.ml_test(scikit_online_regressors.train_sgd_regressor(), self.validation_pack)
     
     def test_passive_aggressive_regressor(self):
-        # Act
-        model = scikit_online_regressors.train_passive_aggressive_regressor()
-        result = mr.model_use(model[1], self.validation_pack, self.data)
-
-        # Assert
-        self.assertGreater(result, 0, msg="Failed to beat baseline")
+        ml_test_utils.ml_test(scikit_online_regressors.train_passive_aggressive_regressor(), self.validation_pack)
