@@ -26,16 +26,17 @@ class DataController(object):
         training, label_data = data_splitting.separate_target(training, target)
 
         # Temporary until we properly handle strings and text data.
-        training = text_handler.convert_dataframe_text(training, .95)
-        testing = text_handler.convert_dataframe_text(testing, .95)
         training = data_splitting.remove_non_numeric_columns(training)
         testing = data_splitting.remove_non_numeric_columns(testing)
 
         # Will need a function which governs what missing data system is used.
+        reg_filler = filler_regression.RegressionFiller(training, testing)
         train_filler = filler_strategy.FillerStrategy(training)
         test_filler = filler_strategy.FillerStrategy(testing)
-        training = train_filler.pandas_dataset
-        testing = test_filler.pandas_dataset
+        training = reg_filler.get_filled_data()
+        #print(training)
+        #print(train_filler.pandas_dataset)
+        testing = reg_filler.get_filled_test_data()
 
         # Scaling data. Will need a function which governs scaling method.
         training, testing = data_scaling.scale_data(training, testing)
