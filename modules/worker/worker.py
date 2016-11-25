@@ -35,4 +35,4 @@ class Worker(object):
             self.setup_controllers()
             self.run_algorithm()
             self.central_hub.receive_result(self.ticket)
-            self.ticket = hub.get_ticket()
+            self.ticket = None
