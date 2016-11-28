@@ -25,7 +25,8 @@ def resize_folder(path, size):
             new_img.save(str_path + 'edit.jpg', 'JPEG', quality=90)  # save the image with edit appended to it
 
 
-# given a directory string, will return the numpyarray of square images that have been previously edited
+# given a directory string, will return an array of numpyarrays of images that have been previously edited
+# numpy arrays are used for easy access to the pixel position and pixel hex value information used to classify images
 def get_image_array(path):
     img_array = []
     dirs = os.listdir(path)  # store the path.
