@@ -20,13 +20,16 @@ def resize_folder(path, size):
     for item in dirs:
         if imghdr.what(path + item) in imgfiles:  # if the file has the correct type
             img = Image.open(path + item)         # open the image
-            strpath,ext = os.path.splitext(path + item)  #store the filepath in a string in strpath
+            str_path,ext = os.path.splitext(path + item)  #store the filepath in a string in strpath
             new_img = img.resize((size, size), Image.ANTIALIAS)  # resize and keep quality
-            print(strpath)
-            new_img.save(strpath + 'edit.jpg', 'JPEG', quality=90)  # save the image with edit appended to it
+            new_img.save(str_path + 'edit.jpg', 'JPEG', quality=90)  # save the image with edit appended to it
 
 
-# given a directory string, will return the numpyarray of square images that have been previously edited
+# given a directory string, will return an array of numpyarrays(containing pixel and other info)
+# of images that been previously edited ('edit' appended to the image filename)
+
+# numpy arrays give access to two things needed to run ML algorithms:
+# pixel position, and pixel color values
 def get_image_array(path):
     img_array = []
     dirs = os.listdir(path)  # store the path.
@@ -34,9 +37,10 @@ def get_image_array(path):
     for item in dirs:
         if imghdr.what(path + item) in imgfiles:  # if the file has the correct type
             new_img = Image.open(path + item)
-            strpath, ext = os.path.splitext(path + item)  #store the filepath in a string in strpath
-            if strpath[-4:] == 'edit':                   #if the image has been previously edited
+            str_path, ext = os.path.splitext(path + item)  #store the filepath in a string in strpath
+            if str_path[-4:] == 'edit':                   #if the image has been previously edited
                 img_numpy = numpy.array(new_img)  # convert edited images to numpy array
                 img_array.append(img_numpy)  # add to array
+                print("\n") #print a newline
 
     return img_array
