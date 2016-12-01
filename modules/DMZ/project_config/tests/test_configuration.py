@@ -6,7 +6,7 @@ import os
 import sys
 import xml.etree.ElementTree as ET
 
-sys.path.insert(0, os.path.abspath('..'))
+sys.path.insert(0, os.path.abspath('../../..'))
 from modules.DMZ.project_config.configuration import Configuration
 from modules.DMZ.project_config.configuration import ConfigurationError
 from modules.DMZ.project_config.configuration import ConfigurationXMLError
@@ -79,7 +79,7 @@ def create_attrib_models(attributes):
     If number=false, then there will be a value attribute with a list of values.
     """
     models = {}
-    for i in range(1, attributes['seed']%5):
+    for i in range(1, attributes['seed']%5 + 2):
         model = {}
         model['name'] = 'model{}'.format(i)
         model['params'] = create_attrib_params(attributes['seed']%3 + (2*i))
@@ -308,7 +308,6 @@ class TestConfigurationHappyPath(TestConfigurationBase):
         Tests that the models were correctly loaded into the
         configuration object.
         """
-        exp_attrib = self.attributes['Models']
         act_models = self.config.models
         self.assertEqual(len(exp_attrib.keys()), len(act_models.keys()))
         for exp_key, exp_model in exp_attrib.items():
