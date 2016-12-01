@@ -6,7 +6,7 @@ import os
 import sys
 import xml.etree.ElementTree as ET
 
-sys.path.insert(0, os.path.abspath('../../..'))
+sys.path.insert(0, os.path.abspath('..'))
 from modules.DMZ.project_config.configuration import Configuration
 from modules.DMZ.project_config.configuration import ConfigurationError
 from modules.DMZ.project_config.configuration import ConfigurationXMLError
@@ -308,8 +308,11 @@ class TestConfigurationHappyPath(TestConfigurationBase):
         Tests that the models were correctly loaded into the
         configuration object.
         """
+        exp_attrib = self.attributes['Models']
         act_models = self.config.models
         self.assertEqual(len(exp_attrib.keys()), len(act_models.keys()))
+        self.assertNotEqual(len([]),len(act_models.keys()))
+
         for exp_key, exp_model in exp_attrib.items():
             self.assertTrue(act_models.has_key(exp_key))
             self.check_model(exp_model, act_models[exp_key])
