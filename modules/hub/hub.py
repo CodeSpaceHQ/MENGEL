@@ -7,7 +7,8 @@ sys.path.insert(0, os.path.abspath('../..'))
 from modules.DMZ.models import model_filter
 from modules.worker import worker
 from modules.DMZ import ticket
-from modules.DMZ.utils import config_options
+#from modules.DMZ.utils import config_options
+from modules.DMZ.project_config import configuration
 from modules.DMZ.data_kit import data_io
 from modules.DMZ.data_kit import data_splitting
 import setup
@@ -18,7 +19,7 @@ class Hub(object):
 
     def __init__(self):
         self.models = set()
-        self.configuration = config_options.ConfigOptions()
+        self.configuration = configuration.Configuration("sample.xml")
         self.training_data = data_io.get_data(setup.get_datasets_path(), self.configuration.training_file_name)
         self.testing_data = data_io.get_data(setup.get_datasets_path(), self.configuration.test_file_name)
         self.tickets = []
