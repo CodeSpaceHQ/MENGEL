@@ -79,7 +79,7 @@ def create_attrib_models(attributes):
     If number=false, then there will be a value attribute with a list of values.
     """
     models = {}
-    for i in range(1, attributes['seed']%5):
+    for i in range(1, attributes['seed']%5 + 2):
         model = {}
         model['name'] = 'model{}'.format(i)
         model['params'] = create_attrib_params(attributes['seed']%3 + (2*i))
@@ -311,6 +311,8 @@ class TestConfigurationHappyPath(TestConfigurationBase):
         exp_attrib = self.attributes['Models']
         act_models = self.config.models
         self.assertEqual(len(exp_attrib.keys()), len(act_models.keys()))
+        self.assertNotEqual(len([]),len(act_models.keys()))
+
         for exp_key, exp_model in exp_attrib.items():
             self.assertTrue(act_models.has_key(exp_key))
             self.check_model(exp_model, act_models[exp_key])
