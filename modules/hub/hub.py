@@ -20,8 +20,8 @@ class Hub(object):
     def __init__(self):
         self.models = set()
         self.configuration = configuration.Configuration("sample.xml")
-        self.training_data = data_io.get_data(setup.get_datasets_path(), self.configuration.training_file_name)
-        self.testing_data = data_io.get_data(setup.get_datasets_path(), self.configuration.test_file_name)
+        self.training_data = data_io.get_data(setup.get_datasets_path(), self.configuration.train_files[0])
+        self.testing_data = data_io.get_data(setup.get_datasets_path(), self.configuration.test_files[0])
         self.tickets = []
         self.result_tickets = []
 
@@ -33,7 +33,7 @@ class Hub(object):
     # This function takes in the configuration options and gets the
     # models that fit those configuration options.
     def select_models(self):
-        self.models = model_filter.get_models(self.configuration.prediction_type)
+        self.models = model_filter.get_models(self.configuration.config_data["Prediction"]["type"])
 
     # Currently will only launch a single worker until we get the
     # distributed code working.
@@ -44,7 +44,8 @@ class Hub(object):
     def create_tickets(self):
         for model in self.models:
             new_ticket = ticket.Ticket(model, self.training_data, self.testing_data,
-                                       self.configuration.target_column, self.configuration.id_column)
+                                       self.configuration.config_data["Prediction"]["target"],
+                                       self.configuration.config_data["ID_label"]["id_column"])
             self.tickets.append(new_ticket)
 
     # A function that is called by Workers which returns a Ticket.
