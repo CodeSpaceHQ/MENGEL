@@ -17,10 +17,13 @@ import pandas
 class Hub(object):
 
     def __init__(self):
-        self.models = set()
-        self.configuration = configuration.Configuration("sample.xml")
+
+        file_name = raw_input("Input XML file name: ")
+        self.configuration = configuration.Configuration(file_name)
         self.training_data = data_io.get_data(setup.get_datasets_path(), self.configuration.train_files[0])
         self.testing_data = data_io.get_data(setup.get_datasets_path(), self.configuration.test_files[0])
+
+        self.models = set()
         self.tickets = []
         self.result_tickets = []
 
