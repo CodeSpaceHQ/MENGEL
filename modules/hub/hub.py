@@ -62,7 +62,7 @@ class Hub(object):
         self.result_tickets.sort(key=lambda x: x.validation_results)
 
         for result in self.result_tickets:
-            test_id_column = data_splitting.separate_target(self.testing_data, self.configuration.id_column)[1]
+            test_id_column = data_splitting.separate_target(self.testing_data, self.configuration.config_data["ID_label"]["id_column"])[1]
             test_results = pandas.DataFrame(result.test_results, columns=None)
             final_predictions = pandas.concat([test_id_column, test_results], axis=1)
             final_predictions = final_predictions.values
