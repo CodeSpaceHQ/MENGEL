@@ -1,6 +1,7 @@
 from sklearn import svm
 from sklearn import neighbors
 from sklearn.ensemble import RandomForestClassifier
+import xgboost
 from modules.DMZ.models import model_properties as mp
 
 
@@ -20,3 +21,7 @@ def train_knn():
 def train_svc():
     # Selecting the model
     return mp.ModelProperties(), svm.SVC(decision_function_shape='ovo')
+
+
+def train_xgboost_classifier():
+    return mp.ModelProperties(), xgboost.XGBClassifier()
