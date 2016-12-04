@@ -7,7 +7,7 @@ sys.path.insert(0, os.path.abspath('../..'))
 from modules.DMZ.models import model_filter
 from modules.worker import worker
 from modules.DMZ import ticket
-from modules.DMZ.utils import config_options
+from modules.DMZ.project_config import configuration
 from modules.DMZ.data_kit import data_io
 from modules.DMZ.data_kit import data_splitting
 import setup
@@ -17,10 +17,12 @@ import pandas
 class Hub(object):
 
     def __init__(self):
+
+        self.configuration = configuration.Configuration("config.xml")
+        self.training_data = data_io.get_data(setup.get_datasets_path(), self.configuration.train_files[0])
+        self.testing_data = data_io.get_data(setup.get_datasets_path(), self.configuration.test_files[0])
+
         self.models = set()
-        self.configuration = config_options.ConfigOptions()
-        self.training_data = data_io.get_data(setup.get_datasets_path(), self.configuration.training_file_name)
-        self.testing_data = data_io.get_data(setup.get_datasets_path(), self.configuration.test_file_name)
         self.tickets = []
         self.result_tickets = []
 
@@ -32,7 +34,7 @@ class Hub(object):
     # This function takes in the configuration options and gets the
     # models that fit those configuration options.
     def select_models(self):
-        self.models = model_filter.get_models(self.configuration.prediction_type)
+        self.models = model_filter.get_models(self.configuration.config_data["Prediction"]["type"])
 
     # Currently will only launch a single worker until we get the
     # distributed code working.
@@ -43,7 +45,8 @@ class Hub(object):
     def create_tickets(self):
         for model in self.models:
             new_ticket = ticket.Ticket(model, self.training_data, self.testing_data,
-                                       self.configuration.target_column, self.configuration.id_column)
+                                       self.configuration.config_data["Prediction"]["target"],
+                                       self.configuration.config_data["ID_label"]["id_column"])
             self.tickets.append(new_ticket)
 
     # A function that is called by Workers which returns a Ticket.
@@ -60,7 +63,8 @@ class Hub(object):
         self.result_tickets.sort(key=lambda x: x.validation_results)
 
         for result in self.result_tickets:
-            test_id_column = data_splitting.separate_target(self.testing_data, self.configuration.id_column)[1]
+            test_id_column = data_splitting.separate_target(self.testing_data,
+                                                            self.configuration.config_data["ID_label"]["id_column"])[1]
             test_results = pandas.DataFrame(result.test_results, columns=None)
             final_predictions = pandas.concat([test_id_column, test_results], axis=1)
             final_predictions = final_predictions.values
