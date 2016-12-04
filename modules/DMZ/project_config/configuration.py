@@ -74,6 +74,7 @@ class Configuration(object):
         required_tags[TAG_MODELS] = 0
         required_tags[TAG_FILES] = 0
         required_tags['Prediction'] = 0
+        required_tags['ID_label'] = 0
 
         if not self.root.tag == TAG_ROOT:
             raise ConfigurationXMLError('Required XML root tag [{}] not found \

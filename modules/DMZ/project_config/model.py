@@ -38,6 +38,7 @@ class Param(object):
         if not root.attrib.has_key('name'):
             raise ModelXMLError('Required Param XML attribute [name] not found',\
             root)
+        
         for key, value in root.items():
             if key == 'name':
                 self.name = value
