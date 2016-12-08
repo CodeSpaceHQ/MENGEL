@@ -36,6 +36,10 @@ def create_attributes(seed):
     prediction_attributes['type'] = 'TYPE'
     attributes['Prediction'] = prediction_attributes
 
+    ID_label_attributes = {}
+    ID_label_attributes['id_column'] = 'ID_COLUMN'
+    attributes['ID_label'] = ID_label_attributes
+
     return attributes
 
 def create_xml_project(attributes):
@@ -50,6 +54,9 @@ def create_xml_project(attributes):
 
     if attributes.has_key('Prediction'):
         ET.SubElement(root, 'Prediction', attrib=attributes['Prediction'])
+
+    if attributes.has_key('ID_label'):
+        ET.SubElement(root, 'ID_label', attrib=attributes['ID_label'])
 
     return root
 
