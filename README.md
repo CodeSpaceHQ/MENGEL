@@ -56,6 +56,7 @@ The following instructions cover setup and install of the entire system.
 
       ```shell
       sudo apt-get install python-numpy python-scipy python-pandas python-sympy python-nose
+      pip install rpy2
       ```
 3. Install [SciKit-Learn](http://scikit-learn.org/stable/install.html) using pip
 
@@ -70,7 +71,14 @@ The following instructions cover setup and install of the entire system.
         install.packages("stats")
         q()
 
-
+#### golang and Related Libraries
+1. [Install golang](https://golang.org/doc/install)
+2. Install requried golang packages
+  ```shell
+  go get github.com/zabawaba99/firego
+  go get github.com/zabawaba99/firego
+  ```
+    
 #### Javascript, NodeJS, and Related Libraries
 [Follow the instructions here, including submodules](modules/MLTA/README.md)
 
@@ -115,7 +123,7 @@ Pending
 
 ###### Libraries, Frameworks, and Packages Used
 - Python: Scikit-learn, scipy, pandas, numpy
-- R: dplyr
+- R: dplyr, rpart, c50, stats
 - Javascript: NodeJS
 
 ## Contributing
@@ -131,7 +139,7 @@ We do not use versioning currently, we will likely use [SemVer](http://semver.or
 * **Alexander Clines** - *Initial work* - [asclines](https://github.com/asclines)
 * **Isaac Griswold-Steiner** - *Initial work* - [ASAAR](https://github.com/ASAAR)
 * **Zakery Fyke** - *Initial work* - [ZakeryFyke](https://github.com/ZakeryFyke)
-* **Ryan McBerg** - *Initial work* - [RyanMcBerg](https://github.com/RyanMcBerg)
+* **Ryan Berg** - *Initial work* - [RyanMcBerg](https://github.com/RyanMcBerg)
 
 See also the list of [contributors](https://github.com/ASAAR/SE2-KaggleComp/graphs/contributors) who participated in this project.
 
