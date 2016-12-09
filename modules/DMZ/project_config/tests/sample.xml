@@ -16,7 +16,7 @@
     target="TargetVariable"
     type="Regression"/>
   <ID_label
-	id_column="IDColumn"/>
+	   id_column="IDColumn"/>
   <Models>
     <Model name="SomeModel">
       <Param name="Param1"

@@ -121,15 +121,21 @@ in {}'.format(TAG_ROOT, self.config_file_name), self.root)
 
     def _load_files(self, root):
         """
-        Assumes the root is the <Files> XML tag. Adds file to one of two lists
-        depending on type attribute.
+        Assumes the root is the <Files> XML tag.
         """
         for child in root:
             file_type = child.get('type', -1)
             file_path = child.get('path', -1)
-            if file_type == 'test':
-                self.test_files.append(file_path)
-            elif file_type == 'train':
-                self.train_files.append(file_path)
-            else:
-                raise ConfigurationXMLError('Invalid file type value: {}'.format(file_type), child)
+            self._add_file(child, file_type, file_path)
+
+    def _add_file(self, child, file_type, file_path):
+        """
+        Assumes the root is the <File> XML tag. Adds file to one of two lists
+        depending on type attribute.
+        """
+        if file_type == 'test':
+            self.test_files.append(file_path)
+        elif file_type == 'train':
+            self.train_files.append(file_path)
+        else:
+            raise ConfigurationXMLError('Invalid file type value: {}'.format(file_type), child)
