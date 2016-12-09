@@ -41,10 +41,12 @@ class TestFillerStrategy(TestCase):
 
         # Arrange
         self.strategy.pandas_dataset = self.data
-        self.strategy.avg_range = [0,.10]
-        self.strategy.value_range = [.10, .20]
+        self.strategy.pandas_dataset.loc[self.data.shape[0]] = np.nan 
+        self.strategy.avg_range = [.9,1]
+        self.strategy.value_range = [.0, .899]
 
         # Act
+        self.strategy.get_missing_ratios_dict()
         self.strategy.get_to_do_list()
         self.strategy.run_fillers()
         self.strategy.get_missing_ratios_dict()
