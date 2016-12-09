@@ -11,7 +11,7 @@ import setup
 import pandas as pd
 from sklearn import preprocessing
 from modules.toolbox.data_package import DataPackage
-from modules.toolbox.validation_package import ValidationPackage
+
 
 
 class TestDataFilling(TestCase):
