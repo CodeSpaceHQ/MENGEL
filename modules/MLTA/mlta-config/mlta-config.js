@@ -45,17 +45,25 @@ function listSavedConfigurations() {
   for(i=0; i <list.length; i++){
     console.log('\t'+list[i].substring(0,list[i].length-7)); //7 = length of ".config"
   }
+}
 
+function deleteSavedConfiguration(name) {
+  deletePath = mltaDirPath + '/' + name + '.config'
+  fs.unlinkSync(deletePath)
 }
 
 program
     .version('0.0.1')
     .option('-l, --list', 'Lists saved configurations')
+    .option('-d, --delete <config>', 'Name of configuration to delete.')
     .parse(process.argv);
 
 
 if(program.list) {
     listSavedConfigurations();
+} else if(program.delete){
+  console.log('Deleting ' + program.delete);
+  deleteSavedConfiguration(program.delete);
 } else {
     //Get user input
     prompt.message = ("MLTA");
