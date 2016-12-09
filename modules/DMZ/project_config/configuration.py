@@ -125,7 +125,13 @@ in {}'.format(TAG_ROOT, self.config_file_name), self.root)
         """
         for child in root:
             file_type = child.get('type', -1)
+            if file_type == -1:
+                raise ConfigurationXMLError('Missing file type for file: {}'.format(child), child)
+
             file_path = child.get('path', -1)
+            if file_path == -1:
+                raise ConfigurationXMLError('Missing file path for file: {}'.format(child), child)
+
             if child.tag == 'File':
                 self._add_file(child, file_type, file_path)
             elif child.tag == 'Folder':
