@@ -149,6 +149,12 @@ The variables the program can access from this object are:
 #### API
 - `save(filename=config_file_name)`: Saves the current configuration to XML. By default uses the same name as what was passed in.
 
+-`prediction_target`: Returns the prediction target given in the XML file.
+
+-`prediction_type`: Returns the prediction type given in the XML file.
+
+-`id_column`: Returns the id column given in the XML file.
+
 
 
 ### Model
