@@ -167,6 +167,13 @@ def add_xml_param(attributes, root):
             ET.SubElement(element, 'Value').text = value
     return root
 
+class TestConfigurationSampleFile(TestCase):
+    """
+    Tests to make sure the sample that is used for the README is valid.
+    """
+    def test_configuration_sample(self):
+        self.config = Configuration('modules/DMZ/project_config/tests/sample.xml')
+
 
 class TestConfigurationBase(TestCase):
     """ Base class for all configuration tests to extend.
