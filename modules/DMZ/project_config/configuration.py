@@ -68,6 +68,15 @@ class Configuration(object):
                     param_xml.set(detail, value)
         self.tree.write(filename)
 
+    def prediction_target(self):
+        return self.config_data["Prediction"]["target"]
+
+    def prediction_type(self):
+        return self.config_data["Prediction"]["type"]
+
+    def id_column(self):
+        return self.config_data["ID_label"]["id_column"]
+
     def _load_file(self):
         """ Loads the XML file and checks root tag for validaty"""
         self.tree = ET.parse(self.config_file_name)
