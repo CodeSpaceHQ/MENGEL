@@ -3,7 +3,7 @@
 Contains the Configuration object and methods used for loading and
 manipulating configuration information.
 """
-
+import os
 import xml.etree.ElementTree as ET
 from model import Model
 
@@ -126,7 +126,16 @@ in {}'.format(TAG_ROOT, self.config_file_name), self.root)
         for child in root:
             file_type = child.get('type', -1)
             file_path = child.get('path', -1)
-            self._add_file(child, file_type, file_path)
+            if child.tag == 'File':
+                self._add_file(child, file_type, file_path)
+            elif child.tag == 'Folder':
+                for ffile in os.listdir(file_path):
+                    if ffile.endswith(child.get('ext','.csv')):
+                        full_file_path = 'file_path/{}'.format(ffile)
+                        self._add_file(child, file_type, full_file_path)
+            else:
+                raise ConfigurationXMLError('Invalid Files child tag: {}, Should be <File> or <Folder>'.format(child.tag), child)
+
 
     def _add_file(self, child, file_type, file_path):
         """
