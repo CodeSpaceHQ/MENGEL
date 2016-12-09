@@ -86,7 +86,7 @@ if(program.list) {
                 }); //If that file does NOT exist, then it must be a new project
             } else {
                 logger.info('Config file with name %s already exists.', result.name)
-                    //modifyExistConfig(result.name,configFilePath); //If that file does exist, then this is an existing project
+                modifyExistConfig(result.name,configFilePath); //If that file does exist, then this is an existing project
             }
         })
     });
@@ -96,8 +96,8 @@ if(program.list) {
 //First try and refresh the config file from the DB
 function modifyExistConfig(name, configFile) {
     logger.info('Loading config file for %s', name);
-    var obj = jsonfile.readFileSync(configFile.toString());
-    logger.debug('Loading config file: %j', obj);
+    var vim = require('child_process').spawn('vi', [configFile], {stdio: 'inherit'});
+    vim.on('exit', process.exit);
 }
 
 
