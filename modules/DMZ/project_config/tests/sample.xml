@@ -5,6 +5,11 @@
     url="FirebaseDatabaseURL"
     account="FullPathToServiceAccount"/>
   <Files>
+    <Folder
+      ext=".csv"
+      type="test"
+      path="./"
+      />
     <File
       type="test"
       path="/path/to/file"/>

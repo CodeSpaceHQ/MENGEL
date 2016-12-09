@@ -19,8 +19,13 @@ Here is an example XML file `sample_config.xml` to demonstrate all the uses of a
     url="FirebaseDatabaseURL"
     account="FullPathToServiceAccount"/>
   <Files>
+    <Folder
+      ext=".csv"
+      type="test"
+      path="./"
+      />
     <File
-      type="train"
+      type="test"
       path="/path/to/file"/>
     <File
       type="train"
@@ -29,6 +34,8 @@ Here is an example XML file `sample_config.xml` to demonstrate all the uses of a
   <Prediction
     target="TargetVariable"
     type="Regression"/>
+  <ID_label
+	   id_column="IDColumn"/>
   <Models>
     <Model name="SomeModel">
       <Param name="Param1"
@@ -63,6 +70,61 @@ Here is an example XML file `sample_config.xml` to demonstrate all the uses of a
   </Models>
 </MLTF-Configuration>
 ```
+
+## Required XML elements
+Below is a bare minimum XML example showing what XML elements are **required**.
+```XML
+<MLTF-Configuration>
+  <Files/>
+  <Prediction/>
+  <ID_label/>
+  <Models/>
+</MLTF-Configuration>
+```
+
+## Required XML attributes
+Below is an XML example showing the required attributes for each element.
+```XML
+<MLTF-Configuration
+  name="SE2-KaggleComp"
+  user="asclines" >
+  <Firebase
+    url="FirebaseDatabaseURL"
+    account="FullPathToServiceAccount"/>
+  <Files>
+    <Folder
+      type="test"
+      path="./"
+      />
+    <File
+      type="test"
+      path="/path/to/file"/>
+  </Files>
+  <Prediction
+    target="TargetVariable"
+    type="Regression"/>
+  <ID_label
+	   id_column="IDColumn"/>
+  <Models>
+    <Model name="SomeModel">
+      <Param name="Param1"
+        numeric="true"
+        defaultValue="0"
+        delta="2"
+        rangeStart="0"
+        rangeEnd="10" />
+      <Param name="Param2"
+        numeric="false"
+        defaultValue="value">
+        <Value> value1 </Value>
+        <Value> value2 </Value>
+        <Value> value3 </Value>
+      </Param>
+    </Model>
+  </Models>
+</MLTF-Configuration>
+```
+
 ## Features
 ### Configuration
 There should be _one instance_ of this object throughout the life-cycle of the program.
@@ -79,10 +141,10 @@ The variables the program can access from this object are:
 
 - `models`: A dictionary of Model objects from the `<Models>` tag where the _key_ is the name of the model and the _value_ is the `Model` object.
 
-- `test_files`: A list of file names to be used for testing. Comes from the `<Files>` tag where the `<File>` attribute `type` equals "test".
+- `test_files`: A list of file names to be used for testing. Comes from the `<Files>` tag where the `<File>` or `<Folder>` attribute `type` equals "test".
 
 
-- `train_files`: A list of file names to be used for training. Comes from the `<Files>` tag where the `<File>` attribute `type` equals "train".
+- `train_files`: A list of file names to be used for training. Comes from the `<Files>` tag where the `<File>` or `<Folder>` attribute `type` equals "train".
 
 #### API
 - `save(filename=config_file_name)`: Saves the current configuration to XML. By default uses the same name as what was passed in.
