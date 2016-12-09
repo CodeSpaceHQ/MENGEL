@@ -11,7 +11,6 @@ import numpy as np
 import pandas as pd
 
 from modules.toolbox.data_package import DataPackage
-from modules.toolbox.validation_package import ValidationPackage
 
 
 class TestDataFilling(TestCase):
