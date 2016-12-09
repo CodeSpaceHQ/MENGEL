@@ -21,7 +21,17 @@ The `-g` flag installs `mlta config` globally so you can call this program from 
 ### Usage
 If you installed globally, you can launch the MLTA Configuration tool with this command:
 ```bash
-mlta config
+
+  Usage: mlta-config [options]
+
+  Options:
+
+    -h, --help             output usage information
+    -V, --version          output the version number
+    -l, --list             Lists saved configurations
+    -d, --delete <config>  Name of configuration to delete.
+
+
 ```
 However, if you didn't then you will have to navigate to this directory and run `./mlta-config.js`.
 
@@ -53,6 +63,3 @@ MLTA:Firebase Service Account JSON File Location (Please enter full path name)::
 
 If all went well, a configuration file for your project has been created and stored in `~/.mlta/`.
 Now all the MLTA sub-modules can do their thing.
-
-
-## (Coming Soon) Modify Existing Project Configuration
