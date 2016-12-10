@@ -17,25 +17,24 @@ class DataController(object):
         self.unlabeled_id = None
 
         self.prepare_data(ticket.training, ticket.testing,
-                          ticket.target, ticket.id_column)
+                          ticket.target)
 
     # Runs a series of cleaning and data modification algorithms and tools to ready
     # the data for training. TODO: Split and simplify with strategies.
-    def prepare_data(self, training, testing, target, id_column):
+    def prepare_data(self, training, testing, target):
         # Separating label data from training data.
         training, label_data = data_splitting.separate_target(training, target)
 
         # Temporary until we properly handle strings and text data.
-        training = text_handler.convert_dataframe_text(training, .95)
-        testing = text_handler.convert_dataframe_text(testing, .95)
+        training = text_handler.convert_dataframe_text(training, .1)
+        testing = text_handler.convert_dataframe_text(testing, .1)
         training = data_splitting.remove_non_numeric_columns(training)
         testing = data_splitting.remove_non_numeric_columns(testing)
 
         # Will need a function which governs what missing data system is used.
-        train_filler = filler_strategy.FillerStrategy(training)
-        test_filler = filler_strategy.FillerStrategy(testing)
-        training = train_filler.pandas_dataset
-        testing = test_filler.pandas_dataset
+        reg_filler = filler_regression.RegressionFiller(training, testing)
+        training = reg_filler.get_filled_data()
+        testing = reg_filler.get_filled_test_data()
 
         # Scaling data. Will need a function which governs scaling method.
         training, testing = data_scaling.scale_data(training, testing)

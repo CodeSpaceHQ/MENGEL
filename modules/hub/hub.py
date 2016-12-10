@@ -75,5 +75,3 @@ class Hub(object):
             col_names.append(result.target)
 
             data_io.save_predictions(setup.get_datasets_path(), final_predictions, ml_name, col_names)
-
-hub = Hub()

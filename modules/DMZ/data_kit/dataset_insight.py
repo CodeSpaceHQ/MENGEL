@@ -6,6 +6,7 @@ sys.path.insert(0, os.path.abspath('../../..'))
 
 import csv
 import pandas as pd
+import numpy
 from modules.DMZ.utils import toggle
 
 
@@ -44,13 +45,13 @@ def get_missing_ratios(pandas_data, method):
     axis_toggle = toggle.get_axis_toggle(method)
 
     if axis_toggle != 2:
-
         missing_data_counts = pandas_data.isnull().sum(axis_toggle)
         ratios = []
 
         for i in range(0, pandas_data.shape[not axis_toggle]):
             ratio = float(missing_data_counts[i]) / pandas_data.shape[axis_toggle]
             ratios.append(ratio)
+
         return ratios
 
     return pandas_data

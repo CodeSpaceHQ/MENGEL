@@ -1,7 +1,11 @@
 from sklearn import svm
 from sklearn import neighbors
 from sklearn.ensemble import RandomForestClassifier
+import xgboost
 from modules.DMZ.models import model_properties as mp
+
+
+# All functions return a tuple with the properties of the model and the object that represents the model.
 
 
 # http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html
@@ -20,3 +24,8 @@ def train_knn():
 def train_svc():
     # Selecting the model
     return mp.ModelProperties(), svm.SVC(decision_function_shape='ovo')
+
+
+# http://xgboost.readthedocs.io/en/latest/python/python_api.html
+def train_xgboost_classifier():
+    return mp.ModelProperties(), xgboost.XGBClassifier()
