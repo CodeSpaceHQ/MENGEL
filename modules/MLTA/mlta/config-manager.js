@@ -49,7 +49,7 @@ exports.saveConfig = function(config, done) {
     logger.debug('Config: %j', config);
     var configFileDir = path.join(mltaDirPath, config.name);
     var configFilePath = configFileDir + '.config';
-    jsonfile.writeFile(configFilePath, config, function(err) {
+    jsonfile.writeFile(configFilePath, config, {spaces: 2},function(err) {
         done(err);
     });
 }

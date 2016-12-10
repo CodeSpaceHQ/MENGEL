@@ -5,6 +5,11 @@
     url="FirebaseDatabaseURL"
     account="FullPathToServiceAccount"/>
   <Files>
+    <Folder
+      ext=".csv"
+      type="test"
+      path="./"
+      />
     <File
       type="test"
       path="/path/to/file"/>
@@ -15,6 +20,8 @@
   <Prediction
     target="TargetVariable"
     type="Regression"/>
+  <ID_label
+	   id_column="IDColumn"/>
   <Models>
     <Model name="SomeModel">
       <Param name="Param1"

@@ -3,13 +3,15 @@
 Contains the Configuration object and methods used for loading and
 manipulating configuration information.
 """
-
+import os
 import xml.etree.ElementTree as ET
 from model import Model
 
 TAG_ROOT = 'MLTF-Configuration'
 TAG_FILES = 'Files'
 TAG_MODELS = 'Models'
+TAG_PREDICTION = 'Prediction'
+TAG_LABEL = 'ID_label'
 
 class Error(Exception):
     """Base class for exceptions in this module."""
@@ -66,6 +68,15 @@ class Configuration(object):
                     param_xml.set(detail, value)
         self.tree.write(filename)
 
+    def prediction_target(self):
+        return self.config_data["Prediction"]["target"]
+
+    def prediction_type(self):
+        return self.config_data["Prediction"]["type"]
+
+    def id_column(self):
+        return self.config_data["ID_label"]["id_column"]
+
     def _load_file(self):
         """ Loads the XML file and checks root tag for validaty"""
         self.tree = ET.parse(self.config_file_name)
@@ -73,8 +84,8 @@ class Configuration(object):
         required_tags = {}
         required_tags[TAG_MODELS] = 0
         required_tags[TAG_FILES] = 0
-        required_tags['Prediction'] = 0
-        required_tags['ID_label'] = 0
+        required_tags[TAG_PREDICTION] = 0
+        required_tags[TAG_LABEL] = 0
 
         if not self.root.tag == TAG_ROOT:
             raise ConfigurationXMLError('Required XML root tag [{}] not found \
@@ -119,15 +130,36 @@ in {}'.format(TAG_ROOT, self.config_file_name), self.root)
 
     def _load_files(self, root):
         """
-        Assumes the root is the <Files> XML tag. Adds file to one of two lists
-        depending on type attribute.
+        Assumes the root is the <Files> XML tag.
         """
         for child in root:
             file_type = child.get('type', -1)
+            if file_type == -1:
+                raise ConfigurationXMLError('Missing file type for file: {}'.format(child), child)
+
             file_path = child.get('path', -1)
-            if file_type == 'test':
-                self.test_files.append(file_path)
-            elif file_type == 'train':
-                self.train_files.append(file_path)
+            if file_path == -1:
+                raise ConfigurationXMLError('Missing file path for file: {}'.format(child), child)
+
+            if child.tag == 'File':
+                self._add_file(child, file_type, file_path)
+            elif child.tag == 'Folder':
+                for ffile in os.listdir(file_path):
+                    if ffile.endswith(child.get('ext','.csv')):
+                        full_file_path = 'file_path/{}'.format(ffile)
+                        self._add_file(child, file_type, full_file_path)
             else:
-                raise ConfigurationXMLError('Invalid file type value: {}'.format(file_type), child)
+                raise ConfigurationXMLError('Invalid Files child tag: {}, Should be <File> or <Folder>'.format(child.tag), child)
+
+
+    def _add_file(self, child, file_type, file_path):
+        """
+        Assumes the root is the <File> XML tag. Adds file to one of two lists
+        depending on type attribute.
+        """
+        if file_type == 'test':
+            self.test_files.append(file_path)
+        elif file_type == 'train':
+            self.train_files.append(file_path)
+        else:
+            raise ConfigurationXMLError('Invalid file type value: {}'.format(file_type), child)

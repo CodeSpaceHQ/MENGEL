@@ -1,5 +1,8 @@
 """
 Holds all test cases for configuration.py
+To call these tests without calling the rests of the projects tests enter this
+command from the root location:
+python -m unittest modules.DMZ.project_config.tests.test_configuration
 """
 from unittest import TestCase
 import os
@@ -36,6 +39,10 @@ def create_attributes(seed):
     prediction_attributes['type'] = 'TYPE'
     attributes['Prediction'] = prediction_attributes
 
+    ID_label_attributes = {}
+    ID_label_attributes['id_column'] = 'ID_COLUMN'
+    attributes['ID_label'] = ID_label_attributes
+
     return attributes
 
 def create_xml_project(attributes):
@@ -50,6 +57,9 @@ def create_xml_project(attributes):
 
     if attributes.has_key('Prediction'):
         ET.SubElement(root, 'Prediction', attrib=attributes['Prediction'])
+
+    if attributes.has_key('ID_label'):
+        ET.SubElement(root, 'ID_label', attrib=attributes['ID_label'])
 
     return root
 
@@ -156,6 +166,13 @@ def add_xml_param(attributes, root):
         for value in attributes['values']:
             ET.SubElement(element, 'Value').text = value
     return root
+
+class TestConfigurationSampleFile(TestCase):
+    """
+    Tests to make sure the sample that is used for the README is valid.
+    """
+    def test_configuration_sample(self):
+        self.config = Configuration('modules/DMZ/project_config/tests/sample.xml')
 
 
 class TestConfigurationBase(TestCase):

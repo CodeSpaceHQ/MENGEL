@@ -7,6 +7,7 @@ var colors = require("colors/safe"); //Makes user input pretty
 var jsonfile = require('jsonfile') //Config files are in JSON format
 var fs = require('fs') //fs = filesystem, used for creating files
 var _ = require("underscore"); //Various useful utils. Used here to make sure the fields array are all unique
+var program = require('commander'); //For taking arguments
 
 //Logging stuff
 var tracer = require('tracer');
@@ -33,51 +34,78 @@ mkdirp(mltaDirPath, function(err) {
 
 //Helper function for handling errors
 function onError(err) {
-    logger.error('Message: %s',err.message)
+    logger.error('Message: %s', err.message)
     logger.debug('Stack: %j', err);
     return 1;
 }
 
+function listSavedConfigurations() {
+  console.log("Listing saved configurations:")
+  list = fs.readdirSync(mltaDirPath)
+  for(i=0; i <list.length; i++){
+    console.log('\t'+list[i].substring(0,list[i].length-7)); //7 = length of ".config"
+  }
+}
 
-//Get user input
-prompt.message = ("MLTA");
-prompt.delimiter = colors.green(":");
-prompt.start(); //Doesn't need to be called again
-prompt.get({
-    properties: {
-        name: {
-            description: colors.magenta("Project Name:"),
-            required: true,
-            pattern: /^\w+$/, //The message below should give a hint as to what this pattern is
-            message: 'Project name must be letters, numbers, and underscore only.'
+function deleteSavedConfiguration(name) {
+  deletePath = mltaDirPath + '/' + name + '.config'
+  fs.unlinkSync(deletePath)
+}
+
+program
+    .version('0.0.1')
+    .option('-l, --list', 'Lists saved configurations')
+    .option('-d, --delete <config>', 'Name of configuration to delete.')
+    .parse(process.argv);
+
+
+if(program.list) {
+    listSavedConfigurations();
+} else if(program.delete){
+  console.log('Deleting ' + program.delete);
+  deleteSavedConfiguration(program.delete);
+} else {
+    //Get user input
+    prompt.message = ("MLTA");
+    prompt.delimiter = colors.green(":");
+    prompt.start(); //Doesn't need to be called again
+    prompt.get({
+        properties: {
+            name: {
+                description: colors.magenta("Project Name:"),
+                required: true,
+                pattern: /^\w+$/, //The message below should give a hint as to what this pattern is
+                message: 'Project name must be letters, numbers, and underscore only.'
+            }
         }
-    }
-}, function(err, result) {
-    if(err) {
-        return onError(err);
-    }
-    var configFileDir = path.join(mltaDirPath, result.name);
-    var configFilePath = configFileDir + '.config';
-    cm.getConfigIfExists(result.name, function(err, config) {
+    }, function(err, result) {
         if(err) {
-            createNewConfig(result.name, configFilePath, function(err){
-              if(err) {
-                return onError(err);
-              }
-
-            }); //If that file does NOT exist, then it must be a new project
-        } else {
-            logger.info('Config file with name %s already exists.', result.name)
-                //modifyExistConfig(result.name,configFilePath); //If that file does exist, then this is an existing project
+            return onError(err);
         }
-    })
-});
+        var configFileDir = path.join(mltaDirPath, result.name);
+        var configFilePath = configFileDir + '.config';
+        cm.getConfigIfExists(result.name, function(err, config) {
+            if(err) {
+                createNewConfig(result.name, configFilePath, function(err) {
+                    if(err) {
+                        return onError(err);
+                    }
+
+                }); //If that file does NOT exist, then it must be a new project
+            } else {
+                logger.info('Config file with name %s already exists.', result.name)
+                modifyExistConfig(result.name,configFilePath); //If that file does exist, then this is an existing project
+            }
+        })
+    });
+
+}
 
 //First try and refresh the config file from the DB
 function modifyExistConfig(name, configFile) {
     logger.info('Loading config file for %s', name);
-    var obj = jsonfile.readFileSync(configFile.toString());
-    logger.debug('Loading config file: %j', obj);
+    var vim = require('child_process').spawn('vi', [configFile], {stdio: 'inherit'});
+    vim.on('exit', process.exit);
 }
 
 
