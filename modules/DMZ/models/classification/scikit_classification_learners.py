@@ -5,6 +5,9 @@ import xgboost
 from modules.DMZ.models import model_properties as mp
 
 
+# All functions return a tuple with the properties of the model and the object that represents the model.
+
+
 # http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html
 def train_random_forest():
     # Selecting the model
@@ -23,5 +26,6 @@ def train_svc():
     return mp.ModelProperties(), svm.SVC(decision_function_shape='ovo')
 
 
+# http://xgboost.readthedocs.io/en/latest/python/python_api.html
 def train_xgboost_classifier():
     return mp.ModelProperties(), xgboost.XGBClassifier()

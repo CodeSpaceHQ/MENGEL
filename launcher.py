@@ -1,3 +1,3 @@
 from modules.hub import hub
 
-hub = hub.Hub()
+active_hub = hub.Hub()

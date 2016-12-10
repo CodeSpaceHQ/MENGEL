@@ -1,10 +1,8 @@
 from sklearn import linear_model
 from modules.DMZ.models import model_properties as mp
 
-#
-# There is also some repetitive code in terms of fitting and scoring models, this will
-# likely be split out into a new helper
-#
+
+# All functions return a tuple with the properties of the model and the object that represents the model.
 
 
 # "Linear model fitted by minimizing a regularized empirical loss with SGD"
