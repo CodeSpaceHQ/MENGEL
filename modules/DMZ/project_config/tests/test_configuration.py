@@ -1,5 +1,8 @@
 """
 Holds all test cases for configuration.py
+To call these tests without calling the rests of the projects tests enter this
+command from the root location:
+python -m unittest modules.DMZ.project_config.tests.test_configuration
 """
 from unittest import TestCase
 import os
@@ -163,6 +166,13 @@ def add_xml_param(attributes, root):
         for value in attributes['values']:
             ET.SubElement(element, 'Value').text = value
     return root
+
+class TestConfigurationSampleFile(TestCase):
+    """
+    Tests to make sure the sample that is used for the README is valid.
+    """
+    def test_configuration_sample(self):
+        self.config = Configuration('modules/DMZ/project_config/tests/sample.xml')
 
 
 class TestConfigurationBase(TestCase):
