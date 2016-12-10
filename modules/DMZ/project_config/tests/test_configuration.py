@@ -1,6 +1,6 @@
 """
 Holds all test cases for configuration.py
-To call these tests without calling the rests of the projcets tests enter this
+To call these tests without calling the rests of the projects tests enter this
 command from the root location:
 python -m unittest modules.DMZ.project_config.tests.test_configuration
 """
