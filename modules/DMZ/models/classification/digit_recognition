@@ -131,10 +131,5 @@ def predict_images(class_data):
 
     return predicted, expected
 
-
-# takes in the tuple of lists from predict_images() function
-# and scores them
-# def score_image():
-
 path = "/mnt/c/Users/Tayo/Documents/SE2CS4365/HandWrittenChar/eggChar/mnist_jpgfiles/trainsmall/"
 predict_images(init(path))
