@@ -9,7 +9,6 @@ If a module is labeled as DEPRECATED, do not add anymore code to that folder. It
   - This module is responsible for logging and analyzing data about trained models and their results.
 - hub: Under active development
   - This module focuses on deploying workers that can train and test models. Eventually it will deploy workers to other servers on a network.
-- logger: DEPRECATED
 - reducers: DEPRECATED
 - toolbox: DEPRECATED
 - worker: Under active development
