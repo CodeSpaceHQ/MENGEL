@@ -1,3 +1,0 @@
-# Ignores outputs from test as those are recreated each time test runs
-*.out
-*.log

@@ -42,7 +42,6 @@ What things you need in order to run this project. Detailed instructions include
 
 1. A *nix system.
 2. Python 2.7 (latest version), various python libraries (Scikit-learn, numpy, scipy, etc)
-3. R 3.3.1 "Bug in your Hair", various R libraries
 4. Javascript, NodeJS, ReactJS, among others.
 
 ### Installing
@@ -58,17 +57,6 @@ The following instructions cover setup and install of the entire system.
       sudo apt-get install python-numpy python-scipy python-pandas python-sympy python-nose
       ```
 3. Install [SciKit-Learn](http://scikit-learn.org/stable/install.html) using pip
-
-#### R and Related Libraries
-1. [Install latest version of R](https://cran.r-project.org/mirrors.html)
-2.  Install R packages
-
-        R
-        install.packages("dplyr")
-        install.packages("rpart")
-        install.packages("C50")
-        install.packages("stats")
-        q()
 
 
 #### Javascript, NodeJS, and Related Libraries
@@ -110,12 +98,11 @@ Pending
 
 * Bash on Ubuntu on Windows
 * Pycharm
-* Python, Javascript, R
+* Python, Javascript
 * Firebase
 
 ###### Libraries, Frameworks, and Packages Used
 - Python: Scikit-learn, scipy, pandas, numpy
-- R: dplyr
 - Javascript: NodeJS
 
 ## Contributing
