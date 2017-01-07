@@ -1,7 +1,8 @@
 #
 ####### requirements.txt #######
 #
-###### Requirements without Version Specifiers ######
+###### Requirements without Version Specifiers ######\
+python-logilab-common
 pandas
 numpy
 sympy
