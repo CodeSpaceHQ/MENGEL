@@ -6,7 +6,7 @@ sys.path.insert(0, os.path.abspath('../../../..'))
 from unittest import TestCase
 from modules.DMZ.data_kit import data_io
 from modules.DMZ.data_kit import text_handler
-import setup
+import path_handler
 
 import pandas as pd
 from sklearn import preprocessing
@@ -17,7 +17,7 @@ from modules.toolbox.data_package import DataPackage
 class TestDataFilling(TestCase):
 
     def setUp(self):
-        self.data = data_io.get_data(setup.get_datasets_path(), "titanic_train.csv")
+        self.data = data_io.get_data(path_handler.get_datasets_path(), "titanic_train.csv")
 
     def test_text_column_to_numeric(self):
 

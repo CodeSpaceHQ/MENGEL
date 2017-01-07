@@ -1,0 +1,13 @@
+#
+####### example-requirements.txt #######
+#
+###### Requirements without Version Specifiers ######
+numpy
+pandas
+sympy
+nose
+#
+###### Requirements with Version Specifiers ######
+#   See https://www.python.org/dev/peps/pep-0440/#version-specifiers
+numpy >= 1.6.1
+scipy >= 0.9

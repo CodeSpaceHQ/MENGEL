@@ -1,5 +1,5 @@
 from modules.DMZ.data_kit import data_io
-import setup
+import path_handler
 import unittest
 
 

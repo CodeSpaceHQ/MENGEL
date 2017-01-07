@@ -10,7 +10,7 @@ from modules.DMZ import ticket
 from modules.DMZ.project_config import configuration
 from modules.DMZ.data_kit import data_io
 from modules.DMZ.data_kit import data_splitting
-import setup
+import path_handler
 import pandas
 
 
@@ -19,8 +19,8 @@ class Hub(object):
     def __init__(self):
 
         self.configuration = configuration.Configuration("config.xml")
-        self.training_data = data_io.get_data(setup.get_datasets_path(), self.configuration.train_files[0])
-        self.testing_data = data_io.get_data(setup.get_datasets_path(), self.configuration.test_files[0])
+        self.training_data = data_io.get_data(path_handler.get_datasets_path(), self.configuration.train_files[0])
+        self.testing_data = data_io.get_data(path_handler.get_datasets_path(), self.configuration.test_files[0])
 
         self.models = set()
         self.tickets = []
@@ -74,4 +74,4 @@ class Hub(object):
             col_names.append(result.id_column)
             col_names.append(result.target)
 
-            data_io.save_predictions(setup.get_datasets_path(), final_predictions, ml_name, col_names)
+            data_io.save_predictions(path_handler.get_datasets_path(), final_predictions, ml_name, col_names)

@@ -6,7 +6,7 @@ sys.path.insert(0, os.path.abspath('../../../..'))
 from unittest import TestCase
 from modules.DMZ.data_kit import data_io
 from modules.DMZ.data_kit import data_filler
-import setup
+import path_handler
 import numpy as np
 import pandas as pd
 
@@ -16,7 +16,7 @@ from modules.toolbox.data_package import DataPackage
 class TestDataFilling(TestCase):
 
     def setUp(self):
-        self.data = data_io.get_data(setup.get_datasets_path(), "titanic_train.csv")
+        self.data = data_io.get_data(path_handler.get_datasets_path(), "titanic_train.csv")
         self.data["Nonsense"] = np.nan
         self.data = self.data.apply(pd.to_numeric, errors='coerce')
         self.data.loc[self.data.shape[0]] = [np.nan] * self.data.shape[1]

@@ -10,13 +10,13 @@ from sklearn.random_projection import GaussianRandomProjection
 from sklearn.decomposition import PCA
 from sklearn.decomposition import FactorAnalysis
 from sklearn.decomposition import FastICA
-import setup
+import path_handler
 
 
 class TestDimensionalityReduction(TestCase):
 
     def setUp(self):
-        self.data = data_io.get_data(setup.get_datasets_path(), "winequality-red.csv")
+        self.data = data_io.get_data(path_handler.get_datasets_path(), "winequality-red.csv")
         self.start = self.data.shape
 
     def standard_check(self, check):

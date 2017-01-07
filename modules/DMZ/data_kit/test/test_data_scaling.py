@@ -6,7 +6,7 @@ sys.path.insert(0, os.path.abspath('../../../..'))
 from unittest import TestCase
 from modules.DMZ.data_kit import data_scaling
 from modules.DMZ.data_kit import data_io
-import setup
+import path_handler
 import pandas as pd
 
 
@@ -15,7 +15,7 @@ class TestDataScaling(TestCase):
     def test_scaling(self):
 
         # Arrange
-        data = data_io.get_data(setup.get_datasets_path(), "winequality-red.csv")
+        data = data_io.get_data(path_handler.get_datasets_path(), "winequality-red.csv")
 
         # Act
         target = data_scaling.scale_numeric_data(data)
