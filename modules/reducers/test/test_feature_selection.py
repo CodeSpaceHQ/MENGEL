@@ -1,8 +1,3 @@
-import os
-import sys
-
-sys.path.insert(0, os.path.abspath('../../..'))
-
 from unittest import TestCase
 from modules.DMZ.data_kit import data_io
 from modules.reducers import scikit_feature_selectors as st

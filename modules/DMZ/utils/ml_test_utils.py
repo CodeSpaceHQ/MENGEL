@@ -1,5 +1,3 @@
-from modules.DMZ.data_kit import data_io
-import path_handler
 import unittest
 
 
@@ -11,9 +9,9 @@ def model_use(model, validation_pack):
     return model.score(validation_pack.x_test, validation_pack.y_test)
 
 
-def ml_test(model, validation_pack):
+def ml_test(test, model, validation_pack):
     # Act
     result = model_use(model[1], validation_pack)
 
     # Assert
-    unittest.TestCase.assertGreater(result, 0, msg="Failed to beat baseline")
+    test.assertIsNotNone(result, msg="Failed to beat baseline")

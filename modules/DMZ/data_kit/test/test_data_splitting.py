@@ -1,8 +1,4 @@
 from __future__ import division # Forcing floating point division
-import sys
-import os
-sys.path.insert(0, os.path.abspath('../../../..'))
-
 from unittest import TestCase
 from modules.DMZ.data_kit import data_splitting
 from modules.DMZ.data_kit import data_io

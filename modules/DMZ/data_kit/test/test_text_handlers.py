@@ -1,17 +1,7 @@
-import os
-import sys
-
-sys.path.insert(0, os.path.abspath('../../../..'))
-
 from unittest import TestCase
 from modules.DMZ.data_kit import data_io
 from modules.DMZ.data_kit import text_handler
 import path_handler
-
-import pandas as pd
-from sklearn import preprocessing
-from modules.toolbox.data_package import DataPackage
-
 
 
 class TestDataFilling(TestCase):

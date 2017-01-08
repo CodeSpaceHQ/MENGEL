@@ -1,14 +1,9 @@
-import os
-import sys
-sys.path.insert(0, os.path.abspath('../../../..'))
-
-
 from unittest import TestCase
 from modules.DMZ.data_kit import filler_strategy
 from modules.DMZ.data_kit import data_io
 import path_handler
-import pandas as pd
 import numpy as np
+
 
 class TestFillerStrategy(TestCase):
 
