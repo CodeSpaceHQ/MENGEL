@@ -9,7 +9,7 @@ import pandas as pd
 class TestDataFilling(TestCase):
 
     def setUp(self):
-        self.data = data_io.get_data(path_handler.get_test_data(), "demo.csv")
+        self.data = data_io.get_data(path_handler.get_test_data(), "unittest_data.csv")
         self.data["Nonsense"] = np.nan
         self.data = self.data.apply(pd.to_numeric, errors='coerce')
         self.data.loc[self.data.shape[0]] = [np.nan] * self.data.shape[1]
