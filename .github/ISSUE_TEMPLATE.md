@@ -7,6 +7,8 @@
 - [ ] I comply with the [Prerequisities](https://github.com/CodeSpaceHQ/MENGEL#prerequisities) and
 everything is up to date.
 - [ ] I have correctly followed all usage documentation.
+- [ ] All code snippets and error messages are formatted in appropriate code blocks as described [here](https://help.github.com/articles/creating-and-highlighting-code-blocks/).
+
 
 
 ## Current Behavior
@@ -26,20 +28,30 @@ everything is up to date.
 
 ## Steps to Reproduce (for bugs)
 <!--- Provide a link to a live example, or an unambiguous set of steps to -->
-<!--- reproduce this bug. Include code to reproduce, if relevant -->
+<!--- reproduce this bug. Include code to reproduce, if relevant (See: https://gist.github.com/) -->
 1.  
 2.  
 3.  
 4.  
+
 
 ## Context
 <!--- How has this issue affected you? What are you trying to accomplish? -->
 <!--- Providing context helps us come up with a solution that is most useful in the real world -->
 
 ## Your Environment
-<!--- Include as many relevant details about the environment you experienced the bug in -->
+<!--- Include as many relevant details about the environment you experienced the bug in. -->
 * Version used:
 * Operating System and version (desktop or mobile):
 * Python version:
 * SciPy version:
 * SciKit-Learn version:
+
+An easy way to get all the above information is with this code snippet:
+```python
+import platform; print(platform.platform())
+import sys; print("Python", sys.version)
+import numpy; print("NumPy", numpy.__version__)
+import scipy; print("SciPy", scipy.__version__)
+import sklearn; print("Scikit-Learn", sklearn.__version__)
+```
