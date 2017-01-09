@@ -20,6 +20,26 @@ We try to stick with Google's code standards. Please call us on them if we don't
 3. You may merge the Pull Request in once you have the sign-off of two other developers, or if you
    do not have permission to do that, you may request the second reviewer to merge it for you.
 
+## Creating Issues
+We use GitHub issues to track all bugs and feature requests. Feel free to open an issue for a bug you have found or a feature you wish to see implemented. Please follow the [issue template](./github/ISSUE_TEMPLATE.md) for creating issues.
+### Bug Filing
+Before creating an issue on a bug, please go through these steps:
+- Make sure there isn't an existing [issue](https://github.com/CodeSpaceHQ/MENGEL/issues) or [pull request](https://github.com/CodeSpaceHQ/MENGEL/pulls) that covers it.
+- All code snippets and error messages are formatted in appropriate code blocks as described [here](https://help.github.com/articles/creating-and-highlighting-code-blocks/)
+- That you are using the latest version of this framework and it's dependencies.
+
+
+When you submit an issue, please include all relevant system and library information such as versions. This Python code snippet can be used to easily get the information.
+```python
+import platform; print(platform.platform())
+import sys; print("Python", sys.version)
+import numpy; print("NumPy", numpy.__version__)
+import scipy; print("SciPy", scipy.__version__)
+import sklearn; print("Scikit-Learn", sklearn.__version__)
+```
+
+
+
 ## Issue Labels  
 If you are a contributor to this repository it is your responsibility to make sure all issues are properly labeled. We are somewhat following [this](https://robinpowered.com/blog/best-practice-system-for-organizing-and-tagging-github-issues/) standard. As follows,
 
