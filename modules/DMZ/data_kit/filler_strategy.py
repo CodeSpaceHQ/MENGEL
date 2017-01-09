@@ -2,7 +2,7 @@ import pandas as pd
 import dataset_insight
 import data_filler
 import data_io
-import setup
+import path_handler
 
 
 class FillerStrategy(object):

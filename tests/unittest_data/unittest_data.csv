@@ -1,0 +1,10 @@
+demo,Name,gender,demo two,demo num,demo_cat,target
+cat,charlie,male,3,0.1,0,12
+dog,bravo,female,12,0.42,1,13
+cat,dela,male,12,0.12,3,1
+cat,bob,male,33,0.34,2,2
+cat,ellie,female,2,0.69,1,3
+dog,julius,female,3,0.124,0,3.3
+dog,fabio,female,4,0.783,2,5.1
+fly,horacio,male,6,0.13,3,4
+fly,I knew him,female,8,0.42,1,2
