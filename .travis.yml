@@ -6,7 +6,7 @@ install:
 - "pip install --upgrade pip"
 - "pip install -r requirements.txt"
 before_script:
-- python test_file_downloader.py
+- python /tests/unittest_data/test_file_downloader.py
 # command to run tests
 script:
 - python -m unittest discover
