@@ -8,7 +8,7 @@ import numpy as np
 class TestFillerStrategy(TestCase):
 
     def setUp(self):
-        self.data = data_io.get_data(path_handler.get_test_data(), "winequality-red.csv")
+        self.data = data_io.get_data(path_handler.get_test_data() + "winequality-red.csv")
         self.strategy = filler_strategy.FillerStrategy(self.data)
 
     def test_run_fillers_nonsense(self):

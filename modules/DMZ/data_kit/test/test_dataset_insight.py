@@ -10,14 +10,14 @@ import pandas as pd
 class TestDatasetInsight(TestCase):
 
     def setUp(self):
-        self.data = data_io.get_data(path_handler.get_test_data(), "unittest_data.csv")
+        self.data = data_io.get_data(path_handler.get_test_data() + "unittest_data.csv")
         self.data["Nonsense"] = np.nan
         self.data["Filled"] = 1
         self.data = self.data.apply(pd.to_numeric,errors='coerce')
 
     def standard_pred_type(self, filename, target, goal, message):
         # Arrange
-        data = data_io.get_data(path_handler.get_test_data(), filename)
+        data = data_io.get_data(path_handler.get_test_data() + filename)
 
         # Act
         ml_type = dataset_insight.get_prediction_type(data[target])

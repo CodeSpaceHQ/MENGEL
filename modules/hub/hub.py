@@ -19,8 +19,8 @@ class Hub(object):
     def __init__(self):
 
         self.configuration = configuration.Configuration("config.xml")
-        self.training_data = data_io.get_data(path_handler.get_datasets_path(), self.configuration.train_files[0])
-        self.testing_data = data_io.get_data(path_handler.get_datasets_path(), self.configuration.test_files[0])
+        self.training_data = data_io.get_data(path_handler.get_datasets_path() + self.configuration.train_files[0])
+        self.testing_data = data_io.get_data(path_handler.get_datasets_path() + self.configuration.test_files[0])
 
         self.models = set()
         self.tickets = []

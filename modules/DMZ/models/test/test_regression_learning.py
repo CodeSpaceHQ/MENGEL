@@ -3,6 +3,7 @@ from modules.DMZ.models.regression import scikit_regression_learners
 from modules.DMZ.data_kit import data_package
 from modules.DMZ.data_kit.validation_package import ValidationPackage
 from modules.DMZ.utils import ml_test_utils
+import path_handler
 
 
 class TestRegressionLearning(TestCase):
@@ -10,7 +11,7 @@ class TestRegressionLearning(TestCase):
     def setUp(self):
         self.data = data_package.DataPackage()
         self.validation_pack = ValidationPackage()
-        self.data.setup_training_data("winequality-red.csv", "quality")
+        self.data.setup_training_data(path_handler.get_test_data() + "winequality-red.csv", "quality")
         self.data.set_output_style("train")
         self.validation_pack.setup_package(self.data)
 

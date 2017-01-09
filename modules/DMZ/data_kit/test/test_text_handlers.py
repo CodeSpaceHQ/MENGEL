@@ -7,7 +7,7 @@ import path_handler
 class TestDataFilling(TestCase):
 
     def setUp(self):
-        self.data = data_io.get_data(path_handler.get_test_data(), "unittest_data.csv")
+        self.data = data_io.get_data(path_handler.get_test_data() + "unittest_data.csv")
 
     def test_text_column_to_numeric(self):
 

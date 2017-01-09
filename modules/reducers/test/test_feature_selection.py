@@ -7,7 +7,7 @@ import path_handler
 class TestFeatureSelection(TestCase):
 
     def setUp(self):
-        self.data = data_io.get_data(path_handler.get_datasets_path(), "winequality-red.csv")
+        self.data = data_io.get_data(path_handler.get_test_data() + "winequality-red.csv")
         self.target = 'quality'
         self.start = self.data.shape
 
