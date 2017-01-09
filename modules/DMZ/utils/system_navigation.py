@@ -1,12 +1,12 @@
 from os.path import dirname, basename, isfile
 import glob
-import setup
+import path_handler
 import sys
 
 
 # Returns the path to the folder with the necessary models given by the prediction type.
 def path_to_models(prediction_type):
-    root_path = setup.get_root_path()
+    root_path = path_handler.get_root_path()
     return root_path + "/modules/DMZ/models/" + prediction_type + '/'
 
 

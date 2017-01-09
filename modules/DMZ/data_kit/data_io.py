@@ -3,8 +3,8 @@ import pandas as pd
 
 
 # A standard way of retrieving data, separating this out in case we need to change it.
-def get_data(path, filename):
-    return pd.read_csv(path + filename, sep=None)
+def get_data(path):
+    return pd.read_csv(path, sep=None)
 
 
 # A standard way to save the results of an applied model on an unlabeled test data set

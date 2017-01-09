@@ -1,18 +1,13 @@
-import os
-import sys
-
-sys.path.insert(0, os.path.abspath('../../..'))
-
 from unittest import TestCase
 from modules.DMZ.data_kit import data_io
 from modules.reducers import scikit_feature_selectors as st
-import setup
+import path_handler
 
 
 class TestFeatureSelection(TestCase):
 
     def setUp(self):
-        self.data = data_io.get_data(setup.get_datasets_path(), "winequality-red.csv")
+        self.data = data_io.get_data(path_handler.get_test_data() + "winequality-red.csv")
         self.target = 'quality'
         self.start = self.data.shape
 

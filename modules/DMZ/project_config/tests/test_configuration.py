@@ -6,10 +6,7 @@ python -m unittest modules.DMZ.project_config.tests.test_configuration
 """
 from unittest import TestCase
 import os
-import sys
 import xml.etree.ElementTree as ET
-
-sys.path.insert(0, os.path.abspath('..'))
 from modules.DMZ.project_config.configuration import Configuration
 from modules.DMZ.project_config.configuration import ConfigurationError
 from modules.DMZ.project_config.configuration import ConfigurationXMLError

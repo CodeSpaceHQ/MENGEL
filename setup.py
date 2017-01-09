@@ -1,11 +1,17 @@
-import os
-import inspect
+from setuptools import find_packages, setup
 
-
-# Maybe move to framework_tools
-def get_datasets_path():
-    return get_root_path() + '/datasets/'
-
-
-def get_root_path():
-    return os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+# Further documentation on this topic
+# https://packaging.python.org/distributing/
+setup(name="MENGEL",
+      version="0.1",
+      description="Automated machine learning framework in Python.",
+      author="Code_Space",
+      author_email="alexander.clines@ttu.edu",
+      packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
+      classifiers=[
+          'Development Status :: 3 - Alpha',
+          'Intended Audience :: Data Scientists',
+          'Topic :: Data Science :: Analysis Tools',
+          'Programming Language :: Python :: 2.7'
+      ]
+)
