@@ -10,7 +10,7 @@ class TestDataSplitting(TestCase):
     def test_data_split(self):
 
         # Arrange
-        data = data_io.get_data(path_handler.get_datasets_path(), "winequality-red.csv")
+        data = data_io.get_data(path_handler.get_test_data(), "winequality-red.csv")
 
         # Act
         x_train, x_test, y_train, y_test = data_splitting.get_train_test(data, "quality")

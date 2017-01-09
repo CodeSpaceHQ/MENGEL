@@ -9,3 +9,7 @@ def get_datasets_path():
 
 def get_root_path():
     return os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+
+
+def get_test_data():
+    return get_root_path() + '/tests/unittest_data/'

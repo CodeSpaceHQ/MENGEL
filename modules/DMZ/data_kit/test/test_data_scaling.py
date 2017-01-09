@@ -11,7 +11,7 @@ class TestDataScaling(TestCase):
     def test_scaling(self):
 
         # Arrange
-        data = data_io.get_data(path_handler.get_datasets_path(), "winequality-red.csv")
+        data = data_io.get_data(path_handler.get_test_data(), "winequality-red.csv")
 
         # Act
         target = data_scaling.scale_numeric_data(data)
