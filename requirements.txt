@@ -9,6 +9,8 @@ nose
 scipy
 scikit-learn
 xgboost
+coverage
+python-coveralls
 #
 ###### Requirements with Version Specifiers ######
 #   See https://www.python.org/dev/peps/pep-0440/#version-specifiers
