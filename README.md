@@ -1,5 +1,6 @@
 [![Code Climate](https://codeclimate.com/github/CodeSpaceHQ/MENGEL/badges/gpa.svg)](https://codeclimate.com/github/CodeSpaceHQ/MENGEL)
 [![Build Status](https://travis-ci.org/CodeSpaceHQ/MENGEL.svg?branch=develop)](https://travis-ci.org/CodeSpaceHQ/MENGEL)
+[![Coverage Status](https://coveralls.io/repos/github/CodeSpaceHQ/MENGEL/badge.svg?branch=develop)](https://coveralls.io/github/CodeSpaceHQ/MENGEL)
 
 # Machine Learning Framework
 This project is an effort to create a framework that automates basic machine learning and will help a team quickly get some results and an idea of what algorithms might be useful. It is **not** a replacement for custom built systems that leverage machine learning.

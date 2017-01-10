@@ -9,4 +9,6 @@ before_script:
 - python tests/unittest_data/test_file_downloader.py
 # command to run tests
 script:
-- python -m unittest discover
+- coverage run -m unittest discover
+after_success:
+- coveralls
