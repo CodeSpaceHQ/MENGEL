@@ -1,6 +1,6 @@
 [![Code Climate](https://codeclimate.com/github/CodeSpaceHQ/MENGEL/badges/gpa.svg)](https://codeclimate.com/github/CodeSpaceHQ/MENGEL)
-[![Build Status](https://travis-ci.org/CodeSpaceHQ/MENGEL.svg?branch=master)](https://travis-ci.org/CodeSpaceHQ/MENGEL)
-[![Coverage Status](https://coveralls.io/repos/github/CodeSpaceHQ/MENGEL/badge.svg?branch=coveralls-integ)](https://coveralls.io/github/CodeSpaceHQ/MENGEL)
+[![Build Status](https://travis-ci.org/CodeSpaceHQ/MENGEL.svg?branch=develop)](https://travis-ci.org/CodeSpaceHQ/MENGEL)
+[![Coverage Status](https://coveralls.io/repos/github/CodeSpaceHQ/MENGEL/badge.svg?branch=develop)](https://coveralls.io/github/CodeSpaceHQ/MENGEL)
 
 # Machine Learning Framework
 This project is an effort to create a framework that automates basic machine learning and will help a team quickly get some results and an idea of what algorithms might be useful. It is **not** a replacement for custom built systems that leverage machine learning.
@@ -132,3 +132,4 @@ We haven't dealt with licensing yet.
 * Hat tip to anyone whose code was used
 * [template for README](https://gist.githubusercontent.com/PurpleBooth/109311bb0361f32d87a2/raw/4a39c2139c4caa4686addc1e5dd490170fb82006/README-Template.md)
 * The labels used in the issues section were inspired by [this site](https://robinpowered.com/blog/best-practice-system-for-organizing-and-tagging-github-issues/)
+* Issue and PR Templates were inspired by [this site](https://www.talater.com/open-source-templates/#)
